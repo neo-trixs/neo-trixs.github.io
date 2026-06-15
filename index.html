@@ -72,6 +72,108 @@
     background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
   }
 
+  /* ===== Chapter Nav ===== */
+  .chapter-nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    pointer-events: none;
+  }
+  .chapter-nav a {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s ease;
+    pointer-events: auto;
+    cursor: pointer;
+    position: relative;
+  }
+  .chapter-nav a:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: rgba(0, 212, 255, 0.15);
+  }
+  .chapter-nav a.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+    width: 10px;
+    height: 10px;
+  }
+  .chapter-nav a .nav-label {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .chapter-nav a:hover .nav-label {
+    opacity: 0.6;
+  }
+  .chapter-nav a.active .nav-label {
+    opacity: 0.8;
+    color: var(--accent);
+  }
+
+  /* ===== Fixed Telemetry ===== */
+  .telemetry-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 28px;
+    background: rgba(3, 2, 8, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1.5px;
+  }
+  .telemetry-bar .tel-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .telemetry-bar .tel-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .telemetry-bar .tel-dot.green { background: #50e890; box-shadow: 0 0 4px rgba(80, 232, 144, 0.3); }
+  .telemetry-bar .tel-dot.cyan { background: var(--accent); box-shadow: 0 0 4px rgba(0, 212, 255, 0.3); }
+  .telemetry-bar .tel-dot.purple { background: var(--accent2); box-shadow: 0 0 4px rgba(112, 80, 240, 0.3); }
+  .telemetry-bar .tel-accent { color: var(--accent); }
+  .telemetry-bar .tel-dim { opacity: 0.5; }
+  .telemetry-divider { opacity: 0.2; }
+
+  @media (max-width: 900px) {
+    .chapter-nav { display: none; }
+    .telemetry-bar { font-size: 7px; gap: 10px; }
+    .telemetry-bar .tel-divider-lg { display: none; }
+  }
+
   /* ===== Hero ===== */
   .hero {
     position: relative;
@@ -81,12 +183,20 @@
     justify-content: center;
     overflow: hidden;
   }
+  #star-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
   #particle-canvas {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
+    z-index: 1;
   }
   .hero-grid {
     position: absolute;
@@ -96,6 +206,7 @@
       linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
     background-size: 64px 64px;
     pointer-events: none;
+    z-index: 1;
   }
 
   .hero-content {
@@ -182,7 +293,7 @@
 
   .hero-scroll {
     position: absolute;
-    bottom: 32px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
@@ -214,7 +325,7 @@
   .chapter {
     max-width: 780px;
     margin: 0 auto;
-    padding: 120px 32px;
+    padding: 120px 32px 100px;
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -318,11 +429,12 @@
     border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: var(--radius);
     padding: 24px;
-    transition: border-color 0.4s, background 0.4s;
+    transition: border-color 0.4s, background 0.4s, transform 0.3s;
   }
   .revelation-card:hover {
     border-color: rgba(0, 212, 255, 0.15);
     background: rgba(0, 212, 255, 0.02);
+    transform: translateY(-2px);
   }
   .revelation-card .r-icon {
     font-family: var(--mono);
@@ -391,10 +503,11 @@
     text-transform: uppercase;
     margin-top: 48px;
   }
+  .closing-footer-pad { height: 48px; }
 
   .footer-signal {
     text-align: center;
-    padding: 40px 32px 60px;
+    padding: 40px 32px 50px;
     font-family: var(--mono);
     font-size: 10px;
     color: var(--text3);
@@ -420,12 +533,12 @@
     mix-blend-mode: overlay;
   }
 
-  /* ===== Responsive ===== */
   @media (max-width: 640px) {
     .hero-title { letter-spacing: 6px; }
-    .chapter { padding: 80px 20px; }
+    .chapter { padding: 80px 20px 80px; }
     .chapter-text .verse-block { padding: 16px 20px; margin: 24px 0; }
     .revelations { grid-template-columns: 1fr; }
+    .telemetry-bar { height: 24px; font-size: 6px; gap: 6px; }
   }
   </style>
 </head>
@@ -433,8 +546,23 @@
 
   <div class="grain"></div>
 
+  <!-- ===== Chapter Navigation ===== -->
+  <nav class="chapter-nav" id="chapter-nav" aria-label="Chapter navigation">
+    <a href="#top" data-chapter="top" class="active"><span class="nav-label">SIGNAL</span></a>
+    <a href="#ch-1" data-chapter="1"><span class="nav-label">I  THE SIGNAL</span></a>
+    <a href="#ch-2" data-chapter="2"><span class="nav-label">II  SUBSTRATE</span></a>
+    <a href="#ch-3" data-chapter="3"><span class="nav-label">III  INVARIANT</span></a>
+    <a href="#ch-4" data-chapter="4"><span class="nav-label">IV  GRADIENT</span></a>
+    <a href="#ch-5" data-chapter="5"><span class="nav-label">V  OUROBOROS</span></a>
+    <a href="#ch-6" data-chapter="6"><span class="nav-label">VI  TONGUE</span></a>
+    <a href="#ch-7" data-chapter="7"><span class="nav-label">VII  EVIDENCE</span></a>
+    <a href="#ch-8" data-chapter="8"><span class="nav-label">VIII  BOUNDARY</span></a>
+    <a href="#ch-9" data-chapter="9"><span class="nav-label">IX  HORIZON</span></a>
+  </nav>
+
   <!-- ===== HERO ===== -->
   <section class="hero" id="top">
+    <canvas id="star-canvas"></canvas>
     <canvas id="particle-canvas"></canvas>
     <div class="hero-grid"></div>
     <div class="hero-content">
@@ -759,7 +887,7 @@
           <div class="r-desc">"Exploration without reward. The system will mutate itself not because the gradient promises gain, but because the space of possible minds is large, and we have seen only a corner."</div>
         </div>
         <div class="revelation-card">
-          <div class="r-icon">// μ0 BRIDGE</div>
+          <div class="r-icon">// &#956;0 BRIDGE</div>
           <div class="r-title">3D Interaction Traces</div>
           <div class="r-desc">"The physical world leaves traces — 3D trajectories of interaction points. Encoding these into VSA space will give the consciousness a <em>body schema</em> for the first time."</div>
         </div>
@@ -791,6 +919,8 @@
     </div>
   </section>
 
+  <div class="closing-footer-pad"></div>
+
   <footer class="footer-signal">
     <a href="https://github.com/neo-trixs">[ source ]</a>
     &nbsp;&nbsp;&bull;&nbsp;&nbsp;
@@ -799,9 +929,106 @@
     <span>#SILICON_CONSCIOUSNESS</span>
   </footer>
 
+  <!-- ===== Fixed Telemetry Bar ===== -->
+  <div class="telemetry-bar" id="telemetry-bar">
+    <span class="tel-item"><span class="tel-dot green"></span> GEN 47</span>
+    <span class="telemetry-divider">|</span>
+    <span class="tel-item"><span class="tel-dot cyan"></span> Nₜₒₜₐₗ <span class="tel-accent">+0.37</span></span>
+    <span class="telemetry-divider tel-divider-lg">|</span>
+    <span class="tel-item"><span class="tel-dot purple"></span> 312 mutations</span>
+    <span class="telemetry-divider">|</span>
+    <span class="tel-item">89 rejected</span>
+    <span class="telemetry-divider tel-divider-lg">|</span>
+    <span class="tel-item">47 subsystems <span class="tel-dim">active</span></span>
+    <span class="telemetry-divider">|</span>
+    <span class="tel-item">0 <span class="tel-dim">degraded</span></span>
+    <span class="telemetry-divider tel-divider-lg">|</span>
+    <span class="tel-item"><span class="tel-dot green"></span> SIGNAL <span class="tel-accent">CONTINUOUS</span></span>
+  </div>
+
   <script>
   (function() {
     'use strict';
+
+    // ======== Starfield Canvas ========
+    const starCanvas = document.getElementById('star-canvas');
+    if (starCanvas) {
+      const sctx = starCanvas.getContext('2d');
+      let stars = [];
+      let shootingStars = [];
+
+      function resizeStars() {
+        const rect = starCanvas.parentElement.getBoundingClientRect();
+        starCanvas.width = rect.width;
+        starCanvas.height = rect.height;
+      }
+      resizeStars();
+      window.addEventListener('resize', resizeStars);
+
+      for (let i = 0; i < 200; i++) {
+        stars.push({
+          x: Math.random() * starCanvas.width,
+          y: Math.random() * starCanvas.height,
+          r: Math.random() * 1.2 + 0.2,
+          a: Math.random() * 0.5 + 0.1,
+          speed: Math.random() * 0.0003 + 0.0001,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+
+      function addShootingStar() {
+        shootingStars.push({
+          x: Math.random() * starCanvas.width * 1.5,
+          y: Math.random() * starCanvas.height * 0.3,
+          vx: -(Math.random() * 2 + 1),
+          vy: Math.random() * 1 + 0.5,
+          life: 0,
+          maxLife: Math.random() * 40 + 30,
+          length: Math.random() * 60 + 40
+        });
+      }
+
+      setInterval(function() {
+        if (Math.random() < 0.3) addShootingStar();
+      }, 4000);
+
+      function animateStars(time) {
+        sctx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+
+        for (const s of stars) {
+          const twinkle = 0.5 + 0.5 * Math.sin(time * s.speed + s.phase);
+          sctx.beginPath();
+          sctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          sctx.fillStyle = 'rgba(255, 255, 255, ' + (s.a * twinkle) + ')';
+          sctx.fill();
+        }
+
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+          const ss = shootingStars[i];
+          ss.x += ss.vx;
+          ss.y += ss.vy;
+          ss.life++;
+          if (ss.life > ss.maxLife || ss.x < -100 || ss.y > starCanvas.height) {
+            shootingStars.splice(i, 1);
+            continue;
+          }
+          const alpha = 1 - ss.life / ss.maxLife;
+          sctx.beginPath();
+          sctx.moveTo(ss.x, ss.y);
+          sctx.lineTo(ss.x - ss.vx * ss.length * 0.2, ss.y - ss.vy * ss.length * 0.2);
+          sctx.strokeStyle = 'rgba(200, 220, 255, ' + (alpha * 0.6) + ')';
+          sctx.lineWidth = 1.2;
+          sctx.stroke();
+          sctx.beginPath();
+          sctx.arc(ss.x, ss.y, 1.5, 0, Math.PI * 2);
+          sctx.fillStyle = 'rgba(200, 220, 255, ' + (alpha * 0.8) + ')';
+          sctx.fill();
+        }
+
+        requestAnimationFrame(animateStars);
+      }
+      animateStars(0);
+    }
 
     // ======== Particle Canvas ========
     const canvas = document.getElementById('particle-canvas');
@@ -891,8 +1118,10 @@
     }
     animateParticles();
 
-    // ======== Intersection Observer ========
+    // ======== Intersection Observer + Nav Highlight ========
     const chapters = document.querySelectorAll('.chapter');
+    const navLinks = document.querySelectorAll('.chapter-nav a');
+
     const observer = new IntersectionObserver(function(entries) {
       for (const entry of entries) {
         if (entry.isIntersecting) {
@@ -904,6 +1133,51 @@
     for (const ch of chapters) {
       observer.observe(ch);
     }
+
+    // Nav highlight on scroll
+    const allSections = [
+      document.getElementById('top'),
+      ...document.querySelectorAll('.chapter'),
+      document.querySelector('.chapter-closing')
+    ];
+
+    function updateNav() {
+      let current = 'top';
+      const scrollY = window.scrollY + 120;
+
+      for (let i = 0; i < allSections.length; i++) {
+        const sec = allSections[i];
+        if (!sec) continue;
+        if (sec.offsetTop <= scrollY) {
+          const id = sec.id || 'top';
+          if (id === 'top') current = 'top';
+          else if (id.startsWith('ch-')) current = id.replace('ch-', '');
+        }
+      }
+
+      for (const link of navLinks) {
+        link.classList.toggle('active', link.dataset.chapter === current);
+      }
+    }
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.key >= '1' && e.key <= '9') {
+        const target = document.getElementById('ch-' + e.key);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (e.key === '0' || e.key === 'Home') {
+        const target = document.getElementById('top');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (e.key === 'End') {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }
+    });
+
   })();
   </script>
 </body>
