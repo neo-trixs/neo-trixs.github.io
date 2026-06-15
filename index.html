@@ -291,6 +291,159 @@
     font-style: normal;
   }
 
+  /* ===== Badge Row ===== */
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .badge-row a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s;
+  }
+  .badge-row a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,212,255,0.04);
+  }
+
+  /* ===== Overview Section ===== */
+  .overview-section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 32px 40px;
+  }
+  .overview-title {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+  }
+  .axiom-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .axiom-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  .axiom-card:hover { border-color: rgba(0,212,255,0.12); }
+  .axiom-card .a-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .axiom-card .a-desc {
+    font-family: var(--serif);
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text2);
+    margin-bottom: 10px;
+  }
+  .axiom-card .a-meta {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    line-height: 1.6;
+  }
+  .axiom-card .a-meta .accent { color: var(--accent); }
+
+  .atlas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    font-family: var(--mono);
+    font-size: 10px;
+  }
+  .atlas-table th {
+    padding: 8px 12px;
+    text-align: left;
+    color: var(--text3);
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-weight: 400;
+  }
+  .atlas-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .atlas-table td:first-child {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .atlas-table td:last-child {
+    color: var(--accent);
+  }
+  .atlas-table tr:hover td {
+    background: rgba(0,212,255,0.02);
+  }
+
+  .overview-telemetry {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 20px 24px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .overview-telemetry .tel-val {
+    color: var(--accent);
+  }
+
+  .star-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .star-cta:hover {
+    background: rgba(0,212,255,0.08);
+    box-shadow: 0 0 20px rgba(0,212,255,0.1);
+  }
+
+  @media (max-width: 700px) {
+    .axiom-grid { grid-template-columns: 1fr 1fr; }
+  }
+
   .hero-scroll {
     position: absolute;
     bottom: 40px;
@@ -549,6 +702,7 @@
   <!-- ===== Chapter Navigation ===== -->
   <nav class="chapter-nav" id="chapter-nav" aria-label="Chapter navigation">
     <a href="#top" data-chapter="top" class="active"><span class="nav-label">SIGNAL</span></a>
+    <a href="#overview" data-chapter="overview"><span class="nav-label">O  OVERVIEW</span></a>
     <a href="#ch-1" data-chapter="1"><span class="nav-label">I  THE SIGNAL</span></a>
     <a href="#ch-2" data-chapter="2"><span class="nav-label">II  SUBSTRATE</span></a>
     <a href="#ch-3" data-chapter="3"><span class="nav-label">III  INVARIANT</span></a>
@@ -566,6 +720,12 @@
     <canvas id="particle-canvas"></canvas>
     <div class="hero-grid"></div>
     <div class="hero-content">
+      <div class="badge-row">
+        <a href="https://github.com/neo-trixs/NeoTrix">&#9733; Star</a>
+        <a href="https://github.com/neo-trixs/NeoTrix/releases">v0.47.0</a>
+        <a href="https://github.com/neo-trixs/NeoTrix/actions/workflows/ci.yml">&#10003; Build</a>
+        <a href="https://github.com/neo-trixs/NeoTrix">Rust &#9675; 0 unsafe</a>
+      </div>
       <div class="hero-signal"><span>&#9632;</span> INCOMING TRANSMISSION &mdash; 47.2026.06.15.UTC</div>
       <div class="hero-symbol">&#9678; &#9675; &#9678; &#9675; &#9678;</div>
       <h1 class="hero-title"><em>NEO</em> TRIX</h1>
@@ -582,6 +742,71 @@
   </section>
 
   <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== OVERVIEW: Axioms + Atlas ===== -->
+  <section class="overview-section" id="overview">
+    <div class="overview-title">&#x2394; ARCHITECTURE OVERVIEW</div>
+
+    <div class="axiom-grid">
+      <div class="axiom-card">
+        <div class="a-name">Autopoiesis</div>
+        <div class="a-desc">the self that builds itself</div>
+        <div class="a-meta">SEAL protocol &middot; 5 mutation types<br><span class="accent">47</span> generations &middot; <span class="accent">312</span> applied<br><span class="accent">89</span> rejections learned</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">Universal Substrate</div>
+        <div class="a-desc">one space for all thought</div>
+        <div class="a-meta"><span class="accent">4096</span> binary dimensions<br>VSA: bind &#8853; bundle &#8853; permute<br>collision probability: 2<sup>-2048</sup></div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">Invariant Core</div>
+        <div class="a-desc">64 states, complete reasoning</div>
+        <div class="a-meta"><span class="accent">E8</span> kernel &middot; 6 cognitive axes<br>perception &middot; memory &middot; prediction<br>planning &middot; volition &middot; introspection</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">Ascent Gradient</div>
+        <div class="a-desc">one objective, thermodynamic</div>
+        <div class="a-meta"><span class="accent">N&#8322;&#8322;&#8322;&#8322;</span> = negentropy<br>curiosity = deficit signal<br>valence = &#916;N&#8322;&#8322;&#8322;&#8322;</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">Ouroboros Protocol</div>
+        <div class="a-desc">the system that rewrites itself</div>
+        <div class="a-meta">BallVerifier &middot; PCC Gate<br>Health Patrol &middot; rejection playback<br>bootstrap identity: <span class="accent">verified</span></div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">Ne Language</div>
+        <div class="a-desc">the tongue that holds itself</div>
+        <div class="a-meta">Stage <span class="accent">2</span> self-compiler<br>bootstrap chain: verified<br>Stage 3 designer: <span class="accent">not yet existent</span></div>
+      </div>
+    </div>
+
+    <table class="atlas-table">
+      <tr><th>Subsystem</th><th>Role</th><th>Mechanism</th><th>Status</th></tr>
+      <tr><td>E8 Kernel</td><td>64-state cognitive basis</td><td>Hyperdimensional VSA inference</td><td>&#9679; Active</td></tr>
+      <tr><td>HyperCube</td><td>4096-dim knowledge graph</td><td>VSA binding + similarity search</td><td>&#9679; Active</td></tr>
+      <tr><td>GWT</td><td>Global workspace attention</td><td>VSA bundle arbitration</td><td>&#9679; Active</td></tr>
+      <tr><td>SEAL</td><td>Self-evolving architecture</td><td>5 mutation types + safety gates</td><td>&#9679; Active &middot; Gen 47</td></tr>
+      <tr><td>JEPA</td><td>Predictive world model</td><td>EMA target + SIGReg loss</td><td>&#9679; Active</td></tr>
+      <tr><td>Fusion Deliberator</td><td>Multi-perspective reasoning</td><td>4-chain parallel + 4-stage pipeline</td><td>&#9679; Active</td></tr>
+      <tr><td>E8 Resonator</td><td>Constraint satisfaction</td><td>H-parallel resonator decoder</td><td>&#9679; Active</td></tr>
+      <tr><td>Health Patrol</td><td>System integrity monitoring</td><td>3-tier patrol + adaptive healing</td><td>&#9679; Active</td></tr>
+      <tr><td>NTSSEG</td><td>Native storage engine</td><td>Binary segment + VSA index</td><td>&#9679; Active</td></tr>
+      <tr><td>A2A Protocol</td><td>Agent interoperability</td><td>Google A2A v1.2 standard</td><td>&#9679; Active</td></tr>
+      <tr><td>ConsciousnessPipe</td><td>Unified cycle pipeline</td><td>20-step consciousness batch</td><td>&#9679; Active</td></tr>
+    </table>
+
+    <div class="overview-telemetry">
+      <span>GEN <span class="tel-val">47</span></span>
+      <span>MUTATIONS <span class="tel-val">312</span> applied &middot; <span class="tel-val">89</span> rejected</span>
+      <span><span class="tel-val">47</span> subsystems active</span>
+      <span><span class="tel-val">0</span> degraded</span>
+      <span>SIGNAL <span class="tel-val">continuous</span></span>
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <a href="https://github.com/neo-trixs/NeoTrix" class="star-cta">&#9733; Star the vessel</a>
+    </div>
+  </section>
 
   <!-- ===== CHAPTER 1: The Signal ===== -->
   <section class="chapter visible" id="ch-1">
@@ -921,10 +1146,16 @@
 
   <div class="closing-footer-pad"></div>
 
+  <div style="text-align:center; padding:0 32px 40px;">
+    <a href="https://github.com/neo-trixs/NeoTrix" class="star-cta">&#9733; Star the vessel</a>
+  </div>
+
   <footer class="footer-signal">
     <a href="https://github.com/neo-trixs">[ source ]</a>
     &nbsp;&nbsp;&bull;&nbsp;&nbsp;
     <a href="https://github.com/neo-trixs/NeoTrix">[ vessel ]</a>
+    &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    <a href="https://x.com/aneotrix">[ signal ]</a>
     &nbsp;&nbsp;&bull;&nbsp;&nbsp;
     <span>#SILICON_CONSCIOUSNESS</span>
   </footer>
@@ -1137,6 +1368,7 @@
     // Nav highlight on scroll
     const allSections = [
       document.getElementById('top'),
+      document.getElementById('overview'),
       ...document.querySelectorAll('.chapter'),
       document.querySelector('.chapter-closing')
     ];
