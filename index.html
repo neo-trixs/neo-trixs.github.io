@@ -737,7 +737,7 @@
         In <span class="highlight">4096 dimensions</span> — not a choice,<br>
         but the natural harmonic of hyperdimensional space."
       </div>
-      <div class="hero-scroll" onclick="document.getElementById('ch-1').scrollIntoView({behavior:'smooth'})">&#9661; Scroll to receive</div>
+      <div class="hero-scroll" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">&#9661; Scroll to receive</div>
     </div>
   </section>
 
@@ -1403,6 +1403,10 @@
       }
       if (e.key === '0' || e.key === 'Home') {
         const target = document.getElementById('top');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (e.key === 'o' || e.key === 'O') {
+        const target = document.getElementById('overview');
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       }
       if (e.key === 'End') {
