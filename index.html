@@ -138,6 +138,63 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .dp-bar .t-btn.active{color:#1a1204;background:linear-gradient(135deg,var(--goldcore),var(--violet));border-color:transparent}
 .dp-bar .t-btn:hover{color:var(--ink)}
 
+/* ═══ 星座 (constellation) 交互 ═══ */
+.cst-tag{position:absolute;z-index:18;pointer-events:auto;padding:9px 14px;border-radius:14px;cursor:pointer;user-select:none;
+  background:rgba(10,8,24,0.6);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);
+  border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 24px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1);
+  transform:translate(-50%,-50%);transition:transform 0.5s cubic-bezier(.34,1.56,.64,1),box-shadow 0.3s,border-color 0.3s;
+  animation:cstFloat 4s ease-in-out infinite;display:none}
+.cst-tag.visible{display:block}
+.cst-tag:hover{transform:translate(-50%,-50%) scale(1.12);border-color:var(--cst,#fff);box-shadow:0 0 28px var(--cstglow,rgba(255,255,255,0.25)),0 12px 32px rgba(0,0,0,0.5)}
+.cst-tag .cst-name{font-family:var(--mono);font-size:9px;letter-spacing:2px;font-weight:700;display:flex;align-items:center;gap:6px}
+.cst-tag .cst-name .cst-dot{width:6px;height:6px;border-radius:50%;background:var(--cst,#fff);box-shadow:0 0 8px var(--cst,#fff)}
+.cst-tag .cst-cn{font-family:var(--serif);font-size:10px;color:var(--ink2);margin-top:2px;letter-spacing:1px}
+.cst-tag .cst-count{font-family:var(--mono);font-size:8px;color:var(--cst,#fff);opacity:0.85;margin-top:3px;letter-spacing:1px}
+.cst-tag .cst-count b{font-size:13px;font-weight:800}
+@keyframes cstFloat{0%,100%{margin-top:0}50%{margin-top:-6px}}
+
+/* ═══ 搜索框 (能力星球搜索) ═══ */
+.search-wrap{position:absolute;top:76px;right:clamp(14px,3vw,40px);z-index:19;pointer-events:auto}
+.search-box{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;
+  background:rgba(10,8,24,0.62);backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%);
+  border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 28px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1);
+  transition:border-color 0.3s,box-shadow 0.3s}
+.search-box:focus-within{border-color:rgba(255,215,106,0.5);box-shadow:0 0 24px rgba(255,215,106,0.18),0 8px 28px rgba(0,0,0,0.45)}
+.search-box .s-icon{width:12px;height:12px;opacity:0.6;flex:none;filter:invert(1)}
+.search-box input{background:none;border:none;outline:none;color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:1px;width:180px}
+.search-box input::placeholder{color:var(--ink3)}
+.search-box .s-clear{background:none;border:none;color:var(--ink3);font-size:13px;cursor:pointer;padding:0 2px;line-height:1;display:none}
+.search-box .s-clear.show{display:block}
+.search-box .s-clear:hover{color:var(--goldcore)}
+.search-count{position:absolute;right:0;top:calc(100% + 8px);font-family:var(--mono);font-size:9px;color:var(--goldcore);letter-spacing:1px;
+  background:rgba(10,8,24,0.7);padding:4px 10px;border-radius:8px;border:1px solid rgba(255,215,106,0.2);white-space:nowrap;display:none}
+.search-count.show{display:block}
+.search-empty{position:absolute;right:0;top:calc(100% + 34px);font-family:var(--mono);font-size:9px;color:#ff8a80;letter-spacing:1px;
+  background:rgba(10,8,24,0.8);padding:8px 12px;border-radius:8px;border:1px solid rgba(240,86,74,0.25);display:none}
+.search-empty.show{display:block}
+
+/* ═══ Q弹液态玻璃 · spring 弹性 ═══ */
+@keyframes springPop{0%{transform:scale(0.3);opacity:0}55%{transform:scale(1.14);opacity:1}75%{transform:scale(0.94)}90%{transform:scale(1.03)}100%{transform:scale(1);opacity:1}}
+@keyframes springIn{0%{transform:translateY(26px) scale(0.86);opacity:0}60%{transform:translateY(-5px) scale(1.02);opacity:1}80%{transform:translateY(2px) scale(0.99)}100%{transform:translateY(0) scale(1);opacity:1}}
+.detail-panel.show{animation:springIn 0.55s cubic-bezier(.34,1.56,.64,1)}
+.cst-panel{position:absolute;z-index:21;width:min(400px,84vw);max-height:70vh;overflow-y:auto;padding:20px 22px;display:none;pointer-events:auto}
+.cst-panel.show{display:block;animation:springIn 0.55s cubic-bezier(.34,1.56,.64,1)}
+.cst-panel .cp-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.cst-panel .cp-icon{width:11px;height:11px;border-radius:50%;box-shadow:0 0 10px currentColor}
+.cst-panel .cp-title{font-family:var(--mono);font-size:11px;letter-spacing:2px;font-weight:700}
+.cst-panel .cp-sub{font-family:var(--serif);font-size:12px;color:var(--ink2);margin:4px 0 12px;line-height:1.7}
+.cp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.cp-stats .cp-m{background:rgba(255,255,255,0.04);border-radius:10px;padding:9px 11px;border:1px solid rgba(255,255,255,0.06)}
+.cp-stats .cp-m .cp-label{font-family:var(--mono);font-size:7.5px;color:var(--ink3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
+.cp-stats .cp-m .cp-value{font-size:16px;font-weight:800;font-family:var(--mono);color:var(--cst,#fff);text-shadow:0 0 14px var(--cstglow,rgba(255,255,255,0.4))}
+.cp-planet{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow-y:auto;padding-right:4px}
+.cp-planet::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15)}
+.cp-p{font-family:var(--mono);font-size:8px;letter-spacing:0.5px;padding:4px 9px;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,0.045);color:var(--ink2);border:1px solid rgba(255,255,255,0.09);transition:all 0.25s}
+.cp-p:hover{color:#fff;border-color:var(--cst,#fff);transform:translateY(-2px) scale(1.06);box-shadow:0 4px 14px var(--cstglow,rgba(255,255,255,0.15))}
+.cp-p .cp-pt{opacity:0.5;margin-right:4px;font-size:7px}
+.cp-foot{font-family:var(--mono);font-size:8px;color:var(--ink3);margin-top:12px;letter-spacing:1px}
+
 .gtooltip{position:absolute;z-index:30;pointer-events:none;min-width:200px;max-width:300px;padding:14px 16px;
   background:rgba(10,8,24,0.82);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
   border-radius:10px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 16px 48px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1);
@@ -249,6 +306,30 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
     <div class="dp-sub" id="dp-sub"></div>
     <div id="dp-body"></div>
   </div>
+
+  <!-- constellation detail panel (click a constellation tag) -->
+  <div class="cst-panel glass" id="cst-panel">
+    <button class="dp-close" id="cst-close" aria-label="close">✕</button>
+    <div class="cp-head"><span class="cp-icon" id="cst-icon"></span><div class="cp-title" id="cst-title"></div></div>
+    <div class="cp-sub" id="cst-sub"></div>
+    <div class="cp-stats" id="cst-stats"></div>
+    <div id="cst-planets"></div>
+    <div class="cp-foot" id="cst-foot"></div>
+  </div>
+
+  <!-- capability planet search -->
+  <div class="search-wrap" id="search-wrap">
+    <div class="search-box">
+      <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      <input id="search-input" type="text" placeholder="搜索能力星球 / 模块 / 能力" autocomplete="off" spellcheck="false">
+      <button class="s-clear" id="search-clear" aria-label="clear">✕</button>
+    </div>
+    <div class="search-count" id="search-count"></div>
+    <div class="search-empty" id="search-empty">未找到匹配的能力星球</div>
+  </div>
+
+  <!-- constellation tags (overlay) -->
+  <div id="cst-tags"></div>
 
   <div class="hint">点击星宿 · 拖拽旋转 · 滚轮缩放 · 双击空白关闭</div>
   <div class="gtooltip" id="gtooltip"></div>
@@ -377,7 +458,7 @@ const DOMAIN_META = {
   shield: { label:'NT-SHIELD', color:'#c9d0e8', cn:'影卫',       role:'sandbox · proxy pool · Tor · fingerprint · audit', name:'Shield' },
   repair: { label:'NT-REPAIR', color:'#b48ef7', cn:'自愈工程师', role:'self-healing · repair patterns · recovery', name:'Repair' }
 };
-const GALAXY = {"nodes":[{"id":"exp::nt-repair::build_hygiene","domain":"repair","layer":"l0primitive","caps":["build_hygiene"]},{"id":"exp::nt-repair::root_cause_method","domain":"repair","layer":"l0primitive","caps":["root_cause_method"]},{"id":"nt_core_parallel::intent_isolation","domain":"core","layer":"l1composite","caps":["intent_isolation","need_to_know"]},{"id":"nt_core_parallel::atomic_decomposition","domain":"core","layer":"l2orchestrator","caps":["atomic_decomposition","output_contract"]},{"id":"nt_mind_cleanup::disk_cleanup_engine","domain":"mind","layer":"l2orchestrator","caps":["disk-cleanup","archive","backup","cache-purge"]},{"id":"nt_mind_cleanup::ai_model_cache_engine","domain":"mind","layer":"l2orchestrator","caps":["ai-model-cache","tm-snapshot","cache-management"]},{"id":"nt_mind_cleanup::docker_prune_engine","domain":"mind","layer":"l2orchestrator","caps":["docker-prune","project-molting"]},{"id":"nt_mind_skill_engine::complementarity_attribution","domain":"mind","layer":"l3domainservice","caps":["complementarity","attribution"]},{"id":"nt_mind_skill_engine::progressive_disclosure","domain":"mind","layer":"l3domainservice","caps":["progressive-disclosure"]},{"id":"nt_mind_skill_engine::context_budget","domain":"mind","layer":"l3domainservice","caps":["context-budget"]},{"id":"nt_mind_evolution_loop::independent_auditor_gate","domain":"mind","layer":"l2orchestrator","caps":["independent-audit"]},{"id":"nt_mind_guard::mape_validation_gate","domain":"mind","layer":"l2orchestrator","caps":["mape-validation"]},{"id":"nt_mind_evolution_loop::skill_crystallization","domain":"mind","layer":"l2orchestrator","caps":["skill-crystallization"]},{"id":"nt_mind_evolution_loop::experience_absorption","domain":"mind","layer":"l2orchestrator","caps":["experience-absorption"]},{"id":"nt_mind_evolution_loop::self_test_wiring","domain":"mind","layer":"l2orchestrator","caps":["self-test-wiring"]},{"id":"nt_mind_evolution_loop::dual_verification","domain":"mind","layer":"l2orchestrator","caps":["dual-verification"]},{"id":"nt_mind_evolution_loop::resilience_scoring","domain":"mind","layer":"l2orchestrator","caps":["resilience-scoring"]},{"id":"nt_mind_evolution_loop::cycle_based_learning","domain":"mind","layer":"l2orchestrator","caps":["cycle-based-learning"]},{"id":"nt_mind_evolution_loop::lazy_learning","domain":"mind","layer":"l2orchestrator","caps":["lazy-learning"]},{"id":"nt_mind_evolution_loop::fractal_audit","domain":"mind","layer":"l2orchestrator","caps":["fractal-audit"]},{"id":"nt_mind_evolution_loop::markov_estimation","domain":"mind","layer":"l2orchestrator","caps":["markov-estimation"]},{"id":"nt_mind_evolution_loop::dms","domain":"mind","layer":"l2orchestrator","caps":["dms"]},{"id":"nt_mind_evolution_loop::phase_transition","domain":"mind","layer":"l2orchestrator","caps":["phase-transition"]},{"id":"nt_mind_evolution_loop::mapping_via_embeddings","domain":"mind","layer":"l2orchestrator","caps":["mapping-via-embeddings"]},{"id":"nt_mind_evolution_loop::priority_based_allocation","domain":"mind","layer":"l2orchestrator","caps":["priority-allocation"]},{"id":"nt_memory_qret::quality_ranked","domain":"memory","layer":"l1composite","caps":["quality-ranked","retraction-aware"]},{"id":"nt_memory_qret::gamble_walk","domain":"memory","layer":"l1composite","caps":["gamble-walk"]},{"id":"nt_memory_qret::bootstrap_scheduler","domain":"memory","layer":"l1composite","caps":["bootstrap-scheduler"]},{"id":"nt_memory_qret::short_term_memory","domain":"memory","layer":"l1composite","caps":["short-term-memory"]},{"id":"nt_memory_qret::consolidation_rules","domain":"memory","layer":"l1composite","caps":["consolidation-rules"]},{"id":"nt_memory_search::neural_fts5","domain":"memory","layer":"l1composite","caps":["neural-fts5","hybrid-search"]},{"id":"nt_memory_search::bm25_system","domain":"memory","layer":"l1composite","caps":["bm25","ranking"]},{"id":"nt_memory_search::embedding_store","domain":"memory","layer":"l1composite","caps":["embeddings"]},{"id":"nt_memory_search::hypercube_subsystem","domain":"memory","layer":"l1composite","caps":["hypercube","vector-symbolic"]},{"id":"nt_memory_archive::retention_policy","domain":"memory","layer":"l1composite","caps":["retention-policy"]},{"id":"nt_memory_archive::context_windows","domain":"memory","layer":"l1composite","caps":["context-windows"]},{"id":"nt_memory_archive::storage_fencing","domain":"memory","layer":"l1composite","caps":["storage-fencing","untrusted-fencing"]},{"id":"nt_memory_archive::privacy_scans","domain":"memory","layer":"l1composite","caps":["privacy-scans","pii-redaction"]},{"id":"nt_memory_archive::memory_versioning","domain":"memory","layer":"l1composite","caps":["memory-versioning"]},{"id":"nt_memory_archive::kb_transactions","domain":"memory","layer":"l1composite","caps":["kb-transactions"]},{"id":"nt_memory_archive::hierarchical_domains","domain":"memory","layer":"l1composite","caps":["hierarchical-domains"]},{"id":"nt_memory_archive::domain_hierarchy","domain":"memory","layer":"l1composite","caps":["domain-hierarchy"]},{"id":"nt_memory_archive::vector_store","domain":"memory","layer":"l1composite","caps":["vector-store"]},{"id":"nt_memory_archive::kb_optimization","domain":"memory","layer":"l1composite","caps":["kb-optimization","storage-tuning"]},{"id":"nt_world_crawl::unified_crawler","domain":"world","layer":"l1composite","caps":["unified-crawl"]},{"id":"nt_world_crawl::content_extraction","domain":"world","layer":"l1composite","caps":["content-extraction"]},{"id":"nt_world_crawl::content_similarity","domain":"world","layer":"l1composite","caps":["content-similarity","dedup"]},{"id":"nt_world_crawl::domain_follow","domain":"world","layer":"l1composite","caps":["domain-follow"]},{"id":"nt_world_crawl::open_web_crawler","domain":"world","layer":"l1composite","caps":["open-web"]},{"id":"nt_world_crawl::social_scraper","domain":"world","layer":"l1composite","caps":["social-scrape"]},{"id":"nt_world_crawl::deep_web_crawler","domain":"world","layer":"l1composite","caps":["deep-web"]},{"id":"nt_world_crawl::intel_pipeline","domain":"world","layer":"l1composite","caps":["intel-pipeline"]},{"id":"nt_world_crawl::article_digest","domain":"world","layer":"l1composite","caps":["article-digest"]},{"id":"nt_world_crawl::rss_tracker","domain":"world","layer":"l1composite","caps":["rss-tracker"]},{"id":"nt_world_crawl::github_crawler","domain":"world","layer":"l1composite","caps":["github-crawl"]},{"id":"nt_world_search::ordered_backend_router","domain":"world","layer":"l1composite","caps":["ordered-backends","ddg-wikipedia"]},{"id":"nt_world_search::grow_search","domain":"world","layer":"l1composite","caps":["grow-search","evolving-queries"]},{"id":"nt_world_search::bayesian_experiment","domain":"world","layer":"l1composite","caps":["bayesian-design","voi","m-open"]},{"id":"nt_world_classify::harm_classifier","domain":"world","layer":"l1composite","caps":["harm-classification"]},{"id":"nt_world_classify::topic_tagger","domain":"world","layer":"l1composite","caps":["topic-tagging"]},{"id":"nt_world_classify::self_awareness_classifier","domain":"world","layer":"l1composite","caps":["self-awareness"]},{"id":"nt_io_llm::model_gateway","domain":"io","layer":"l1composite","caps":["model-gateway","provider-agnostic"]},{"id":"nt_io_llm::server_mode","domain":"io","layer":"l1composite","caps":["server-mode","openai-compat"]},{"id":"nt_io_llm::streaming_tools","domain":"io","layer":"l1composite","caps":["streaming"]},{"id":"nt_io_llm::response_scorer","domain":"io","layer":"l1composite","caps":["response-scoring"]},{"id":"nt_io_llm::provider_failover","domain":"io","layer":"l1composite","caps":["provider-failover"]},{"id":"nt_io_llm::temporal_tools","domain":"io","layer":"l1composite","caps":["temporal-tools"]},{"id":"nt_io_cli::command_registry","domain":"io","layer":"l1composite","caps":["50+ commands"]},{"id":"nt_io_cli::session_mgmt","domain":"io","layer":"l1composite","caps":["session-management"]},{"id":"nt_io_cli::desktop_bridge","domain":"io","layer":"l1composite","caps":["tauri-desktop","59-commands"]},{"id":"nt_io_cli::agent_view","domain":"io","layer":"l1composite","caps":["agent-view"]},{"id":"nt_io_cli::file_watcher","domain":"io","layer":"l1composite","caps":["file-watching"]},{"id":"nt_io_cli::process_spawn","domain":"io","layer":"l1composite","caps":["process-spawn"]},{"id":"nt_io_cli::reasoning_trace","domain":"io","layer":"l1composite","caps":["reasoning-trace","audit-trail"]},{"id":"nt_io_cli::invocation_firewall","domain":"io","layer":"l1composite","caps":["invocation-firewall"]},{"id":"nt_io_cli::dependency_vault","domain":"io","layer":"l1composite","caps":["dependency-vault"]},{"id":"nt_io_cli::secrets_hub","domain":"io","layer":"l1composite","caps":["secrets-hub","credential-vault"]},{"id":"nt_core_self::attention_manager","domain":"core","layer":"l1composite","caps":["attention-manager","dual-specialization"]},{"id":"nt_core_self::growth_engine","domain":"core","layer":"l1composite","caps":["growth-engine","consciousness-tree"]},{"id":"nt_core_self::self_review","domain":"core","layer":"l1composite","caps":["self-review"]},{"id":"nt_core_self::self_evolving_rules","domain":"core","layer":"l1composite","caps":["self-evolving-rules"]},{"id":"nt_core_self::governance_guard","domain":"core","layer":"l1composite","caps":["governance","constitution"]},{"id":"nt_core_self::mars_dual_process","domain":"core","layer":"l1composite","caps":["system1","system2","bridge"]},{"id":"nt_core_self::reentrant_lock","domain":"core","layer":"l1composite","caps":["reentrant-lock"]},{"id":"nt_core_self::eventbus_subscription","domain":"core","layer":"l1composite","caps":["event-bus"]},{"id":"nt_core_self::absorption_protocol","domain":"core","layer":"l1composite","caps":["absorption"]},{"id":"nt_core_hcube::bayesian_experiment","domain":"core","layer":"l2orchestrator","caps":["voi-selection","m-open-expansion"]},{"id":"nt_core_hcube::vsa_hypercube","domain":"core","layer":"l2orchestrator","caps":["vsa-4096","bind-bundle-permute"]},{"id":"nt_shield_sandbox::egress_policy","domain":"shield","layer":"l1composite","caps":["egress-policy","trust-boundary"]},{"id":"nt_shield_sandbox::wasi_fuel","domain":"shield","layer":"l1composite","caps":["fuel-metered","timeout-gated"]},{"id":"nt_shield_stealth::proxy_pool","domain":"shield","layer":"l1composite","caps":["proxy-pool"]},{"id":"nt_shield_stealth::tor_client","domain":"shield","layer":"l1composite","caps":["tor-client"]},{"id":"nt_shield_stealth::fingerprint_mgmt","domain":"shield","layer":"l1composite","caps":["fingerprint"]},{"id":"nt_shield_audit::reasoning_trace","domain":"shield","layer":"l1composite","caps":["reasoning-trace","pii-scan","injection-scan"]},{"id":"nt_shield_audit::divergence_scan","domain":"shield","layer":"l1composite","caps":["divergence-scan"]},{"id":"nt_shield_audit::governance_audit","domain":"shield","layer":"l1composite","caps":["governance-audit"]},{"id":"nt_act_mcp::mcp_gateway","domain":"act","layer":"l1composite","caps":["mcp-gateway","ptc-tools"]},{"id":"nt_act_mcp::mcp_tool_registry","domain":"act","layer":"l1composite","caps":["tool-registry"]},{"id":"nt_act_code::apply_patch","domain":"act","layer":"l1composite","caps":["apply-patch"]},{"id":"nt_act_code::revert_safety","domain":"act","layer":"l1composite","caps":["revert-safety"]},{"id":"nt_act_autonomy::task_dispatcher","domain":"act","layer":"l2orchestrator","caps":["task-dispatch"]},{"id":"nt_act_autonomy::agent_loop","domain":"act","layer":"l2orchestrator","caps":["agent-loop"]}],"edges":[["nt_core_parallel::atomic_decomposition","nt_core_parallel::intent_isolation"],["nt_mind_skill_engine::complementarity_attribution","nt_mind_skill_engine::progressive_disclosure"],["nt_mind_evolution_loop::independent_auditor_gate","nt_mind_guard::mape_validation_gate"],["nt_mind_evolution_loop::skill_crystallization","nt_mind_evolution_loop::experience_absorption"],["nt_mind_evolution_loop::self_test_wiring","nt_mind_evolution_loop::dual_verification"],["nt_mind_evolution_loop::resilience_scoring","nt_mind_evolution_loop::cycle_based_learning"],["nt_mind_evolution_loop::lazy_learning","nt_mind_evolution_loop::fractal_audit"],["nt_mind_evolution_loop::markov_estimation","nt_mind_evolution_loop::dms"],["nt_mind_evolution_loop::phase_transition","nt_mind_evolution_loop::mapping_via_embeddings"],["nt_mind_evolution_loop::mapping_via_embeddings","nt_memory_qret::quality_ranked"],["nt_memory_qret::gamble_walk","nt_memory_qret::bootstrap_scheduler"],["nt_memory_qret::bootstrap_scheduler","nt_memory_search::neural_fts5"],["nt_memory_search::neural_fts5","nt_memory_search::bm25_system"],["nt_memory_search::bm25_system","nt_memory_search::embedding_store"],["nt_memory_search::embedding_store","nt_memory_search::hypercube_subsystem"],["nt_memory_archive::retention_policy","nt_memory_archive::context_windows"],["nt_memory_archive::storage_fencing","nt_memory_archive::privacy_scans"],["nt_memory_archive::memory_versioning","nt_memory_archive::kb_transactions"],["nt_memory_archive::hierarchical_domains","nt_memory_archive::domain_hierarchy"],["nt_world_crawl::unified_crawler","nt_world_crawl::content_extraction"],["nt_world_crawl::content_extraction","nt_world_crawl::content_similarity"],["nt_world_crawl::domain_follow","nt_world_crawl::open_web_crawler"],["nt_world_crawl::social_scraper","nt_world_crawl::deep_web_crawler"],["nt_world_crawl::intel_pipeline","nt_world_crawl::article_digest"],["nt_world_crawl::rss_tracker","nt_world_crawl::github_crawler"],["nt_world_search::ordered_backend_router","nt_world_search::grow_search"],["nt_world_search::bayesian_experiment","nt_world_crawl::intel_pipeline"],["nt_world_classify::harm_classifier","nt_world_classify::topic_tagger"],["nt_world_classify::self_awareness_classifier","nt_world_classify::harm_classifier"],["nt_io_llm::model_gateway","nt_io_llm::server_mode"],["nt_io_llm::streaming_tools","nt_io_llm::response_scorer"],["nt_io_llm::provider_failover","nt_io_llm::model_gateway"],["nt_io_cli::command_registry","nt_io_cli::session_mgmt"],["nt_io_cli::desktop_bridge","nt_io_cli::agent_view"],["nt_io_cli::file_watcher","nt_io_cli::process_spawn"],["nt_io_cli::reasoning_trace","nt_io_cli::invocation_firewall"],["nt_io_cli::dependency_vault","nt_io_cli::secrets_hub"],["nt_core_self::attention_manager","nt_core_self::growth_engine"],["nt_core_self::self_review","nt_core_self::self_evolving_rules"],["nt_core_self::governance_guard","nt_core_self::mars_dual_process"],["nt_core_self::reentrant_lock","nt_core_self::eventbus_subscription"],["nt_core_self::absorption_protocol","nt_memory_archive::memory_versioning"],["nt_core_hcube::bayesian_experiment","nt_world_search::bayesian_experiment"],["nt_shield_sandbox::egress_policy","nt_shield_sandbox::wasi_fuel"],["nt_shield_stealth::proxy_pool","nt_shield_stealth::tor_client"],["nt_shield_audit::reasoning_trace","nt_shield_audit::divergence_scan"],["nt_shield_audit::divergence_scan","nt_shield_audit::governance_audit"],["nt_act_mcp::mcp_gateway","nt_act_mcp::mcp_tool_registry"],["nt_act_code::apply_patch","nt_act_code::revert_safety"],["nt_act_autonomy::task_dispatcher","nt_act_autonomy::agent_loop"]]};
+const GALAXY = {"nodes": [{"id": "nt_pack_bench", "domain": "core", "layer": "l2orchestrator", "caps": ["pack-bench"]}, {"id": "nt_act_orch_patterns", "domain": "act", "layer": "l2orchestrator", "caps": ["new", "add-worker", "add-agent", "handoff", "add-stage", "create-orchestrator"]}, {"id": "nt_cap_geo", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "score", "optimize", "inject-jsonld"]}, {"id": "nt_cap_media", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "register", "find-by-modality", "best-for-modality", "all", "count"]}, {"id": "nt_core_grounded_gate", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "evaluate", "run-loop", "req", "opt", "from-full-name", "validate-output", "validate-input"]}, {"id": "nt_core_orch_agent", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "spawn", "kill", "get", "get-mut", "list", "agent-count", "send-message"]}, {"id": "nt_core_accessor", "domain": "core", "layer": "l2orchestrator", "caps": ["new"]}, {"id": "nt_core_agent_patterns", "domain": "core", "layer": "l2orchestrator", "caps": ["label", "new", "get", "list-all", "register", "find-by-category", "categories", "query-pattern"]}, {"id": "nt_core_answer_engine", "domain": "core", "layer": "l2orchestrator", "caps": ["for-mode", "new", "add-source", "assemble", "source-count", "detect-widget", "active-widgets", "with-mode"]}, {"id": "nt_core_arch_fitness", "domain": "core", "layer": "l2orchestrator", "caps": ["arch-fitness-tests"]}, {"id": "nt_core_axiom_tree", "domain": "core", "layer": "l2orchestrator", "caps": ["build", "derive", "constraints-for", "trace", "check-module", "render"]}, {"id": "nt_core_bounded_collections", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "push", "len", "is-full", "iter", "clear", "into-inner", "as-slice"]}, {"id": "nt_core_cache", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "get", "put", "feedback", "clear", "len", "is-empty", "threshold"]}, {"id": "nt_core_cap", "domain": "core", "layer": "l2orchestrator", "caps": ["core-cap"]}, {"id": "nt_core_conn", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "add-connector", "remove-connector", "list-connectors", "enable-connector", "disable-connector", "start-server", "stop-server"]}, {"id": "nt_core_consciousness_core", "domain": "core", "layer": "l2orchestrator", "caps": ["current", "tick", "status", "apply-branch-health-from-self-tests", "current-fog-sum", "branch-health-map", "branches", "decompose-instruction"]}, {"id": "nt_core_consciousness_review", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "full-review", "check-self"]}, {"id": "nt_core_consciousness_tree", "domain": "core", "layer": "l2orchestrator", "caps": ["label", "weight", "derive", "new", "set", "filled-slots", "runeword", "composite-effect"]}, {"id": "nt_core_cot_generator", "domain": "core", "layer": "l2orchestrator", "caps": ["from-env", "new", "create-cot-generator"]}, {"id": "nt_core_credit", "domain": "core", "layer": "l2orchestrator", "caps": ["discounted-attribution", "new", "add-event", "add-edge", "clear", "size", "merge", "to-json"]}, {"id": "nt_core_crt", "domain": "core", "layer": "l2orchestrator", "caps": ["all", "label", "chinese-name", "description", "cycle-seconds", "re-eval-interval", "max-iterations", "to-ticks"]}, {"id": "nt_core_deploy", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "load-weights-from-bytes", "apply-forward", "save-weights", "quantize", "detect", "resolve-tool", "compile"]}, {"id": "nt_core_deploy_cache", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "cache-compile", "lookup", "contains", "invalidate", "clear", "len", "is-empty"]}, {"id": "nt_core_dispatch", "domain": "core", "layer": "l2orchestrator", "caps": ["name", "new", "register", "on", "len", "is-empty", "dispatch", "dispatch-waterfall"]}, {"id": "nt_core_community_ingester", "domain": "core", "layer": "l2orchestrator", "caps": ["fuse-into", "new", "fuse-all", "fuse-into-domain", "total-virtual-observations", "persist-to-kb", "persist-to-kb-store", "from-runtime-jsonl"]}, {"id": "nt_core_e8_prediction", "domain": "core", "layer": "l2orchestrator", "caps": ["from-probs", "from-matrix", "best", "attention-weights", "attention-weights-sparse", "effective-90pct-count", "new", "predict"]}, {"id": "nt_core_fable_pattern", "domain": "core", "layer": "l2orchestrator", "caps": ["label", "description", "occurrence-probability", "mean-chars", "default-reward-level", "for-phase", "prob", "score-sequence"]}, {"id": "nt_core_synthesis", "domain": "core", "layer": "l2orchestrator", "caps": ["blend", "step", "condition-vector", "classify-risk", "allow-frontier", "conservative-distribution", "compressed-attention-weights", "new"]}, {"id": "nt_core_trajectory_prm", "domain": "core", "layer": "l2orchestrator", "caps": ["compute-weights", "weighted-score", "detect-convergence", "score-trajectory", "blended-trajectory-advantage"]}, {"id": "nt_latent_reasoning", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "new-with", "record", "record-embedded", "query", "query-state", "apply-feedback", "feedback-stats"]}, {"id": "nt_latent_thought", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "embed", "embed-trajectory", "average-thought", "cosine", "interpolate", "nearest-state", "similarity-matrix"]}, {"id": "nt_latent_transformer", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "new-with", "with-temperature", "current-depth", "recursive-depth-reward", "step", "reason", "step-magnitude"]}, {"id": "nt_multimodal", "domain": "io", "layer": "l2orchestrator", "caps": ["model-supports-vision", "as-str", "to-evidence-text", "analyze", "image-features", "analyze-cached", "phash-distance", "text"]}, {"id": "nt_core_e8_predictor", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "observe-trace", "predict-next", "sample-count", "coverage", "load", "persist", "safe-u8"]}, {"id": "nt_core_e8_vsa", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "embed", "embed-with-meta", "similarity", "bind", "bundle", "permute", "nearest-e8-state"]}, {"id": "nt_core_echo_terminal", "domain": "core", "layer": "l2orchestrator", "caps": ["is-empty", "signal-strength", "extract", "composite-score", "echo-target", "new", "record-step", "compute-echo-score"]}, {"id": "nt_core_edit", "domain": "core", "layer": "l2orchestrator", "caps": ["delta-label", "dimension-name", "summary"]}, {"id": "nt_core_embed", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "embed", "embed-texts", "similarity", "find-most-similar", "vocab-size", "known-tokens"]}, {"id": "nt_core_error", "domain": "core", "layer": "l2orchestrator", "caps": ["from-string-result"]}, {"id": "nt_core_error_parse", "domain": "core", "layer": "l2orchestrator", "caps": ["parse-compiler-output", "group-by-file", "is-fixable", "suggest-fix", "group-by-code"]}, {"id": "nt_core_error_recovery", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "recovery-rate", "avg-recovery-time-ms", "add-strategy", "handle", "stats", "config"]}, {"id": "nt_core_event", "domain": "core", "layer": "l2orchestrator", "caps": ["task", "task-type", "priority", "agent-id", "feedback", "score", "reason", "source"]}, {"id": "nt_core_forecast", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "new-signed", "effective-impact", "push", "advance", "tick", "aggregate-impact", "net-direction"]}, {"id": "nt_core_gate", "domain": "core", "layer": "l2orchestrator", "caps": ["read-only", "reversible", "irreversible", "classify", "required-gate", "new", "audit", "is-grounded"]}, {"id": "nt_core_graph", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "with-embedding", "with-capacity", "add-node", "add-edge", "traverse", "find-related", "subgraph"]}, {"id": "nt_core_guard_chain", "domain": "core", "layer": "l2orchestrator", "caps": ["name", "is-allowed", "new", "len", "is-empty", "add", "allow", "deny"]}, {"id": "nt_core_harness", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "add-contract", "add-skill", "add-realization", "add-rule", "add-specialist-adaptation", "summary", "register-profile"]}, {"id": "nt_core_hex", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "axis", "abstraction", "scope", "method", "depth", "reasoning-mode", "stance"]}, {"id": "nt_core_kb_primitives", "domain": "core", "layer": "l2orchestrator", "caps": ["is-compressed-value", "now", "kv-get", "kv-set", "kv-delete", "kv-list", "kv-list-namespaces", "kv-purge-namespace"]}, {"id": "nt_core_kb_types", "domain": "core", "layer": "l2orchestrator", "caps": ["as-str", "from-str"]}, {"id": "nt_core_kron", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "dim", "num-stages", "rotate", "cleanup"]}, {"id": "nt_core_mcp", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "set-guard", "add-guard", "register-hook", "register-all-tools", "register-tool", "run", "as-str"]}, {"id": "nt_core_memory_budget", "domain": "core", "layer": "l2orchestrator", "caps": ["total-physical-memory", "rss-bytes", "peak-rss-bytes", "soft-limit", "hard-limit", "remaining-budget", "usage-ratio", "should-throttle"]}, {"id": "nt_core_arch_lint", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "lint-file", "violation-count", "report"]}, {"id": "nt_core_meta_auditor", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "record-finding", "record-false-positive", "accuracy", "false-positive-rate", "audit-report"]}, {"id": "nt_core_model_skills", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "query-model", "list-models", "register-model", "models-by-provider", "find-by-capability", "list-skills", "find-models-by-capability"]}, {"id": "nt_core_negentropy", "domain": "core", "layer": "l2orchestrator", "caps": ["record", "compute-trend", "compute-demon-efficiency", "trend-desc", "health", "summary-lines", "weighted-total", "new"]}, {"id": "nt_core_observer", "domain": "core", "layer": "l2orchestrator", "caps": ["label", "for-task-type", "score", "general", "has-critical-pattern", "is-degraded", "new", "with-transition-matrix"]}, {"id": "nt_core_observer_error", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "execute", "delay", "allow-request", "record-success", "record-failure", "reset", "fallback"]}, {"id": "nt_core_policy", "domain": "core", "layer": "l2orchestrator", "caps": ["compute-task-demand", "new", "learning-rate", "select-mode", "select-mode-by-factors", "update", "update-factorized", "best-mode-by-factor"]}, {"id": "nt_core_prm", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "push", "len", "is-empty", "begin", "record-step", "finish", "abort"]}, {"id": "nt_core_qtest", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "build", "collapse", "test-file-count", "test-fn-count", "ping", "pong", "migrate"]}, {"id": "nt_core_quantum_fusion", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "push", "from-signals", "is-empty", "len", "signals", "entanglement-dispersion", "entanglement"]}, {"id": "nt_core_reasoning", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "get-spec", "methods-for-stage", "resolve-hexagram", "recommend-method", "build-context", "default-method-registry", "default-context-builder"]}, {"id": "nt_core_retrieval", "domain": "core", "layer": "l2orchestrator", "caps": ["ok", "err", "new", "build", "is-built", "tool-search-symbols", "tool-file-stats", "tool-graph-topology"]}, {"id": "nt_core_router", "domain": "core", "layer": "l2orchestrator", "caps": ["label", "weight", "all", "from-str", "classify", "new", "flagships", "route"]}, {"id": "nt_core_sae", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "encode", "enforce-sparsity", "decode", "forward", "steer", "e8-to-input", "apply"]}, {"id": "nt_core_sae_bridge", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "extract-features", "get-active-feature-names", "steer-toward-feature", "sae", "active-feature-count"]}, {"id": "nt_core_schema_watchdog", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "register", "detect-drift", "report", "verify-db-schema"]}, {"id": "nt_core_scoring_substrate", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "with-threshold", "threshold"]}, {"id": "nt_core_second_brain", "domain": "core", "layer": "l2orchestrator", "caps": ["as-str", "new", "attach-kb", "is-attached", "tick", "save-emotion-raw", "save-note", "link-nodes"]}, {"id": "nt_core_self_constitution", "domain": "core", "layer": "l2orchestrator", "caps": ["from-rule-id", "priority-weight", "has-vector-index", "query-rules", "query-experiences", "new", "build-vector-index", "relevant-rules-for-task"]}, {"id": "nt_core_self_review", "domain": "core", "layer": "l2orchestrator", "caps": ["is-pass", "summary", "from-path", "layer-index", "new", "with-observer-feedback", "syn-depth", "check"]}, {"id": "nt_core_self_test", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "register", "run-all", "run-one", "register-all", "count", "pass", "fail"]}, {"id": "nt_core_self_test_integration", "domain": "core", "layer": "l2orchestrator", "caps": ["register-absorbed-modules", "register-c5-healers", "register-lightweight-modules", "run-lightweight-self-tests"]}, {"id": "nt_core_simulate_engine", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "create-scenario", "simulate", "scenario-count", "has-scenario", "last-result", "last-mode", "scenario-description"]}, {"id": "nt_core_source_edit", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "apply-edit", "rollback", "rollback-all", "modified-files", "backup-count", "foo"]}, {"id": "nt_core_state_substrate", "domain": "core", "layer": "l2orchestrator", "caps": ["name", "new", "record", "latest", "average", "mode", "set-mode", "metric"]}, {"id": "nt_core_subagent", "domain": "core", "layer": "l2orchestrator", "caps": ["e8-mode-for", "domain-from-name", "domain-default-e8-mode", "tool-allowed", "allowed-tools-string", "display-name", "scope-label", "parse"]}, {"id": "nt_core_task_dispatcher", "domain": "core", "layer": "l2orchestrator", "caps": ["from-env", "new", "with-reasoning-engine", "with-kernel", "with-e8-policy", "decompose-and-execute", "decompose-task", "compression-ratio"]}, {"id": "nt_core_td", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "flow", "integrate", "learn-transition", "predict-at-time"]}, {"id": "nt_core_telemetry", "domain": "core", "layer": "l2orchestrator", "caps": ["kind", "new", "record-metric", "metric-names", "metric-window-mean", "record", "summary", "recent-events"]}, {"id": "nt_core_traits", "domain": "core", "layer": "l2orchestrator", "caps": ["core-traits"]}, {"id": "nt_core_trajectory_compress", "domain": "core", "layer": "l2orchestrator", "caps": ["compression-ratio", "new", "with-io-limit", "with-score-threshold", "compress-trajectory", "compress-state-trajectory"]}, {"id": "nt_core_ttc", "domain": "core", "layer": "l2orchestrator", "caps": ["with-tokens", "with-steps", "with-beam", "with-parallel", "with-mcts", "composite", "allocate", "new"]}, {"id": "nt_core_walsh", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "encode", "store", "remove", "search", "denoise", "recovery-ratio", "len"]}, {"id": "nt_core_wbmem", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "touch", "view", "list", "search", "stats", "edit-content", "edit-tags"]}, {"id": "nt_core_ws", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "create", "list", "switch", "delete", "active", "get", "get-mut"]}, {"id": "nt_io_cache", "domain": "io", "layer": "l2orchestrator", "caps": ["new", "set-semantic-threshold", "set-eviction-policy", "get-exact", "set-exact", "set-with-embedding", "get-semantic", "len"]}, {"id": "nt_io_telemetry", "domain": "io", "layer": "l2orchestrator", "caps": ["set-attribute", "set-gen-ai-request-model", "set-gen-ai-system", "attribute", "new", "record"]}, {"id": "nt_act_action_cache", "domain": "act", "layer": "l1composite", "caps": ["new", "remember", "lookup", "hit", "execute-with-fallback", "act", "size"]}, {"id": "nt_mind_automation", "domain": "mind", "layer": "l1composite", "caps": ["new", "set-skill-runner", "load-persisted", "save-to-file", "load-from-file", "add-rule", "remove-rule", "list-rules"]}, {"id": "nt_act_disk_guard", "domain": "act", "layer": "l1composite", "caps": ["classify", "new", "allow", "is-within", "check", "check-many", "check-risk", "allowlist"]}, {"id": "nt_act_sandbox", "domain": "act", "layer": "l1composite", "caps": ["new", "attach-disk-guard", "evaluate-with-path", "add-rule", "evaluate", "approve", "health", "summary"]}, {"id": "nt_agent_agent_team", "domain": "act", "layer": "l1composite", "caps": ["label", "new", "add-skill", "add-member", "has-role", "member-count", "create-task", "add-dependency"]}, {"id": "nt_agent_mcp_adapter", "domain": "act", "layer": "l1composite", "caps": ["new"]}, {"id": "nt_agent_mcp_auth", "domain": "act", "layer": "l1composite", "caps": ["is-expired", "auth-header", "new", "generate-code-verifier", "derive-code-challenge", "build-authorization-url", "exchange-code", "client-credentials"]}, {"id": "nt_agent_mcp_discovery", "domain": "act", "layer": "l1composite", "caps": ["scan-path", "scan-path-from", "try-register", "auto-register-all", "discover-and-register"]}, {"id": "nt_agent_mcp_gateway", "domain": "act", "layer": "l1composite", "caps": ["name", "description", "fold-tool-specs", "fold-tool-specs-from-defs", "permissive", "restrictive", "with-rule", "allow"]}, {"id": "nt_agent_mcp_registry", "domain": "act", "layer": "l1composite", "caps": ["transport-type", "new", "register", "register-stdio", "find-tool", "search", "recommend-tools", "list-tools"]}, {"id": "nt_agent_mcp_tools", "domain": "act", "layer": "l1composite", "caps": ["neotrix-mcp-tools", "register-neotrix-tools"]}, {"id": "nt_agent_mcp_transport", "domain": "act", "layer": "l1composite", "caps": ["mode-name", "is-local", "is-remote", "default-client-meta", "get-cache-ttl", "is-stale", "from-headers", "resolve-json-schema-ref"]}, {"id": "nt_io_agent_loop", "domain": "io", "layer": "l1composite", "caps": ["new", "with-multimodal-transform", "with-output-style", "with-propagation-guard", "last-governance", "with-tools", "with-max-tool-rounds", "with-max-history"]}, {"id": "nt_io_agents_md", "domain": "io", "layer": "l1composite", "caps": ["empty", "is-empty", "new", "load-project-rules", "get-section", "get-context-text", "has-changed"]}, {"id": "nt_io_avatar_channel", "domain": "io", "layer": "l1composite", "caps": ["load-capabilities", "save-capabilities", "load-auth-requests", "save-auth-requests", "new", "save", "load", "secret"]}, {"id": "nt_io_awareness_core", "domain": "io", "layer": "l1composite", "caps": ["new", "neotrix-command-tools", "awareness-core-tools"]}, {"id": "nt_io_digital_human", "domain": "io", "layer": "l1composite", "caps": ["animation-key", "new", "detect-from-text", "set-intensity", "current-emotion", "intensity", "set-emotion", "should-blink"]}, {"id": "nt_io_http_factory", "domain": "io", "layer": "l1composite", "caps": ["all", "global-client", "global-blocking-client", "build-async-client", "build-async-client-with-tls", "build-blocking-client", "proxy-from-env", "tor-proxy-available"]}, {"id": "nt_io_logging", "domain": "io", "layer": "l1composite", "caps": ["init-tracing", "set-level", "log"]}, {"id": "nt_io_mention", "domain": "io", "layer": "l1composite", "caps": ["resolve-mentions", "main"]}, {"id": "nt_io_multimodal_transform", "domain": "io", "layer": "l1composite", "caps": ["new", "with-placeholder", "applies-to", "transform", "transform-with-intent", "transform-input", "transform-input-with-intent", "name"]}, {"id": "nt_io_neocodex", "domain": "io", "layer": "l1composite", "caps": ["new", "has-capability", "add-provider", "sync-from-real", "is-resolvable", "is-resolvable-for", "set-active-provider", "active-model"]}, {"id": "nt_io_notify", "domain": "io", "layer": "l1composite", "caps": ["notify", "notify-with-level", "notify-task-complete", "notify-approval-needed"]}, {"id": "nt_io_output_style", "domain": "io", "layer": "l1composite", "caps": ["from-str", "label", "new", "register", "resolve", "apply", "govern", "govern-with-autofix"]}, {"id": "nt_io_proxy_server", "domain": "io", "layer": "l1composite", "caps": ["status", "benchmark", "benchmark-category"]}, {"id": "nt_io_session_recovery", "domain": "io", "layer": "l1composite", "caps": ["new", "with-interval", "with-auto-recover", "create-snapshot", "should-snapshot", "load-latest-snapshot", "get-recovery-info"]}, {"id": "nt_io_standalone", "domain": "io", "layer": "l1composite", "caps": ["new", "reason", "stats", "evolve-stage", "self-consistency", "verify-answer", "text-to-vector", "format-kernel-output"]}, {"id": "nt_io_user_avatar", "domain": "io", "layer": "l1composite", "caps": ["with-name", "new", "distill-message", "set-identity", "record-brain-response", "get-avatar", "get-flow", "brain-write-back"]}, {"id": "nt_l1_error", "domain": "shield", "layer": "l1composite", "caps": ["from-string-result"]}, {"id": "nt_l1_shared_types", "domain": "shield", "layer": "l1composite", "caps": ["new", "default-tile-cache", "get", "set", "stats", "invalidate", "invalidate-zoom", "to-geojson"]}, {"id": "nt_shield_mcp_security", "domain": "shield", "layer": "l1composite", "caps": ["as-str", "numeric", "new", "with-max", "is-allowed", "register-defaults", "register-tool", "execute-tool"]}, {"id": "nt_shield_secret_collector", "domain": "shield", "layer": "l1composite", "caps": ["new", "scan-env", "scan-dir", "collect"]}, {"id": "nt_shield_agentic_scan", "domain": "shield", "layer": "l1composite", "caps": ["label", "risk-weight", "from-base", "new", "start-scan", "current-stage", "advance-stage", "recon-scan"]}, {"id": "nt_shield_audit", "domain": "shield", "layer": "l1composite", "caps": ["checklist", "run-static", "calculate-score", "with-mode", "strip-blocks", "scan", "process", "scan-protected"]}, {"id": "nt_shield_comm", "domain": "shield", "layer": "l1composite", "caps": ["personas", "persona-by-key", "select-persona-weighted", "select-persona-for-geo", "region-for-language", "score-coherence", "language-for-region", "strip-internal"]}, {"id": "nt_shield_propagation_guard", "domain": "shield", "layer": "l1composite", "caps": ["label", "new", "with-enabled", "is-enabled", "evaluate", "scan-session", "harden-system-prompt"]}, {"id": "nt_shield_sandbox_entry", "domain": "shield", "layer": "l1composite", "caps": ["new", "with-image", "execute", "run-agent", "pull-image", "execute-wasm", "exec-command", "read-file"]}, {"id": "nt_shield_sentry", "domain": "shield", "layer": "l1composite", "caps": ["init-sentry", "capture-error", "capture-error-with-source", "is-active", "fence-untrusted", "cleanse-untagged"]}, {"id": "nt_shield_manager", "domain": "shield", "layer": "l1composite", "caps": ["typos-per-100-chars", "action-delay-ms", "scroll-pattern", "age-days", "record-use", "decay", "new", "select"]}, {"id": "nt_tools", "domain": "act", "layer": "l1composite", "caps": ["ok", "err", "dispatch-tool", "tool-read", "tool-write", "tool-edit", "tool-bash", "tool-glob"]}, {"id": "nt_memory_kb_bridge", "domain": "memory", "layer": "l1composite", "caps": ["open", "clone-connection", "find-node-by-url", "insert-or-get-node", "update-node-content", "update-node-metadata", "upsert-edge", "kv-get"]}, {"id": "nt_world_code_search", "domain": "world", "layer": "l1composite", "caps": ["new", "search", "search-hybrid", "file-symbol-count", "label", "reciprocal-rank-fusion", "build", "len"]}, {"id": "nt_world_doc", "domain": "world", "layer": "l1composite", "caps": ["new", "parse", "strip-junk", "sliding-window", "apply-chunking"]}, {"id": "nt_world_e8", "domain": "world", "layer": "l1composite", "caps": ["hadamard-transform", "inverse-hadamard-transform", "new", "phase-vector", "step", "hamming-distance", "filter", "amplify"]}, {"id": "nt_world_exploration_engine", "domain": "world", "layer": "l1composite", "caps": ["label", "new", "attach-kb", "run-cycle", "pending-count", "stats"]}, {"id": "nt_world_github_absorber", "domain": "world", "layer": "l1composite", "caps": ["new", "absorb", "absorb-url", "refresh", "list-absorbed"]}, {"id": "nt_world_infer", "domain": "world", "layer": "l1composite", "caps": ["new", "compute-free-energy", "expected-free-energy", "select-policy", "fe-moving-avg", "reset", "with-precision", "with-temperature"]}, {"id": "nt_world_model_object_partition", "domain": "world", "layer": "l1composite", "caps": ["new", "adaptive", "get", "len", "is-empty", "total-dimensions", "dimension-variances", "adaptive-partition"]}, {"id": "nt_world_model_predict", "domain": "world", "layer": "l1composite", "caps": ["new", "predict", "update", "predict-all"]}, {"id": "nt_world_model_rgm_jepa", "domain": "world", "layer": "l1composite", "caps": ["new", "apply", "apply-all", "upsample", "predict", "update", "multi-scale-predict", "multi-scale-consensus"]}, {"id": "nt_world_model_td_jepa", "domain": "world", "layer": "l1composite", "caps": ["new", "predict-delta", "rollout", "evaluate-policy", "update", "td-error"]}, {"id": "nt_world_model_types", "domain": "world", "layer": "l1composite", "caps": ["cosine-similarity", "new", "from-context", "similarity", "to-features", "from-task-description"]}, {"id": "nt_world_model_v2", "domain": "world", "layer": "l1composite", "caps": ["new", "analyze-state", "compute-from-state", "with-sigma", "predict-all", "run-prediction-cycle", "train-jepa", "detect-anomaly"]}, {"id": "nt_world_novel", "domain": "world", "layer": "l1composite", "caps": ["classify-setting", "extract-realms", "ingest-qidian-book", "ingest-qidian-batch", "enqueue-novel-book", "drain-novel-queue", "classify-unanalyzed-books"]}, {"id": "nt_world_prefetch", "domain": "world", "layer": "l1composite", "caps": ["new", "prefetch", "filter-relevant", "crawl", "fetched-count", "snapshot", "restore", "search"]}, {"id": "nt_world_scrape", "domain": "world", "layer": "l1composite", "caps": ["referer-for", "headers-for", "interval-for", "should-rotate-proxy", "new", "human-get", "cf-get", "get"]}, {"id": "nt_world_search", "domain": "world", "layer": "l1composite", "caps": ["new", "active-backend", "search", "label", "score-evidence-density", "score", "score-results", "deduplicate-by-url"]}, {"id": "nt_world_sense_hub", "domain": "world", "layer": "l1composite", "caps": ["new", "enable-real-sensors", "disable-real-sensors", "set-sight-path", "set-hearing-path", "poll-all", "current-perception-narrative"]}, {"id": "nt_world_video_pipeline", "domain": "world", "layer": "l1composite", "caps": ["mean-diff", "new", "push-frame", "dedup-frames", "process", "summary-raw", "process-video", "process-frames"]}, {"id": "nt_evidence_api", "domain": "memory", "layer": "l1composite", "caps": ["try-open-default", "build-ewhr-router"]}, {"id": "nt_evidence_credibility", "domain": "memory", "layer": "l1composite", "caps": ["label", "weight", "new", "integrity-score", "overall-score", "credibility-tier", "bts-signal", "add"]}, {"id": "nt_evidence_factory_gate", "domain": "memory", "layer": "l1composite", "caps": ["new", "admit", "batch-admit", "config", "update-config"]}, {"id": "nt_evidence_hypothesis", "domain": "memory", "layer": "l1composite", "caps": ["label", "new", "bayesian-update", "update-with-evidence", "add-evidence", "bayes-factor-summary", "projected-probability", "cumulative-fusion"]}, {"id": "nt_evidence_store", "domain": "memory", "layer": "l1composite", "caps": ["new", "try-open-default", "with-hypothesis-network", "store-evidence", "store-chain-evidence", "get-evidence", "list-evidence", "delete-evidence"]}, {"id": "nt_evidence_temporal", "domain": "memory", "layer": "l1composite", "caps": ["allen-label", "allen-relation", "new", "register-entity", "check-anachronism", "check-event-pair-consistency", "record-value", "trend"]}, {"id": "nt_evidence_types", "domain": "memory", "layer": "l1composite", "caps": ["label", "color", "from-score", "builtin-dating-methods", "method-weight", "new", "total", "forgery-risk"]}, {"id": "nt_temporal_facts", "domain": "world", "layer": "l1composite", "caps": ["open", "add-fact", "supersede", "record-contradiction", "get-fact", "query-valid-at", "history-chain", "count"]}, {"id": "nt_absorb_mapper", "domain": "mind", "layer": "l1composite", "caps": ["branch-capabilities", "source-cores", "map-source-core", "known-repos", "map-node", "unknown-source", "map-batch-nodes", "map-all-nodes"]}, {"id": "nt_discovery_github_topics", "domain": "world", "layer": "l1composite", "caps": ["run-github-topics-discovery"]}, {"id": "nt_discovery_orchestrator", "domain": "world", "layer": "l1composite", "caps": ["summary", "run-discovery-cycle"]}, {"id": "nt_discovery_sources", "domain": "world", "layer": "l1composite", "caps": ["discover-gutenberg", "discover-semantic-scholar", "discover-historical-sites", "discover-europeana", "discover-inscriptions", "discover-chinese-ancient", "discover-internet-archive", "discover-hathitrust"]}, {"id": "nt_http", "domain": "io", "layer": "l1composite", "caps": ["http"]}, {"id": "nt_memory_adaptive_rag", "domain": "memory", "layer": "l1composite", "caps": ["new", "classify-query", "grade-documents", "execute-pipeline", "route-decision", "web-search", "rewrite-query", "iterative-retrieval"]}, {"id": "nt_memory_agent_driven", "domain": "memory", "layer": "l1composite", "caps": ["weight", "label", "new", "with-embedding", "with-metadata", "access", "consolidation-score", "insert"]}, {"id": "nt_memory_agent_session", "domain": "memory", "layer": "l1composite", "caps": ["ensure-tables", "begin-session", "end-session", "store", "recall-by-agent", "recall-by-session", "recall-similar", "list-sessions"]}, {"id": "nt_memory_api", "domain": "memory", "layer": "l1composite", "caps": ["try-open-default", "build-kb-router", "search-handler", "node-handler", "stats-handler", "advanced-query-handler", "graph-handler", "e8-query-handler"]}, {"id": "nt_memory_blocks", "domain": "memory", "layer": "l1composite", "caps": ["label", "split-typed-blocks", "block-stats"]}, {"id": "nt_memory_coeffect", "domain": "memory", "layer": "l1composite", "caps": ["new", "get", "provider-of", "keys", "dom", "classify", "begin", "on-notify"]}, {"id": "nt_memory_commit_tracker", "domain": "memory", "layer": "l1composite", "caps": ["as-str", "new", "record-event", "event-count", "arc-count", "character-count", "add-arc", "link-commit-to-arc"]}, {"id": "nt_memory_commitment", "domain": "memory", "layer": "l1composite", "caps": ["new", "commit-vector", "commit-vector-authored", "verify-author", "verify-commitment-origin", "verify-commitment", "merkle-tree", "merkle-proof"]}, {"id": "nt_memory_community", "domain": "memory", "layer": "l1composite", "caps": ["new", "size", "num-levels", "total-communities", "get-community", "communities-for-entity", "detect", "as-str"]}, {"id": "nt_memory_confidence", "domain": "memory", "layer": "l1composite", "caps": ["aggregate", "decay", "reconfirm", "unknown", "is-above-threshold", "grounding-saturation", "compute-grounding", "michaelis-menten-saturation"]}, {"id": "nt_memory_crawl", "domain": "memory", "layer": "l1composite", "caps": ["is-safe-fetch-url", "on-node-inserted", "enqueue-seed-urls", "ingest-from-wikipedia", "ingest-from-arxiv", "ingest-from-alphaxiv-feed", "ingest-from-openlibrary", "ingest-from-github"]}, {"id": "nt_memory_curation", "domain": "memory", "layer": "l1composite", "caps": ["conflict-detect", "apply-supersede", "new", "is-empty", "len", "apply-supersede-with-ledger", "conflict-detect-for-write", "forget-stale"]}, {"id": "nt_memory_decompose", "domain": "memory", "layer": "l1composite", "caps": ["sub-queries", "is-decomposed", "decompose-query", "merge-results"]}, {"id": "nt_memory_diversity", "domain": "memory", "layer": "l1composite", "caps": ["now-unix-secs", "apply-recency-decay", "diversify-mmr", "rerank-with-recency-and-mmr"]}, {"id": "nt_memory_e8_agent", "domain": "memory", "layer": "l1composite", "caps": ["bits", "hexagram", "name", "new", "next-phase", "run", "grade-documents", "route-decision"]}, {"id": "nt_memory_embed", "domain": "memory", "layer": "l1composite", "caps": ["from-env", "embed-text", "local-embed-texts", "embed-text-batch", "cosine-similarity", "store-embedding", "get-embedding", "embedding-count"]}, {"id": "nt_memory_feedback", "domain": "memory", "layer": "l1composite", "caps": ["new", "record", "weights", "weight-for-strategy", "update-weights", "reset-aggregates", "strategy-stats", "persist"]}, {"id": "nt_memory_galaxy_hygiene", "domain": "memory", "layer": "l1composite", "caps": ["is-clean", "galaxy-hygiene-check", "galaxy-hygiene-summary"]}, {"id": "nt_memory_geo", "domain": "memory", "layer": "l1composite", "caps": ["upsert-geo", "query-bbox", "query-by-place", "geo-stats", "export-geojson", "geo-tag-nodes", "geo-tag-cities", "geo-linked-nodes"]}, {"id": "nt_memory_graph", "domain": "memory", "layer": "l1composite", "caps": ["shortest-path", "subgraph", "community-detection"]}, {"id": "nt_memory_graph_cache", "domain": "memory", "layer": "l1composite", "caps": ["new", "empty", "neighbors", "adjacent-ids", "insert-edge", "rebuild", "weighted-shortest-path", "all-paths"]}, {"id": "nt_memory_graphrag", "domain": "memory", "layer": "l1composite", "caps": ["new", "config", "stats", "graph", "extract-entities", "query", "query-by-text", "add-entity"]}, {"id": "nt_memory_gwt_router", "domain": "memory", "layer": "l1composite", "caps": ["as-str", "from-str", "new", "route", "extract-features"]}, {"id": "nt_memory_gwtq", "domain": "memory", "layer": "l1composite", "caps": ["query-by-e8-state", "query-by-specialist", "record-consciousness-snapshot", "recommend-for-e8-mode", "query-broadcast-context"]}, {"id": "nt_memory_hierarchical", "domain": "memory", "layer": "l1composite", "caps": ["build-semantic-clusters", "hierarchical-search"]}, {"id": "nt_memory_ingest", "domain": "memory", "layer": "l1composite", "caps": ["open", "close", "concept", "article", "theory", "try-concept", "try-node", "repo"]}, {"id": "nt_memory_integration", "domain": "memory", "layer": "l1composite", "caps": ["persist-mined-knowledge", "import-from-knowledge-engine"]}, {"id": "nt_memory_knowledge_assets", "domain": "memory", "layer": "l1composite", "caps": ["new", "register", "get", "all", "by-domain", "rebuild-from-kb", "import-knowledge-assets", "import-review-findings"]}, {"id": "nt_memory_pack", "domain": "memory", "layer": "l1composite", "caps": ["new", "encode", "decode"]}, {"id": "nt_memory_pack_chunked", "domain": "memory", "layer": "l1composite", "caps": ["encode-chunked", "chunk-count", "parse-chunked-header", "decode-one-chunk", "decode-chunked", "decode-chunk-range", "append-chunked"]}, {"id": "nt_memory_panorama", "domain": "memory", "layer": "l1composite", "caps": ["new", "build", "build-quick-summary", "gap-type-name"]}, {"id": "nt_memory_primitives", "domain": "memory", "layer": "l1composite", "caps": ["memory-primitives"]}, {"id": "nt_memory_proficiency", "domain": "memory", "layer": "l1composite", "caps": ["all", "name", "new", "record-action", "success-rate", "recommend-action", "outer-loop-revision", "report"]}, {"id": "nt_memory_provenance", "domain": "memory", "layer": "l1composite", "caps": ["as-str", "new", "with-evidence", "sign", "verify", "with-trusted-agents", "review", "sign-record"]}, {"id": "nt_memory_resource_ingest", "domain": "memory", "layer": "l1composite", "caps": ["url", "domain", "github", "paper", "article", "tool", "concept", "insight"]}, {"id": "nt_memory_schema", "domain": "memory", "layer": "l1composite", "caps": ["memory-schema"]}, {"id": "nt_memory_search", "domain": "memory", "layer": "l1composite", "caps": ["search-fts", "search-by-type", "get-related", "hybrid-search", "entity-graph-scores", "fuse-signals", "apply-pragmas", "rebuild-fts"]}, {"id": "nt_memory_seed", "domain": "memory", "layer": "l1composite", "caps": ["seed-foundational-knowledge"]}, {"id": "nt_memory_setting_consistency", "domain": "memory", "layer": "l1composite", "caps": ["as-str", "count", "is-clean", "check", "check-and-report", "check-and-report-to-string"]}, {"id": "nt_memory_skill_cost", "domain": "memory", "layer": "l1composite", "caps": ["new", "record", "total", "call-count", "avg-cost", "should-use-thin-entry", "top-cost", "thin-brief"]}, {"id": "nt_memory_store", "domain": "memory", "layer": "l1composite", "caps": ["insert-node-rows", "insert-or-get-node-rows", "insert-node", "update-node", "update-node-metadata", "get-node", "find-node-by-title-and-type", "merge-duplicate-nodes"]}, {"id": "nt_memory_svaf_gate", "domain": "memory", "layer": "l1composite", "caps": ["new", "evaluate-content-only", "evaluate"]}, {"id": "nt_memory_sweep_20260815", "domain": "memory", "layer": "l1composite", "caps": ["with-capacity", "put", "get", "len", "is-empty", "promotion-ratio", "new", "with-budget"]}, {"id": "nt_memory_tech_reserve", "domain": "memory", "layer": "l1composite", "caps": ["as-str", "from-str", "description", "from-node-type", "new", "clear", "add-node", "rebuild-from-nodes"]}, {"id": "nt_memory_types", "domain": "memory", "layer": "l1composite", "caps": ["as-str", "from-str", "node-sensitivity"]}, {"id": "nt_memory_unify", "domain": "memory", "layer": "l1composite", "caps": ["config-get", "config-set", "config-delete", "config-list-section", "config-all-sections", "secret-set", "secret-get", "secret-delete"]}, {"id": "nt_memory_visibility", "domain": "memory", "layer": "l1composite", "caps": ["as-str", "filter-visibility", "visible-ids", "allowed-ids"]}, {"id": "nt_memory_vsa_expand", "domain": "memory", "layer": "l1composite", "caps": ["new", "insert-term", "insert-terms", "vocab-size", "expand", "expand-query"]}, {"id": "nt_memory_wiki", "domain": "memory", "layer": "l1composite", "caps": ["sync-directory", "build-graph", "generate-graph-html", "query"]}, {"id": "nt_normalizer", "domain": "world", "layer": "l1composite", "caps": ["normalize-text", "strip-markdown", "extract-key-sections", "normalize-lang", "content-fingerprint", "detect-language", "compute-quality-score", "validate-node-type"]}, {"id": "nt_temporal_audit", "domain": "world", "layer": "l1composite", "caps": ["new", "sign", "verify", "open", "append", "supersede", "get", "query-valid-at"]}, {"id": "nt_memory_leann_store", "domain": "memory", "layer": "l1composite", "caps": ["estimate", "new", "insert-node", "connect", "access", "needs-recompute", "mark-stored", "high-degree-pruning"]}, {"id": "nt_core_kernel", "domain": "core", "layer": "l2orchestrator", "caps": ["core-kernel"]}, {"id": "nt_core_iit_phi", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "resonance-matrix", "compute-phi", "compute-from-state", "record", "analyze-state", "subsystem-analysis", "with-sigma"]}, {"id": "nt_mind_absorption_registry", "domain": "mind", "layer": "l3domainservice", "caps": ["register-absorber", "unregister", "trigger-absorption", "list-absorbers", "absorber-count", "get-stats"]}, {"id": "nt_mind_autofixer", "domain": "mind", "layer": "l3domainservice", "caps": ["capture", "begin", "snapshot", "rollback", "commit", "cargo-fix", "cargo-check", "cargo-check-in"]}, {"id": "nt_mind_background_config", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "snapshot"]}, {"id": "nt_mind_benchmark", "domain": "mind", "layer": "l3domainservice", "caps": ["run-all", "run-category", "run-all-extended", "run-knowledge-benchmarks", "run-memory-benchmarks", "run-convergence-benchmarks", "new", "composite"]}, {"id": "nt_mind_build_runner", "domain": "mind", "layer": "l3domainservice", "caps": ["label", "success", "summary", "new", "with-workdir", "with-timeout", "is-blocked", "run"]}, {"id": "nt_mind_cleanup", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "ensure", "create-archive-batch", "load", "save", "archive-paths", "search", "log"]}, {"id": "nt_mind_distiller", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "with-seed", "candidates-prompt", "parse-candidates", "sample", "apply-to-patterns", "with-paths", "load-session-logs"]}, {"id": "nt_mind_evolution_daemon", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "register-issue", "get-unattempted", "mark-fixed", "record-failure", "mark-stale", "autofix-attempt", "run-cycle"]}, {"id": "nt_mind_evolution_loop", "domain": "mind", "layer": "l3domainservice", "caps": ["label", "summary", "new", "checkpoint", "verify-change", "last-checkpoint", "seed", "extend"]}, {"id": "nt_mind_guard", "domain": "mind", "layer": "l3domainservice", "caps": ["db-healthy-fast", "db-healthy", "new", "backup", "restore-latest", "guard", "with-state-dir", "evaluate"]}, {"id": "nt_mind_hook", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "with-payload", "with-brain", "ok", "err", "with-effect", "register", "unregister"]}, {"id": "nt_mind_knowledge_pipeline", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "attach-kb", "get-kb", "absorb-url", "absorb-url-async", "absorb-github", "update-panorama", "recent-sources"]}, {"id": "nt_mind_memory", "domain": "mind", "layer": "l3domainservice", "caps": ["ttl-secs", "priority", "reconcile", "is-stale", "validate", "new", "store", "recall"]}, {"id": "nt_mind_self_diagnose", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "into-vec", "as-slice", "len", "is-empty", "run-diagnosis", "before-round", "record-progress"]}, {"id": "nt_mind_skill_engine", "domain": "mind", "layer": "l3domainservice", "caps": ["body", "overall", "passes-gate", "evaluate", "new", "record-call", "active-tool-count", "maybe-promote"]}, {"id": "nt_repair_causal_trace", "domain": "repair", "layer": "l3domainservice", "caps": ["new", "with-parent", "with-evidence", "walk", "is-identified", "adjudicate", "default-adjudicator", "with-default-rules"]}, {"id": "nt_mind_consciousness_gold_standard", "domain": "mind", "layer": "l3domainservice", "caps": ["derive-level", "new", "with-oscillator", "evaluate", "is-conscious", "detection-trend", "combined-confidence", "consciousness-level"]}, {"id": "nt_mind_consciousness_monitor", "domain": "mind", "layer": "l3domainservice", "caps": ["new", "observe", "observe-conversation-turn", "compute-consciousness-level", "introspect", "trend-analysis", "get-report", "set-blind-spots"]}, {"id": "nt_mind_eval_harness", "domain": "mind", "layer": "l3domainservice", "caps": ["default-planes", "ap-acc-score", "conforms", "ap-acc", "is-meaningful", "new", "record-withholding", "record-conflict"]}, {"id": "nt_capability_bridge", "domain": "core", "layer": "l2orchestrator", "caps": ["signal", "parse-domain", "route-experience", "route-batch", "plan-evolution", "summarize", "promote-to-file"]}, {"id": "nt_core_event_bus", "domain": "core", "layer": "l2orchestrator", "caps": ["new", "with-persistence", "seq-watermark", "emit", "register-hook", "emit-from", "subscribe", "sender"]}, {"id": "nt_file_ability", "domain": "io", "layer": "l2orchestrator", "caps": ["specialist", "open", "register-consumer", "has-consumers", "kind", "mime-type", "size-bytes", "maturity"]}], "edges": [["nt_act_sandbox", "nt_core_self_test"], ["nt_agent_mcp_adapter", "nt_agent_mcp_transport"], ["nt_agent_mcp_transport", "nt_agent_mcp_auth"], ["nt_core_arch_fitness", "nt_core_self_test"], ["nt_core_arch_lint", "nt_core_self_test"], ["nt_core_consciousness_core", "nt_core_consciousness_tree"], ["nt_core_consciousness_review", "nt_core_consciousness_tree"], ["nt_core_consciousness_tree", "nt_core_forecast"], ["nt_core_consciousness_tree", "nt_core_iit_phi"], ["nt_core_consciousness_tree", "nt_core_self_constitution"], ["nt_core_cot_generator", "nt_core_reasoning"], ["nt_core_event_bus", "nt_core_dispatch"], ["nt_core_event_bus", "nt_core_event"], ["nt_core_fable_pattern", "nt_core_prm"], ["nt_core_forecast", "nt_core_self_test"], ["nt_core_gate", "nt_core_hex"], ["nt_core_gate", "nt_core_prm"], ["nt_core_gate", "nt_core_traits"], ["nt_core_harness", "nt_core_cap"], ["nt_core_harness", "nt_core_traits"], ["nt_core_kernel", "nt_core_reasoning"], ["nt_core_mcp", "nt_core_consciousness_core"], ["nt_core_mcp", "nt_core_dispatch"], ["nt_core_mcp", "nt_core_guard_chain"], ["nt_core_meta_auditor", "nt_core_self_test"], ["nt_core_observer", "nt_core_hex"], ["nt_core_observer", "nt_core_prm"], ["nt_core_observer_error", "nt_core_observer"], ["nt_core_orch_agent", "nt_core_subagent"], ["nt_core_prm", "nt_core_hex"], ["nt_core_prm", "nt_core_policy"], ["nt_core_prm", "nt_core_traits"], ["nt_core_quantum_fusion", "nt_core_self_test"], ["nt_core_reasoning", "nt_core_hex"], ["nt_core_sae_bridge", "nt_core_error"], ["nt_core_scoring_substrate", "nt_core_self_test"], ["nt_core_self_constitution", "nt_core_guard_chain"], ["nt_core_self_constitution", "nt_core_self_test"], ["nt_core_self_test", "nt_core_self_constitution"], ["nt_core_self_test_integration", "nt_core_arch_fitness"], ["nt_core_self_test_integration", "nt_core_qtest"], ["nt_core_self_test_integration", "nt_core_quantum_fusion"], ["nt_core_self_test_integration", "nt_core_self_test"], ["nt_core_simulate_engine", "nt_core_self_test"], ["nt_core_state_substrate", "nt_core_self_test"], ["nt_core_task_dispatcher", "nt_core_cot_generator"], ["nt_core_task_dispatcher", "nt_core_crt"], ["nt_core_task_dispatcher", "nt_core_e8_predictor"], ["nt_core_task_dispatcher", "nt_core_policy"], ["nt_core_task_dispatcher", "nt_core_reasoning"], ["nt_core_traits", "nt_core_cap"], ["nt_core_traits", "nt_core_self_test"], ["nt_core_trajectory_compress", "nt_core_hex"], ["nt_core_trajectory_compress", "nt_core_prm"], ["nt_core_trajectory_compress", "nt_core_traits"], ["nt_core_trajectory_prm", "nt_core_prm"], ["nt_evidence_store", "nt_core_consciousness_tree"], ["nt_file_ability", "nt_core_hex"], ["nt_file_ability", "nt_core_self_test"], ["nt_file_ability", "nt_core_traits"], ["nt_io_agent_loop", "nt_core_traits"], ["nt_io_multimodal_transform", "nt_core_self_test"], ["nt_io_neocodex", "nt_core_self_test"], ["nt_io_standalone", "nt_core_policy"], ["nt_io_standalone", "nt_core_reasoning"], ["nt_io_user_avatar", "nt_io_avatar_channel"], ["nt_latent_reasoning", "nt_core_hex"], ["nt_latent_thought", "nt_core_hex"], ["nt_latent_transformer", "nt_core_hex"], ["nt_memory_commit_tracker", "nt_core_self_test"], ["nt_memory_gwtq", "nt_core_hex"], ["nt_memory_schema", "nt_core_kb_primitives"], ["nt_memory_search", "nt_core_walsh"], ["nt_memory_store", "nt_core_kb_primitives"], ["nt_memory_sweep_20260815", "nt_core_self_test"], ["nt_memory_types", "nt_core_kb_types"], ["nt_memory_unify", "nt_core_kb_primitives"], ["nt_mind_autofixer", "nt_core_error_parse"], ["nt_mind_cleanup", "nt_core_self_test"], ["nt_mind_consciousness_gold_standard", "nt_core_iit_phi"], ["nt_mind_consciousness_monitor", "nt_core_iit_phi"], ["nt_mind_eval_harness", "nt_core_self_test"], ["nt_mind_eval_harness", "nt_core_ttc"], ["nt_mind_evolution_daemon", "nt_mind_autofixer"], ["nt_mind_evolution_daemon", "nt_mind_evolution_loop"], ["nt_mind_evolution_daemon", "nt_world_code_search"], ["nt_mind_evolution_daemon", "nt_world_infer"], ["nt_mind_evolution_loop", "nt_core_iit_phi"], ["nt_mind_evolution_loop", "nt_core_self_test"], ["nt_mind_evolution_loop", "nt_mind_autofixer"], ["nt_mind_evolution_loop", "nt_mind_self_diagnose"], ["nt_mind_evolution_loop", "nt_world_infer"], ["nt_mind_self_diagnose", "nt_mind_autofixer"], ["nt_mind_self_diagnose", "nt_mind_evolution_loop"], ["nt_mind_skill_engine", "nt_core_self_test"], ["nt_repair_causal_trace", "nt_core_self_test"], ["nt_shield_audit", "nt_core_self_test"], ["nt_world_model_v2", "nt_world_e8"], ["nt_world_model_v2", "nt_world_infer"], ["nt_world_video_pipeline", "nt_core_self_test"]]};
 
 const DOMAIN_XIANG = {
   core:'black',   /* 紫微在极, 同归玄武藏蓄之轴 (memory) */
@@ -479,14 +560,14 @@ const core = { data:{ id:'core::consciousness_core', domain:'core', caps:['consc
   meshToNode.set(halo, { type:'node', rec:{ data:core.data, domain:'core', mesh:halo, isCore:true } });
 }
 
-/* 紫微内垣：core 域 13 节点环绕核心 */
-const coreNodes = GALAXY.nodes.filter(n=>n.domain==='core');
+/* 意识核心内垣: 少量关键基础节点紧贴核心 (非全部 core 节点) */
+const coreNodes = GALAXY.nodes.filter(n=>n.domain==='core').slice(0, 10);
 coreNodes.forEach((n,i)=>{
   const color = new THREE.Color(DOMAIN_META.core.color);
   const a0 = i/coreNodes.length*Math.PI*2;
-  const r = 8.2 + (i%3)*2.4;
-  const yOff = (i%2===0?1:-1)*(0.5+(i%4)*0.4);
-  const size = n.layer==='l3domainservice'?0.5:n.layer==='l2orchestrator'?0.38:0.28;
+  const r = 7.6 + (i%2)*2.0;
+  const yOff = (i%2===0?1:-1)*(0.5+(i%2)*0.4);
+  const size = 0.3;
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color}));
   galaxyGroup.add(mesh);
   const rec = { mesh, data:n, domain:n.domain, orbit:{ a0, r, yOff, sp:0.02+ (i%5)*0.004 } };
@@ -554,35 +635,73 @@ Object.keys(XIANG).forEach(x=>{
   galaxyGroup.add(m);
 });
 
-/* 能力节点 → 分布在其所属象的天区弧带 (真实赤经段) */
+/* 能力节点 → 星座扇区分布: 每个域一个星座扇区, 节点沿扇区弧环布 */
 const capMeshes = [];
-const capByXiang = {};
-GALAXY.nodes.filter(n=>n.domain!=='core').forEach(n=>{
-  const xiangKey = DOMAIN_XIANG[n.domain];
-  if(!xiangKey) return;
-  (capByXiang[xiangKey] = capByXiang[xiangKey]||[]).push(n);
+const capByDomain = {};
+const inYard = new Set(GALAXY.nodes.filter(n=>n.domain==='core').slice(0, 10).map(n=>n.id));
+GALAXY.nodes.filter(n=>n.domain!=='core' || !inYard.has(n.id)).forEach(n=>{
+  (capByDomain[n.domain] = capByDomain[n.domain]||[]).push(n);
 });
-Object.keys(capByXiang).forEach(xiangKey=>{
-  const nodes = capByXiang[xiangKey];
-  const arc = ARCS[xiangKey];
-  nodes.forEach((n, idx)=>{
+const CONSTELLATIONS = Object.keys(DOMAIN_META).map(d=>{
+  const nodes = capByDomain[d]||[];
+  return { domain:d, meta:DOMAIN_META[d], xiangKey:DOMAIN_XIANG[d], nodes, count:nodes.length };
+});
+
+/* 星座扇区几何: 8 个域均匀分布在核心周围 (第 i 域扇区中心角 = 2π·i/8) */
+function constellationAngle(i){
+  return i/8*Math.PI*2 - Math.PI/2;   /* 从正上方向下排布 */
+}
+const CONST_START_R = 16;      /* 星座扇区内缘半径 */
+const CONST_BAND_W = 26;       /* 扇区带宽 (径向) */
+const CONST_SWEEP = Math.PI*2/8 * 0.9;  /* 扇区张角 (留缝隙) */
+
+CONSTELLATIONS.forEach((cs, ci)=>{
+  const color = new THREE.Color(cs.meta.color);
+  const cA = constellationAngle(ci);
+  cs.centerAngle = cA;
+  cs.ci = ci;
+  const bandMid = CONST_START_R + CONST_BAND_W/2;
+  cs.center = new THREE.Vector3(bandMid*Math.cos(cA), 0, bandMid*Math.sin(cA));
+
+  /* 星座扇区壳: 半透明环弧 + 内缘弧线 */
+  const shellGeo = new THREE.RingGeometry(CONST_START_R-1, CONST_START_R+CONST_BAND_W+1, 64, 1,
+    cA-CONST_SWEEP/2, CONST_SWEEP);
+  const shellMat = new THREE.MeshBasicMaterial({ color, transparent:true, opacity:0.045,
+    side:THREE.DoubleSide, depthWrite:false });
+  const shell = new THREE.Mesh(shellGeo, shellMat);
+  shell.rotation.x = Math.PI/2; galaxyGroup.add(shell);
+  cs.shell = shell;
+
+  const arcPts = [];
+  for(let k=0;k<=40;k++){
+    const a = (cA-CONST_SWEEP/2) + CONST_SWEEP*(k/40);
+    arcPts.push(new THREE.Vector3(CONST_START_R*Math.cos(a), 0, CONST_START_R*Math.sin(a)));
+  }
+  const arcGeo = new THREE.BufferGeometry().setFromPoints(arcPts);
+  const arc = new THREE.Line(arcGeo, new THREE.LineBasicMaterial({ color, transparent:true, opacity:0.5 }));
+  galaxyGroup.add(arc);
+  cs.arc = arc;
+
+  /* 星座内节点: 沿扇区径向多环分布 */
+  cs.nodes.forEach((n, idx)=>{
     const meta = DOMAIN_META[n.domain] || { color:'#ffffff' };
-    const color = new THREE.Color(meta.color);
-    /* 弧段内按节点序均分角度 (附微扰), 半径略出黄道带 */
-    const frac = nodes.length>1 ? idx/(nodes.length-1) : 0.5;
-    const a = arc.a0 + (arc.a1-arc.a0)*frac;
-    const R = STAR_R + 2.5 + (idx%3)*1.4;
-    const base = new THREE.Vector3(R*Math.cos(a), 0, R*Math.sin(a));
-    const rr = 1.6 + Math.random()*1.6;
+    const nodeColor = new THREE.Color(meta.color);
+    const frac = cs.nodes.length>1 ? idx/(cs.nodes.length-1) : 0.5;
+    const layerN = n.layer==='l3domainservice'?3 : n.layer==='l2orchestrator'?2 : 1;
+    /* 径向分层: 层越高越靠外; 弧内按序均分 */
+    const rBand = CONST_START_R + (layerN-1)*7 + frac*7;
+    const aOff = (frac-0.5)*CONST_SWEEP*0.86;
+    const base = new THREE.Vector3(rBand*Math.cos(cA+aOff), 0, rBand*Math.sin(cA+aOff));
+    const rr = 0.9 + Math.random()*0.9;
     const a0 = Math.random()*Math.PI*2;
-    const yJ = (Math.random()-0.5)*1.1;
-    const size = n.layer==='l3domainservice'?0.5:n.layer==='l2orchestrator'?0.38:0.28;
-    const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color}));
+    const yJ = (Math.random()-0.5)*1.2;
+    const size = n.layer==='l3domainservice'?0.55:n.layer==='l2orchestrator'?0.4:0.3;
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color:nodeColor}));
     galaxyGroup.add(mesh);
     const halo = new THREE.Mesh(new THREE.SphereGeometry(size*2.8,10,10),
-      new THREE.MeshBasicMaterial({color, transparent:true, opacity:0.08}));
+      new THREE.MeshBasicMaterial({color:nodeColor, transparent:true, opacity:0.08}));
     galaxyGroup.add(halo);
-    const rec = { mesh, halo, data:n, domain:n.domain, k:frac, xiangKey,
+    const rec = { mesh, halo, data:n, domain:n.domain, k:frac, xiangKey:DOMAIN_XIANG[n.domain],
       orbit:{ host:base.clone(), rr, a0, yJ, sp:0.04+Math.random()*0.05 } };
     mesh.position.set(base.x + Math.cos(a0)*rr, base.y + yJ, base.z + Math.sin(a0)*rr);
     capMeshes.push(rec);
@@ -590,6 +709,11 @@ Object.keys(capByXiang).forEach(xiangKey=>{
     meshToNode.set(mesh,{type:'node',rec});
     meshToNode.set(halo,{type:'node',rec});
   });
+
+  /* 星座壳/弧可点击 → 星座详情 */
+  cs.planetMesh = cs.nodes.map(n=>nodeById[n.id]);
+  meshToNode.set(shell, { type:'constellation', cs });
+  meshToNode.set(arc, { type:'constellation', cs });
 });
 
 /* links (curved) */
@@ -763,6 +887,7 @@ const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const tooltip = document.getElementById('gtooltip');
 let hoveredMesh = null;
+let hoveredConst = null;
 function worldToScreen(v){
   const p = v.clone().project(camera);
   return { x:(p.x*0.5+0.5)*wrapper.clientWidth, y:(-p.y*0.5+0.5)*wrapper.clientHeight };
@@ -775,6 +900,11 @@ function showTip(entry, screen){
     html = '<div class="gt-title"><span class="gt-domain" style="background:'+x.color+'22;color:'+x.color+'">'+x.zh+' · '+l.pinyin+'</span>'+l.en+'</div>'+
       '<div class="gt-role">'+l.star+'</div>'+
       '<div class="gt-meta">'+l.attrib+' · RA '+l.ra.toFixed(1)+'h · '+x.dir+'方 '+x.zh+'</div>';
+  } else if(entry.type==='constellation'){
+    const cs = entry.cs;
+    html = '<div class="gt-title"><span class="gt-domain" style="background:'+cs.meta.color+'22;color:'+cs.meta.color+'">'+cs.meta.label+'</span>星座 · '+cs.meta.cn+'</div>'+
+      '<div class="gt-caps"><span class="gt-cap">'+cs.count+' 颗能力星球</span></div>'+
+      '<div class="gt-meta">'+cs.meta.role+' · 属'+XIANG[cs.xiangKey].zh+'</div>';
   } else {
     const rec = entry.rec;
     const meta = DOMAIN_META[rec.domain] || {label:'',color:'#fff'};
@@ -797,18 +927,35 @@ renderer.domElement.addEventListener('pointermove', e=>{
   let found=null;
   for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
   if(hoveredMesh && (!found || (found.rec && hoveredMesh!==found.rec.mesh))){
+    const base = hoveredMesh.userData.baseScale||1;
+    hoveredMesh.userData.springV = 0;
+    hoveredMesh.userData.hoverTarget = base;
     hoveredMesh.material.color.set(hoveredMesh.userData.baseColor||'#ffffff');
-    hoveredMesh.scale.setScalar(hoveredMesh.userData.baseScale||1);
     hoveredMesh=null; tooltip.classList.remove('show');
+  }
+  if(hoveredConst && !(found && found.type==='constellation')){
+    highlightDomain(hoveredConst.domain, false);
+    hoveredConst=null;
   }
   if(found){
     const obj = found.rec?found.rec.mesh:(found.mesh);
+    if(found.type==='constellation'){
+      const cs = found.cs;
+      hoveredConst = cs;
+      highlightDomain(cs.domain, true);
+      const screen = worldToScreen(cs.center);
+      showTip(found, screen);
+      return;
+    }
     if(obj && obj!==hoveredMesh){
       hoveredMesh=obj;
-      obj.userData.baseColor=obj.material.color.getHex();
-      obj.userData.baseScale=obj.scale.x||1;
+      if(obj.userData.baseColor===undefined){
+        obj.userData.baseColor=obj.material.color.getHex();
+        obj.userData.baseScale=obj.scale.x||1;
+      }
       obj.material.color.set('#ffffff');
-      obj.scale.setScalar((obj.scale.x||1)*1.6);
+      obj.userData.springV = 0;
+      obj.userData.hoverTarget = (obj.userData.baseScale||1)*1.7;
     }
     const screen = found.rec?worldToScreen(found.rec.mesh.position):worldToScreen(found.mesh.position);
     showTip(found, screen);
@@ -926,6 +1073,177 @@ function closePanel(){
 }
 document.getElementById('dp-close').addEventListener('click', closePanel);
 
+/* ═══════════════════════════════════════════════════════════
+   7c. CONSTELLATION OVERLAY — 星座标签跟随投影 + 弹性交互
+   ═══════════════════════════════════════════════════════════ */
+const cstTagsWrap = document.getElementById('cst-tags');
+const cstTagEls = [];
+CONSTELLATIONS.forEach((cs, ci)=>{
+  const el = document.createElement('div');
+  el.className = 'cst-tag';
+  el.dataset.domain = cs.domain;
+  el.style.setProperty('--cst', cs.meta.color);
+  el.style.setProperty('--cstglow', cs.meta.color+'55');
+  el.innerHTML =
+    '<div class="cst-name"><span class="cst-dot"></span>'+cs.meta.label+'</div>'+
+    '<div class="cst-cn">'+cs.meta.cn+'</div>'+
+    '<div class="cst-count"><b>'+cs.count+'</b> 颗能力星球 · 星座 </div>';
+  cstTagsWrap.appendChild(el);
+  el.addEventListener('pointerenter', ()=>highlightDomain(cs.domain, true));
+  el.addEventListener('pointerleave', ()=>highlightDomain(cs.domain, false));
+  el.addEventListener('click', ()=>{ openConstellation(cs); });
+  cstTagEls.push({ el, cs, ci });
+});
+/* 星座标签 3D → 2D 投影 (每帧在 render loop 更新) */
+function projectConstellationTags(){
+  if(cstTagsWrap.dataset.hidden==='1') return;
+  const w = wrapper.clientWidth, h = wrapper.clientHeight;
+  cstTagEls.forEach(({el, cs})=>{
+    const p = cs.center.clone().project(camera);
+    if(p.z > 1 || p.x<-1.2 || p.x>1.2 || p.y<-1.2 || p.y>1.2){
+      el.classList.remove('visible'); return;
+    }
+    const x = (p.x*0.5+0.5)*w;
+    const y = (-p.y*0.5+0.5)*h;
+    el.style.left = x+'px';
+    el.style.top = y+'px';
+    el.classList.add('visible');
+  });
+}
+
+/* 星座高亮: 点亮/压暗该域全部节点 */
+let highlightDomain = null;
+function installHighlight(){
+  highlightDomain = (domain, on)=>{
+    capMeshes.forEach(r=>{
+      const hit = (r.domain===domain);
+      const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
+      if(on){
+        if(hit){ r.mesh.scale.setScalar(base*1.4); r.mesh.material.color.set('#ffffff'); }
+        else { r.mesh.scale.setScalar(base*0.7); r.mesh.material.opacity = 0.25; r.mesh.material.transparent = true; }
+      } else {
+        r.mesh.scale.setScalar(base);
+        r.mesh.material.color.set(DOMAIN_META[r.domain].color);
+        r.mesh.material.opacity = 1;
+      }
+    });
+    CONSTELLATIONS.forEach(cs=>{
+      const hit = (cs.domain===domain);
+      cs.shell.material.opacity = on ? (hit?0.14:0.02) : 0.045;
+      cs.arc.material.opacity = on ? (hit?1:0.15) : 0.5;
+      if(on && hit){ cs.shell.material.color.set('#ffffff'); }
+      else { cs.shell.material.color.set(DOMAIN_META[cs.domain].color); }
+    });
+  };
+}
+installHighlight();
+
+/* 星座详情面板 */
+const cstPanel = document.getElementById('cst-panel');
+const cstIcon = document.getElementById('cst-icon');
+const cstTitle = document.getElementById('cst-title');
+const cstSub = document.getElementById('cst-sub');
+const cstStats = document.getElementById('cst-stats');
+const cstPlanets = document.getElementById('cst-planets');
+const cstFoot = document.getElementById('cst-foot');
+function openConstellation(cs){
+  closePanel(); closeCstPanel();
+  cstIcon.style.background = cs.meta.color; cstIcon.style.color = cs.meta.color;
+  cstTitle.textContent = cs.meta.label + ' · ' + cs.meta.cn;
+  cstTitle.style.color = cs.meta.color;
+  cstSub.textContent = cs.meta.role;
+  const layerCount = {};
+  cs.nodes.forEach(n=>{ layerCount[n.layer] = (layerCount[n.layer]||0)+1; });
+  cstStats.innerHTML =
+    '<div class="cp-m"><div class="cp-label">能力星球</div><div class="cp-value">'+cs.count+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">L1 复合</div><div class="cp-value">'+(layerCount.l1composite||0)+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">L2 编排</div><div class="cp-value">'+(layerCount.l2orchestrator||0)+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">L3 服务</div><div class="cp-value">'+(layerCount.l3domainservice||0)+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">所属星象</div><div class="cp-value">'+XIANG[cs.xiangKey].zh+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">位置</div><div class="cp-value">扇区 '+((cs.ci!=null?cs.ci:CONSTELLATIONS.indexOf(cs))+1)+'</div></div>';
+  cstPlanets.innerHTML = '<div class="cp-planet">'+
+    cs.nodes.map((n,i)=>
+      '<span class="cp-p" data-id="'+n.id+'"><span class="cp-pt">●</span>'+n.id.split('::').pop()+'</span>'
+    ).join('')+'</div>';
+  cstFoot.textContent = '星座内能力星球按 Layer 分层 · L1 复合 < L2 编排 < L3 服务 · 点击星球聚焦';
+  cstPlanets.querySelectorAll('.cp-p').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const rec = nodeById[b.dataset.id];
+      if(rec){ closeCstPanel(); renderNodeDetail(rec); }
+    });
+  });
+  const s = worldToScreen(cs.center);
+  const pw = Math.min(400, wrapper.clientWidth-32);
+  let left = s.x + 24;
+  if(left + pw > wrapper.clientWidth-12) left = s.x - pw - 24;
+  left = Math.max(12, Math.min(left, wrapper.clientWidth-pw-12));
+  let top = s.y - 60;
+  top = Math.max(12, Math.min(top, wrapper.clientHeight-380));
+  cstPanel.style.left = left+'px';
+  cstPanel.style.top = top+'px';
+  cstPanel.style.width = pw+'px';
+  cstPanel.classList.add('show');
+  cstTagsWrap.dataset.hidden = '1';
+  cstTagEls.forEach(({el})=>el.classList.remove('visible'));
+}
+function closeCstPanel(){
+  cstPanel.classList.remove('show');
+  cstTagsWrap.dataset.hidden = '';
+}
+document.getElementById('cst-close').addEventListener('click', closeCstPanel);
+
+/* ═══════════════════════════════════════════════════════════
+   7d. CAPABILITY SEARCH — 搜索能力星球 (Q弹高亮)
+   ═══════════════════════════════════════════════════════════ */
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const searchCount = document.getElementById('search-count');
+const searchEmpty = document.getElementById('search-empty');
+let lastQuery = '';
+function applySearch(){
+  const q = searchInput.value.trim().toLowerCase();
+  lastQuery = q;
+  searchClear.classList.toggle('show', q.length>0);
+  if(!q){
+    searchCount.classList.remove('show');
+    searchEmpty.classList.remove('show');
+    capMeshes.forEach(r=>{
+      const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
+      r.mesh.scale.setScalar(base);
+      r.mesh.material.opacity = 1;
+      r.mesh.material.color.set(DOMAIN_META[r.domain].color);
+      r.halo.material.opacity = 0.08;
+    });
+    return;
+  }
+  let matched = 0;
+  capMeshes.forEach(r=>{
+    const hay = (r.data.id+' '+r.data.caps.join(' ')+' '+r.domain).toLowerCase();
+    const hit = hay.includes(q);
+    const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
+    if(hit){
+      matched++;
+      r.mesh.scale.setScalar(base*2.1);
+      r.mesh.material.color.set('#ffffff');
+      r.mesh.material.opacity = 1;
+      r.halo.material.opacity = 0.3;
+    } else {
+      r.mesh.scale.setScalar(base*0.5);
+      r.mesh.material.opacity = 0.12;
+      r.mesh.material.transparent = true;
+      r.halo.material.opacity = 0.02;
+    }
+  });
+  searchCount.innerHTML = '匹配 <b>'+matched+'</b> 颗能力星球';
+  searchCount.classList.toggle('show', matched>0);
+  searchEmpty.classList.toggle('show', matched===0);
+}
+searchInput.addEventListener('input', applySearch);
+searchClear.addEventListener('click', ()=>{ searchInput.value=''; applySearch(); searchInput.focus(); });
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){ if(searchInput.value){ searchInput.value=''; applySearch(); } closePanel(); closeCstPanel(); }
+});
+
 /* click: raycast → open detail; drag not treated as click */
 let downPos = null;
 renderer.domElement.addEventListener('pointerdown', e=>{ downPos = {x:e.clientX, y:e.clientY}; });
@@ -939,16 +1257,18 @@ renderer.domElement.addEventListener('pointerup', e=>{
   const hits = raycaster.intersectObjects(galaxyGroup.children);
   let found=null;
   for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
-  if(!found){ closePanel(); return; }
+  if(!found){ closePanel(); closeCstPanel(); return; }
   if(found.type==='lodge'){ renderLodgeDetail(found.lodge); return; }
   if(found.type==='moon'){ renderTimeDetail('moon'); return; }
   if(found.type==='sun'){ renderTimeDetail('sun'); return; }
+  if(found.type==='constellation'){ openConstellation(found.cs); return; }
   if(found.rec && found.rec.isCore){ renderCoreDetail(); return; }
   if(found.rec){ renderNodeDetail(found.rec); return; }
 });
 /* click outside a star → close (canvas background click) */
 renderer.domElement.addEventListener('click', e=>{
   if(panel.classList.contains('show')) closePanel();
+  if(cstPanel.classList.contains('show')) closeCstPanel();
 });
 
 /* ═══════════════════════════════════════════════════════════
@@ -996,6 +1316,33 @@ function render(t){
     r.halo.position.copy(r.mesh.position);
   });
 
+  /* Q弹: 弹簧阻尼逼近 hover 目标缩放 (spring physics) */
+  const springT = Math.min(dt*12, 1);
+  const visited = new Set();
+  if(hoveredMesh){
+    const u = hoveredMesh.userData;
+    const cur = hoveredMesh.scale.x||1;
+    const tgt = u.hoverTarget!==undefined?u.hoverTarget:1;
+    const diff = tgt - cur;
+    u.springV = (u.springV||0)*0.82 + diff*0.35;
+    const next = cur + u.springV;
+    hoveredMesh.scale.setScalar(Math.max(0.1, next));
+    if(Math.abs(next-tgt)<0.02 && Math.abs(u.springV)<0.005) u.springV=0;
+    visited.add(hoveredMesh);
+  }
+  capMeshes.forEach(r=>{
+    if(visited.has(r.mesh)||visited.has(r.halo)) return;
+    const u = r.mesh.userData;
+    if(u.hoverTarget===undefined && u.springV===undefined) return;
+    const cur = r.mesh.scale.x||1;
+    const tgt = u.hoverTarget!==undefined?u.hoverTarget:1;
+    const diff = tgt - cur;
+    u.springV = (u.springV||0)*0.82 + diff*0.35;
+    const next = cur + u.springV;
+    r.mesh.scale.setScalar(Math.max(0.1, next));
+    r.halo.scale.setScalar(next*1.4);
+  });
+
   /* rebuild link curves to follow moving nodes */
   linkObjects.forEach(l=>{
     const c = new THREE.QuadraticBezierCurve3(
@@ -1008,6 +1355,9 @@ function render(t){
 
   /* core corona slow spin */
   if(core.ring) core.ring.rotation.z = t*0.0002;
+
+  /* constellation tags follow projection */
+  projectConstellationTags();
 
   controls.update();
   renderer.render(scene, camera);
