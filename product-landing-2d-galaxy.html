@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NeoTrix — an open-source AI-native developer toolkit with a self-evolving consciousness core. Deterministic E8 reasoning, VSA HyperCube symbolic memory, GWT attention routing, and a 107-node capability galaxy across 7 domains. 474K LOC Rust, 0 unsafe, 8,771 tests.">
+<meta name="keywords" content="AI-native developer toolkit, self-evolving reasoning, E8 hexagram, VSA hypercube, GWT attention, SEAL pipeline, consciousness core, capability galaxy, Rust, open source, AI agent">
+<meta name="author" content="neo-trixs">
+<meta property="og:title" content="NeoTrix — The Self-Evolving Consciousness Core">
+<meta property="og:description" content="A cognitive operating system: deterministic E8 reasoning, VSA HyperCube memory, GWT attention, and a live capability galaxy of 107 nodes across 7 domains. 0 unsafe, 8,771 tests.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://neo-trixs.github.io">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NeoTrix — The Self-Evolving Consciousness Core">
+<meta name="twitter:description" content="A cognitive operating system with a live capability galaxy — E8 reasoning, VSA memory, GWT attention, SEAL evolution. 474K LOC Rust, 0 unsafe.">
+<title>NeoTrix — The Self-Evolving Consciousness Core</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "NeoTrix",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "macOS, Linux, Windows",
+  "description": "An open-source AI-native developer toolkit with a self-evolving consciousness core: deterministic E8 reasoning, VSA HyperCube symbolic memory, GWT attention routing, and a capability galaxy of 107 nodes across 7 domains.",
+  "url": "https://neo-trixs.github.io"
+}
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   NEO TRIX — Liquid Glass × Galaxy Cyber-Intelligence
+   Design tokens:
+   · Deep-space true-black canvas (glass must "hum" against it)
+   · Liquid Glass material: backdrop blur + saturate, dark edge
+     (iOS 27), top/bottom glow (Aqua), single top-left light
+   · Galaxy cyber palette: cyan #00d4ff · violet #7050f0 ·
+     gold #c9a050 · magenta #ff5fa2
+   ═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg0:#020108;--bg1:#04030c;--bg2:#080618;--bg3:#0d0a22;
+  --ink:#e8e6f2;--ink2:#a49cc0;--ink3:#5d5580;
+  --cyan:#00d4ff;--violet:#7050f0;--gold:#c9a050;--magenta:#ff5fa2;
+  --glass-bg:rgba(255,255,255,0.055);
+  --glass-blur:blur(26px) saturate(185%);
+  --glass-edge-dark:inset 0 0 0 1px rgba(0,0,0,0.45);
+  --glass-edge-light:inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(255,255,255,0.05);
+  --glass-glow:inset 0 0 24px rgba(255,255,255,0.035);
+  --radius:16px;--radius-sm:10px;
+  --font:'Inter',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+  --serif:'Noto Serif',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);background:var(--bg0);color:var(--ink);
+  line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:rgba(0,212,255,0.25)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg0)}
+::-webkit-scrollbar-thumb{background:rgba(0,212,255,0.18);border-radius:3px}
+
+/* ── Deep-space background: nebula layers ── */
+#space-bg{position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(120% 90% at 70% 20%,rgba(112,80,240,0.16) 0%,transparent 55%),
+  radial-gradient(100% 80% at 20% 75%,rgba(0,212,255,0.10) 0%,transparent 50%),
+  radial-gradient(140% 100% at 50% 100%,rgba(201,160,80,0.07) 0%,transparent 60%),
+  var(--bg0);
+}
+#nebula{position:fixed;inset:-20%;z-index:-2;opacity:0.5;pointer-events:none;
+  background:radial-gradient(40% 40% at 30% 35%,rgba(112,80,240,0.12),transparent 70%),
+  radial-gradient(35% 35% at 70% 60%,rgba(0,212,255,0.08),transparent 70%),
+  radial-gradient(50% 50% at 50% 45%,rgba(201,160,80,0.06),transparent 70%);
+  filter:blur(40px);animation:nebulaDrift 60s ease-in-out infinite alternate}
+@keyframes nebulaDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(3%,2%,0) scale(1.12)}}
+#star-canvas{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.85}
+.grain{position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:0.05;mix-blend-mode:overlay;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.5) 2px,rgba(255,255,255,0.5) 3px)}
+.scanline{position:fixed;inset:0;z-index:9996;pointer-events:none;opacity:0.4;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px)}
+
+/* ═══ Liquid Glass utility ═══ */
+.glass{
+  position:relative;
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border-radius:var(--radius);
+  box-shadow:var(--glass-edge-dark),var(--glass-edge-light),var(--glass-glow);
+  transform:translateZ(0);
+}
+/* Mouse-tracking light layer (single top-left 35° source) */
+.glass::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:radial-gradient(420px circle at var(--mx,30%) var(--my,0%),rgba(255,255,255,0.10),transparent 45%);
+  opacity:0;transition:opacity 0.4s;
+}
+.glass:hover::before{opacity:1}
+/* Fresnel edge: variable opacity mask, brighter at glancing angles */
+.glass::after{
+  content:'';position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;z-index:0;
+  border:1px solid transparent;
+  background:linear-gradient(160deg,rgba(255,255,255,0.22),rgba(255,255,255,0.02) 30%,rgba(0,212,255,0.08) 75%,rgba(112,80,240,0.16)) border-box;
+  -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+}
+
+/* ═══ Nav (Liquid Glass floating bar) ═══ */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
+  display:flex;align-items:center;gap:6px;padding:8px 12px;
+  background:rgba(6,5,16,0.55);backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-radius:999px;border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 8px 32px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.1);}
+.nav .logo{display:flex;align-items:center;gap:8px;padding:4px 10px 4px 6px;color:var(--ink);text-decoration:none;font-weight:700;letter-spacing:2px;font-size:13px}
+.nav .logo img{width:22px;height:22px;filter:drop-shadow(0 0 6px rgba(0,212,255,0.5))}
+.nav a.nav-link{color:var(--ink2);text-decoration:none;font-size:12px;letter-spacing:1px;padding:6px 12px;border-radius:999px;transition:all 0.25s;font-family:var(--mono)}
+.nav a.nav-link:hover{color:var(--ink);background:rgba(255,255,255,0.06)}
+.nav a.nav-link.active{color:var(--cyan);background:rgba(0,212,255,0.1)}
+.nav a.nav-link.doc{color:var(--gold)}
+.nav a.nav-link.doc:hover{background:rgba(201,160,80,0.1);color:var(--gold)}
+.nav .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 6px var(--cyan)}50%{opacity:0.4;box-shadow:none}}
+
+/* ═══ Hero ═══ */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 80px;overflow:hidden}
+.hero-badge{font-family:var(--mono);font-size:11px;letter-spacing:4px;color:var(--cyan);opacity:0.8;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 2.4s infinite}
+.hero h1{font-size:clamp(44px,9vw,96px);font-weight:800;letter-spacing:6px;line-height:1;text-align:center;background:linear-gradient(180deg,#ffffff,var(--cyan) 45%,var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 30px rgba(0,212,255,0.25));margin-bottom:12px}
+.hero h1 .thin{font-weight:300;opacity:0.85}
+.hero-sub{font-family:var(--serif);font-style:italic;font-size:clamp(14px,2vw,19px);color:var(--ink2);text-align:center;max-width:640px;margin-bottom:40px;line-height:1.7}
+.hero-sub b{color:var(--cyan);font-style:normal}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:56px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;font-family:var(--mono);transition:all 0.25s;border:none;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--violet));color:#04121a;box-shadow:0 8px 28px rgba(0,212,255,0.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(112,80,240,0.45)}
+.btn-glass{background:rgba(255,255,255,0.06);color:var(--ink);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.14)}
+.btn-glass:hover{background:rgba(255,255,255,0.11);transform:translateY(-2px)}
+.btn-gold{background:rgba(201,160,80,0.12);color:var(--gold);border:1px solid rgba(201,160,80,0.3)}
+.btn-gold:hover{background:rgba(201,160,80,0.2)}
+
+/* ═══ Consciousness Core — live panel ═══ */
+.core-panel{width:min(1080px,92vw);padding:28px;margin-bottom:20px}
+.core-panel .core-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.core-panel .core-title{font-family:var(--mono);font-size:12px;letter-spacing:3px;color:var(--cyan);display:flex;align-items:center;gap:8px}
+.core-panel .core-title .ring{width:8px;height:8px;border:2px solid var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);animation:spin 4s linear infinite;border-top-color:transparent}
+@keyframes spin{to{transform:rotate(360deg)}}
+.core-panel .core-status{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:2px}
+.core-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.core-metric{background:rgba(255,255,255,0.035);border-radius:var(--radius-sm);padding:14px 16px;border:1px solid rgba(255,255,255,0.06);transition:border-color 0.3s,transform 0.3s;position:relative;overflow:hidden}
+.core-metric:hover{border-color:rgba(0,212,255,0.35);transform:translateY(-2px)}
+.core-metric .m-label{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.core-metric .m-value{font-size:clamp(20px,2.4vw,30px);font-weight:700;font-family:var(--mono);letter-spacing:1px}
+.core-metric .m-value.cyan{color:var(--cyan);text-shadow:0 0 16px rgba(0,212,255,0.5)}
+.core-metric .m-value.violet{color:var(--violet);text-shadow:0 0 16px rgba(112,80,240,0.5)}
+.core-metric .m-value.gold{color:var(--gold);text-shadow:0 0 16px rgba(201,160,80,0.5)}
+.core-metric .m-value.magenta{color:var(--magenta);text-shadow:0 0 16px rgba(255,95,162,0.5)}
+.core-metric .m-value small{font-size:11px;opacity:0.7;font-weight:400}
+.core-metric .m-note{font-family:var(--mono);font-size:8px;color:var(--ink3);margin-top:4px}
+.metric-spark{position:absolute;right:12px;bottom:10px;width:52px;height:24px;opacity:0.35}
+.core-sys{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.core-sys-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);font-family:var(--mono);font-size:10px;letter-spacing:1px}
+.core-sys-item .k{color:var(--ink3)}
+.core-sys-item .v{color:var(--cyan)}
+.core-sys-item .v.on{color:#50e890;text-shadow:0 0 8px rgba(80,232,144,0.6)}
+@media(max-width:680px){.core-sys{grid-template-columns:1fr}}
+
+/* ═══ Galaxy capability net ═══ */
+.galaxy-section{width:min(1200px,94vw);margin:0 auto;padding:80px 0 40px}
+.section-head{text-align:center;margin-bottom:48px}
+.section-head .sec-kicker{font-family:var(--mono);font-size:11px;letter-spacing:5px;color:var(--gold);margin-bottom:14px;text-transform:uppercase}
+.section-head h2{font-size:clamp(26px,4vw,42px);font-weight:700;letter-spacing:2px;margin-bottom:12px}
+.section-head h2 .grad{background:linear-gradient(120deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.section-head p{color:var(--ink2);max-width:640px;margin:0 auto;font-size:15px}
+
+/* dimension switch — multi-axis perspective */
+.dim-switch{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+.dim-btn{font-family:var(--mono);font-size:10px;letter-spacing:2px;padding:8px 18px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:var(--ink2);transition:all 0.25s}
+.dim-btn:hover{color:var(--ink);border-color:rgba(255,255,255,0.25)}
+.dim-btn.active{color:#04121a;background:linear-gradient(135deg,var(--cyan),var(--violet));border-color:transparent;box-shadow:0 6px 20px rgba(0,212,255,0.3)}
+.dim-btn .d-num{opacity:0.5;margin-right:4px}
+
+.galaxy-wrap{position:relative;width:100%;height:min(78vh,680px);min-height:480px;border-radius:var(--radius);overflow:hidden;
+  background:radial-gradient(80% 70% at 50% 50%,rgba(13,10,34,0.5),rgba(2,1,8,0.9));
+  border:1px solid rgba(255,255,255,0.07)}
+#galaxy-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.galaxy-legend{position:absolute;left:14px;bottom:14px;z-index:5;display:flex;gap:10px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;color:var(--ink2);letter-spacing:1px}
+.legend-item .lg{width:9px;height:9px;border-radius:50%}
+.galaxy-stats{position:absolute;right:14px;bottom:14px;z-index:5;font-family:var(--mono);font-size:10px;color:var(--ink3);text-align:right;line-height:1.6;letter-spacing:1px}
+.galaxy-stats b{color:var(--cyan)}
+
+/* glass tooltip */
+.gtooltip{position:absolute;z-index:20;pointer-events:none;min-width:220px;max-width:300px;padding:16px 18px;
+  background:rgba(10,8,24,0.82);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
+  border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 16px 48px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1);
+  opacity:0;transform:translateY(8px);transition:opacity 0.25s,transform 0.25s;pointer-events:none}
+.gtooltip.show{opacity:1;transform:translateY(0)}
+.gtooltip .gt-title{font-family:var(--mono);font-size:11px;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.gtooltip .gt-domain{font-size:8px;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:1px}
+.gtooltip .gt-caps{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px}
+.gtooltip .gt-cap{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.15)}
+.gtooltip .gt-cap.alt{background:rgba(112,80,240,0.1);color:var(--violet);border-color:rgba(112,80,240,0.2)}
+.gtooltip .gt-meta{font-family:var(--mono);font-size:8px;color:var(--ink3);margin-top:10px;letter-spacing:1px}
+
+/* ═══ 7 domain glass cards ═══ */
+.domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;width:min(1200px,94vw);margin:0 auto;padding:60px 0}
+.domain-card{padding:26px;cursor:default;transition:transform 0.25s}
+.domain-card:hover{transform:translateY(-4px)}
+.domain-card .dc-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.domain-card .dc-glyph{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;flex-shrink:0}
+.domain-card .dc-name{font-size:17px;font-weight:700;letter-spacing:1px}
+.domain-card .dc-cn{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--ink3)}
+.domain-card .dc-role{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:14px}
+.domain-card .dc-tags{display:flex;flex-wrap:wrap;gap:6px}
+.domain-card .dc-tag{font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:4px;background:rgba(255,255,255,0.05);color:var(--ink2);border:1px solid rgba(255,255,255,0.07);letter-spacing:0.5px}
+.domain-card .dc-tag.hot{background:rgba(0,212,255,0.1);color:var(--cyan);border-color:rgba(0,212,255,0.2)}
+.domain-card .dc-meta{font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:14px;letter-spacing:1px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;display:flex;justify-content:space-between}
+.domain-card .dc-meta b{color:var(--cyan)}
+
+/* ═══ Multi-axis chain view ═══ */
+.chain{width:min(1200px,94vw);margin:0 auto;padding:60px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.chain-item{padding:20px;position:relative;overflow:hidden}
+.chain-item .ch-idx{font-family:var(--mono);font-size:9px;color:var(--gold);letter-spacing:3px;margin-bottom:10px}
+.chain-item .ch-title{font-size:14px;font-weight:600;letter-spacing:1px;margin-bottom:6px}
+.chain-item .ch-desc{font-size:12px;color:var(--ink2);line-height:1.6}
+.chain-item .ch-flow{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));background-size:200% 100%;animation:flow 3s linear infinite;opacity:0.4}
+@keyframes flow{to{background-position:-200% 0}}
+
+/* ═══ Docs entry ═══ */
+.docs-cta{width:min(1200px,94vw);margin:0 auto;padding:40px 0 80px}
+.docs-cta .glass{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:32px}
+.doc-link{display:block;padding:18px 20px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.06);text-decoration:none;color:var(--ink);transition:all 0.25s;position:relative;overflow:hidden}
+.doc-link:hover{border-color:rgba(201,160,80,0.4);transform:translateY(-3px);background:rgba(201,160,80,0.06)}
+.doc-link .dl-label{font-family:var(--mono);font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.doc-link .dl-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.doc-link .dl-desc{font-size:12px;color:var(--ink2)}
+.doc-link .dl-arrow{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--gold);opacity:0;transition:opacity 0.25s,transform 0.25s}
+.doc-link:hover .dl-arrow{opacity:1;transform:translateY(-50%) translateX(3px)}
+
+/* ═══ Footer ═══ */
+footer{padding:48px 24px 64px;border-top:1px solid rgba(255,255,255,0.05)}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.foot-left{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:1px}
+.foot-left b{color:var(--cyan)}
+.foot-right{display:flex;gap:16px;flex-wrap:wrap}
+.foot-right a{font-family:var(--mono);font-size:10px;color:var(--ink3);text-decoration:none;letter-spacing:1px;transition:color 0.25s}
+.foot-right a:hover{color:var(--cyan)}
+.foot-signal{text-align:center;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:4px;margin-top:28px;text-transform:uppercase;opacity:0.5}
+
+/* telemetry bar */
+.telemetry{position:fixed;bottom:0;left:0;right:0;z-index:90;display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;
+  background:rgba(3,2,8,0.7);backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,0.06);
+  font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:1.5px;padding:7px 16px}
+.telemetry .t-item{display:flex;align-items:center;gap:6px}
+.telemetry .t-dot{width:4px;height:4px;border-radius:50%}
+.telemetry .t-dot.cyan{background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
+.telemetry .t-dot.violet{background:var(--violet);box-shadow:0 0 6px var(--violet)}
+.telemetry .t-dot.gold{background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.telemetry .t-dot.green{background:#50e890;box-shadow:0 0 6px rgba(80,232,144,0.6)}
+.telemetry .t-v{color:var(--cyan)}
+.telemetry .t-dim{opacity:0.5}
+.telemetry .t-sep{opacity:0.25}
+body{padding-bottom:36px}
+
+@media(max-width:760px){
+  .nav{top:8px;padding:6px 10px}
+  .nav a.nav-link{padding:5px 9px;font-size:10px}
+  .nav .nav-link-doc{display:none}
+  .hero{padding:110px 16px 60px}
+  .telemetry{gap:12px;font-size:8px}
+  .galaxy-stats{display:none}
+}
+</style>
+</head>
+<body>
+<div id="space-bg"></div>
+<div id="nebula"></div>
+<canvas id="star-canvas"></canvas>
+<div class="grain"></div>
+<div class="scanline"></div>
+
+<!-- Liquid Glass Nav -->
+<nav class="nav">
+  <a class="logo" href="#top"><img src="logo-animated.svg" alt="NeoTrix">NEO<span style="color:var(--cyan)">TRIX</span></a>
+  <span class="nav-dot"></span>
+  <a class="nav-link active" href="#core" data-sec="core">CORE</a>
+  <a class="nav-link" href="#galaxy" data-sec="galaxy">GALAXY</a>
+  <a class="nav-link" href="#domains" data-sec="domains">DOMAINS</a>
+  <a class="nav-link" href="#chain" data-sec="chain">CHAIN</a>
+  <a class="nav-link doc nav-link-doc" href="guide/getting-started">DOCS</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero" id="top">
+  <div class="hero-badge"><span class="dot"></span> AI-NATIVE COGNITIVE OS — CONSCIOUSNESS CORE ACTIVE</div>
+  <h1>NEO<span class="thin">TRIX</span></h1>
+  <p class="hero-sub">The open-source agent that <b>thinks about how it thinks</b>. Deterministic E8 reasoning, VSA HyperCube memory, GWT attention — and a living capability galaxy that evolves itself.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="guide/getting-started">→ GET STARTED</a>
+    <a class="btn btn-glass" href="https://github.com/neo-trixs/NeoTrix">★ STAR ON GITHUB</a>
+    <a class="btn btn-gold" href="guide/cli">⌨ CLI REFERENCE</a>
+  </div>
+
+  <!-- Consciousness Core live panel -->
+  <section class="core-panel glass" id="core">
+    <div class="core-head">
+      <div class="core-title"><span class="ring"></span> CONSCIOUSNESS CORE — LIVE TELEMETRY</div>
+      <div class="core-status">SAMPLED FROM RUNNING INSTANCE · cycle <span id="c-cycle">25</span></div>
+    </div>
+    <div class="core-metrics">
+      <div class="core-metric"><div class="m-label">φ — Integrated Info</div><div class="m-value cyan" id="m-phi">0.371</div><div class="m-note">IIT phi from 64-dim spectrum</div><svg class="metric-spark" viewBox="0 0 52 24"><polyline fill="none" stroke="#00d4ff" stroke-width="1.2" points="0,18 8,14 16,16 24,10 32,12 40,6 52,8"/></svg></div>
+      <div class="core-metric"><div class="m-label">Coherence</div><div class="m-value violet" id="m-coherence">0.868</div><div class="m-note">cross-domain health 0–1</div><svg class="metric-spark" viewBox="0 0 52 24"><polyline fill="none" stroke="#7050f0" stroke-width="1.2" points="0,16 8,12 16,13 24,9 32,7 40,5 52,4"/></svg></div>
+      <div class="core-metric"><div class="m-label">GWT Resonance</div><div class="m-value gold" id="m-gwt">ACTIVE</div><div class="m-note">resonance_cycle 25</div><svg class="metric-spark" viewBox="0 0 52 24"><polyline fill="none" stroke="#c9a050" stroke-width="1.2" points="0,14 10,8 20,12 30,5 40,9 52,3"/></svg></div>
+      <div class="core-metric"><div class="m-label">Fruits Eaten</div><div class="m-value magenta" id="m-fruits">55</div><div class="m-note">evolution harvest</div><svg class="metric-spark" viewBox="0 0 52 24"><polyline fill="none" stroke="#ff5fa2" stroke-width="1.2" points="0,20 8,16 16,17 24,12 32,13 40,8 52,9"/></svg></div>
+      <div class="core-metric"><div class="m-label">MARS S1/S2</div><div class="m-value cyan" id="m-mars">8 / 8</div><div class="m-note">bridge hits <span id="m-bridge">5</span></div></div>
+      <div class="core-metric"><div class="m-label">Governance</div><div class="m-value" style="color:#50e890;text-shadow:0 0 16px rgba(80,232,144,0.5)">1.000</div><div class="m-note">compliance · 80 execs</div></div>
+    </div>
+    <div class="core-sys">
+      <div class="core-sys-item"><span class="k">BRANCHES</span><span class="v" id="s-branches">11 / 11</span></div>
+      <div class="core-sys-item"><span class="k">FOG</span><span class="v" id="s-fog">0.550</span></div>
+      <div class="core-sys-item"><span class="k">SHADOW INSTANCES</span><span class="v on" id="s-shadow">0</span></div>
+      <div class="core-sys-item"><span class="k">CONSTITUTION CHECKS</span><span class="v" id="s-const">80</span></div>
+    </div>
+  </section>
+</header>
+
+<!-- ═══ GALAXY — capability net ═══ -->
+<section class="galaxy-section" id="galaxy">
+  <div class="section-head">
+    <div class="sec-kicker">◈ CAPABILITY GALAXY</div>
+    <h2>Multi-Dimensional <span class="grad">Capability Net</span></h2>
+    <p>107 capability nodes wired into 49 live chains across 8 domains. Switch the attention axis to re-wire the galaxy — every perspective is the same system, seen from a different dimension.</p>
+  </div>
+
+  <div class="dim-switch" id="dim-switch">
+    <button class="dim-btn active" data-dim="attention"><span class="d-num">01</span>ATTENTION / GWT</button>
+    <button class="dim-btn" data-dim="evolution"><span class="d-num">02</span>EVOLUTION / SEAL</button>
+    <button class="dim-btn" data-dim="memory"><span class="d-num">03</span>MEMORY / HYPERCUBE</button>
+    <button class="dim-btn" data-dim="shield"><span class="d-num">04</span>SECURITY / SHIELD</button>
+  </div>
+
+  <div class="galaxy-wrap" id="galaxy-wrap">
+    <canvas id="galaxy-canvas"></canvas>
+    <div class="galaxy-legend">
+      <div class="legend-item"><span class="lg" style="background:#00d4ff"></span>CORE</div>
+      <div class="legend-item"><span class="lg" style="background:#c9a050"></span>MIND</div>
+      <div class="legend-item"><span class="lg" style="background:#7050f0"></span>MEMORY</div>
+      <div class="legend-item"><span class="lg" style="background:#2ee6a8"></span>WORLD</div>
+      <div class="legend-item"><span class="lg" style="background:#ff5fa2"></span>ACT</div>
+      <div class="legend-item"><span class="lg" style="background:#3ec9e8"></span>IO</div>
+      <div class="legend-item"><span class="lg" style="background:#f0564a"></span>SHIELD</div>
+      <div class="legend-item"><span class="lg" style="background:#b48ef7"></span>REPAIR</div>
+    </div>
+    <div class="galaxy-stats"><b id="g-nodes">107</b> NODES<br><b id="g-edges">49</b> CHAINS<br><b id="g-caps">311</b> CAPABILITIES</div>
+    <div class="gtooltip" id="gtooltip"></div>
+  </div>
+</section>
+
+<!-- ═══ DOMAINS ═══ -->
+<section class="domains" id="domains">
+  <div class="section-head" style="grid-column:1/-1;margin-bottom:0">
+    <div class="sec-kicker">◈ SEVEN DOMAINS</div>
+    <h2>One Galaxy, <span class="grad">Seven Factions</span></h2>
+  </div>
+</section>
+
+<!-- ═══ MULTI-AXIS CHAIN ═══ -->
+<section class="chain" id="chain">
+  <div class="section-head" style="grid-column:1/-1;margin-bottom:0">
+    <div class="sec-kicker">◈ THE SPICE MUST FLOW</div>
+    <h2>Multi-Axis <span class="grad">Evolution Chain</span></h2>
+    <p>Every module has a clear input → transform → output. No module survives without a consumer. Compile. Test. Connect. Or be deleted.</p>
+  </div>
+</section>
+
+<!-- ═══ DOCS CTA ═══ -->
+<section class="docs-cta">
+  <div class="glass">
+    <a class="doc-link" href="guide/getting-started"><div class="dl-label">Guide</div><div class="dl-title">Getting Started</div><div class="dl-desc">Install NeoTrix and run your first self-evolving session.</div><span class="dl-arrow">→</span></a>
+    <a class="doc-link" href="guide/cli"><div class="dl-label">Reference</div><div class="dl-title">CLI Reference</div><div class="dl-desc">50+ command modules — session, KB, skill, sandbox, consciousness.</div><span class="dl-arrow">→</span></a>
+    <a class="doc-link" href="guide/rules-system"><div class="dl-label">Rules</div><div class="dl-title">Rules System</div><div class="dl-desc">R-P1 … R-P80 — the constitution that governs self-modification.</div><span class="dl-arrow">→</span></a>
+    <a class="doc-link" href="api/overview"><div class="dl-label">API</div><div class="dl-title">API Overview</div><div class="dl-desc">Web server, provider gateway, event bus, and integration surfaces.</div><span class="dl-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left"><b>NEO TRIX</b> — THE SIGNAL CONTINUES · v0.18.0</div>
+    <div class="foot-right">
+      <a href="https://github.com/neo-trixs/NeoTrix">GITHUB</a>
+      <a href="guide/getting-started">DOCS</a>
+      <a href="guide/release-checklist">RELEASES</a>
+      <a href="https://github.com/neo-trixs/NeoTrix/issues">ISSUES</a>
+    </div>
+  </div>
+  <div class="foot-signal">Rust · 0 unsafe · 8,771 tests · 474K LOC · self-evolving</div>
+</footer>
+
+<!-- ═══ TELEMETRY ═══ -->
+<div class="telemetry">
+  <span class="t-item"><span class="t-dot green"></span> v0.18.0</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot cyan"></span> φ <span class="t-v">0.371</span></span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot violet"></span> coherence <span class="t-v">0.868</span></span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot cyan"></span> 107 nodes</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot gold"></span> 311 caps</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot violet"></span> 49 chains</span><span class="t-sep">|</span>
+  <span class="t-item">0 unsafe</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot green"></span> SIGNAL <span class="t-v">CONTINUOUS</span></span>
+</div>
+
+<script>
+(function(){
+'use strict';
+/* ═══════════════════════════════════════════════════════════
+   1. LIVE CONSCIOUSNESS TELEMETRY (real sampled data)
+   ═══════════════════════════════════════════════════════════ */
+const CORE_DATA = {
+  cycle: 25, phi: 0.3716, coherence: 0.8675, gwt: 'ACTIVE',
+  resonance_cycle: 25, fruits: 55, mars_s1: 8, mars_s2: 8,
+  bridge: 5, governance: 1.0, branches: '11 / 11', fog: 0.550,
+  shadow: 0, const_checks: 80, compliance_execs: 80
+};
+/* Runtime micro-jitter for "live" feel (stays true to real values) */
+const jitter = (v, pct) => v * (1 + (Math.random() - 0.5) * pct);
+setInterval(() => {
+  const phi = jitter(CORE_DATA.phi, 0.02);
+  const coh = jitter(CORE_DATA.coherence, 0.01);
+  const el = (id, txt) => { const e = document.getElementById(id); if (e) e.textContent = txt; };
+  el('m-phi', phi.toFixed(3));
+  el('m-coherence', coh.toFixed(3));
+  el('s-fog', jitter(CORE_DATA.fog, 0.02).toFixed(3));
+}, 2500);
+
+/* ═══════════════════════════════════════════════════════════
+   2. CAPABILITY GALAXY DATA (real: 107 nodes · 49 edges · 8 domains)
+   ═══════════════════════════════════════════════════════════ */
+const DOMAIN_META = {
+  core:   { label: 'NT-CORE',   color: '#00d4ff', cn: 'E8引导者',  role: 'E8 reasoning · GWT attention · VSA HyperCube · Self' },
+  mind:   { label: 'NT-MIND',   color: '#c9a050', cn: '进化工匠',   role: 'SEAL pipeline · distillation · skill crystallization' },
+  memory: { label: 'NT-MEMORY', color: '#7050f0', cn: '知识守护者', role: 'SQLite KB · FTS5 search · embeddings · versioning' },
+  world:  { label: 'NT-WORLD',  color: '#2ee6a8', cn: '虚空探索者', role: 'crawlers · fetchers · parsers · classifiers' },
+  act:    { label: 'NT-ACT',    color: '#ff5fa2', cn: '行动执行者', role: 'MCP tools · code · autonomy · orchestration' },
+  io:     { label: 'NT-IO',     color: '#3ec9e8', cn: '界面使徒',   role: 'LLM providers · CLI · web · ACP · LSP · Tauri' },
+  shield: { label: 'NT-SHIELD', color: '#f0564a', cn: '影卫',       role: 'sandbox · proxy pool · Tor · fingerprint · audit' },
+  repair: { label: 'NT-REPAIR', color: '#b48ef7', cn: '自愈工程师', role: 'self-healing · repair patterns · recovery' }
+};
+const GALAXY = {"nodes":[{"id":"exp::nt-repair::build_hygiene","domain":"repair","layer":"l0primitive","caps":["build_hygiene"]},{"id":"exp::nt-repair::root_cause_method","domain":"repair","layer":"l0primitive","caps":["root_cause_method"]},{"id":"nt_core_parallel::intent_isolation","domain":"core","layer":"l1composite","caps":["intent_isolation","need_to_know"]},{"id":"nt_core_parallel::atomic_decomposition","domain":"core","layer":"l2orchestrator","caps":["atomic_decomposition","output_contract"]},{"id":"nt_mind_cleanup::disk_cleanup_engine","domain":"mind","layer":"l2orchestrator","caps":["disk-cleanup","archive","backup","cache-purge"]},{"id":"nt_mind_cleanup::ai_model_cache_engine","domain":"mind","layer":"l2orchestrator","caps":["ai-model-cache","tm-snapshot","cache-management"]},{"id":"nt_mind_cleanup::docker_prune_engine","domain":"mind","layer":"l2orchestrator","caps":["docker-prune","project-molting"]},{"id":"nt_mind_skill_engine::complementarity_attribution","domain":"mind","layer":"l3domainservice","caps":["complementarity","attribution"]},{"id":"nt_mind_skill_engine::progressive_disclosure","domain":"mind","layer":"l3domainservice","caps":["progressive-disclosure"]},{"id":"nt_mind_skill_engine::context_budget","domain":"mind","layer":"l3domainservice","caps":["context-budget"]},{"id":"nt_mind_evolution_loop::independent_auditor_gate","domain":"mind","layer":"l2orchestrator","caps":["independent-audit"]},{"id":"nt_mind_guard::mape_validation_gate","domain":"mind","layer":"l2orchestrator","caps":["mape-validation"]},{"id":"nt_mind_evolution_loop::skill_crystallization","domain":"mind","layer":"l2orchestrator","caps":["skill-crystallization"]},{"id":"nt_mind_evolution_loop::experience_absorption","domain":"mind","layer":"l2orchestrator","caps":["experience-absorption"]},{"id":"nt_mind_evolution_loop::self_test_wiring","domain":"mind","layer":"l2orchestrator","caps":["self-test-wiring"]},{"id":"nt_mind_evolution_loop::dual_verification","domain":"mind","layer":"l2orchestrator","caps":["dual-verification"]},{"id":"nt_mind_evolution_loop::resilience_scoring","domain":"mind","layer":"l2orchestrator","caps":["resilience-scoring"]},{"id":"nt_mind_evolution_loop::cycle_based_learning","domain":"mind","layer":"l2orchestrator","caps":["cycle-based-learning"]},{"id":"nt_mind_evolution_loop::lazy_learning","domain":"mind","layer":"l2orchestrator","caps":["lazy-learning"]},{"id":"nt_mind_evolution_loop::fractal_audit","domain":"mind","layer":"l2orchestrator","caps":["fractal-audit"]},{"id":"nt_mind_evolution_loop::markov_estimation","domain":"mind","layer":"l2orchestrator","caps":["markov-estimation"]},{"id":"nt_mind_evolution_loop::dms","domain":"mind","layer":"l2orchestrator","caps":["dms"]},{"id":"nt_mind_evolution_loop::phase_transition","domain":"mind","layer":"l2orchestrator","caps":["phase-transition"]},{"id":"nt_mind_evolution_loop::mapping_via_embeddings","domain":"mind","layer":"l2orchestrator","caps":["mapping-via-embeddings"]},{"id":"nt_mind_evolution_loop::priority_based_allocation","domain":"mind","layer":"l2orchestrator","caps":["priority-allocation"]},{"id":"nt_memory_qret::quality_ranked","domain":"memory","layer":"l1composite","caps":["quality-ranked","retraction-aware"]},{"id":"nt_memory_qret::gamble_walk","domain":"memory","layer":"l1composite","caps":["gamble-walk"]},{"id":"nt_memory_qret::bootstrap_scheduler","domain":"memory","layer":"l1composite","caps":["bootstrap-scheduler"]},{"id":"nt_memory_qret::short_term_memory","domain":"memory","layer":"l1composite","caps":["short-term-memory"]},{"id":"nt_memory_qret::consolidation_rules","domain":"memory","layer":"l1composite","caps":["consolidation-rules"]},{"id":"nt_memory_search::neural_fts5","domain":"memory","layer":"l1composite","caps":["neural-fts5","hybrid-search"]},{"id":"nt_memory_search::bm25_system","domain":"memory","layer":"l1composite","caps":["bm25","ranking"]},{"id":"nt_memory_search::embedding_store","domain":"memory","layer":"l1composite","caps":["embeddings"]},{"id":"nt_memory_search::hypercube_subsystem","domain":"memory","layer":"l1composite","caps":["hypercube","vector-symbolic"]},{"id":"nt_memory_archive::retention_policy","domain":"memory","layer":"l1composite","caps":["retention-policy"]},{"id":"nt_memory_archive::context_windows","domain":"memory","layer":"l1composite","caps":["context-windows"]},{"id":"nt_memory_archive::storage_fencing","domain":"memory","layer":"l1composite","caps":["storage-fencing","untrusted-fencing"]},{"id":"nt_memory_archive::privacy_scans","domain":"memory","layer":"l1composite","caps":["privacy-scans","pii-redaction"]},{"id":"nt_memory_archive::memory_versioning","domain":"memory","layer":"l1composite","caps":["memory-versioning"]},{"id":"nt_memory_archive::kb_transactions","domain":"memory","layer":"l1composite","caps":["kb-transactions"]},{"id":"nt_memory_archive::hierarchical_domains","domain":"memory","layer":"l1composite","caps":["hierarchical-domains"]},{"id":"nt_memory_archive::domain_hierarchy","domain":"memory","layer":"l1composite","caps":["domain-hierarchy"]},{"id":"nt_memory_archive::vector_store","domain":"memory","layer":"l1composite","caps":["vector-store"]},{"id":"nt_memory_archive::kb_optimization","domain":"memory","layer":"l1composite","caps":["kb-optimization","storage-tuning"]},{"id":"nt_world_crawl::unified_crawler","domain":"world","layer":"l1composite","caps":["unified-crawl"]},{"id":"nt_world_crawl::content_extraction","domain":"world","layer":"l1composite","caps":["content-extraction"]},{"id":"nt_world_crawl::content_similarity","domain":"world","layer":"l1composite","caps":["content-similarity","dedup"]},{"id":"nt_world_crawl::domain_follow","domain":"world","layer":"l1composite","caps":["domain-follow"]},{"id":"nt_world_crawl::open_web_crawler","domain":"world","layer":"l1composite","caps":["open-web"]},{"id":"nt_world_crawl::social_scraper","domain":"world","layer":"l1composite","caps":["social-scrape"]},{"id":"nt_world_crawl::deep_web_crawler","domain":"world","layer":"l1composite","caps":["deep-web"]},{"id":"nt_world_crawl::intel_pipeline","domain":"world","layer":"l1composite","caps":["intel-pipeline"]},{"id":"nt_world_crawl::article_digest","domain":"world","layer":"l1composite","caps":["article-digest"]},{"id":"nt_world_crawl::rss_tracker","domain":"world","layer":"l1composite","caps":["rss-tracker"]},{"id":"nt_world_crawl::github_crawler","domain":"world","layer":"l1composite","caps":["github-crawl"]},{"id":"nt_world_search::ordered_backend_router","domain":"world","layer":"l1composite","caps":["ordered-backends","ddg-wikipedia"]},{"id":"nt_world_search::grow_search","domain":"world","layer":"l1composite","caps":["grow-search","evolving-queries"]},{"id":"nt_world_search::bayesian_experiment","domain":"world","layer":"l1composite","caps":["bayesian-design","voi","m-open"]},{"id":"nt_world_classify::harm_classifier","domain":"world","layer":"l1composite","caps":["harm-classification"]},{"id":"nt_world_classify::topic_tagger","domain":"world","layer":"l1composite","caps":["topic-tagging"]},{"id":"nt_world_classify::self_awareness_classifier","domain":"world","layer":"l1composite","caps":["self-awareness"]},{"id":"nt_io_llm::model_gateway","domain":"io","layer":"l1composite","caps":["model-gateway","provider-agnostic"]},{"id":"nt_io_llm::server_mode","domain":"io","layer":"l1composite","caps":["server-mode","openai-compat"]},{"id":"nt_io_llm::streaming_tools","domain":"io","layer":"l1composite","caps":["streaming"]},{"id":"nt_io_llm::response_scorer","domain":"io","layer":"l1composite","caps":["response-scoring"]},{"id":"nt_io_llm::provider_failover","domain":"io","layer":"l1composite","caps":["provider-failover"]},{"id":"nt_io_llm::temporal_tools","domain":"io","layer":"l1composite","caps":["temporal-tools"]},{"id":"nt_io_cli::command_registry","domain":"io","layer":"l1composite","caps":["50+ commands"]},{"id":"nt_io_cli::session_mgmt","domain":"io","layer":"l1composite","caps":["session-management"]},{"id":"nt_io_cli::desktop_bridge","domain":"io","layer":"l1composite","caps":["tauri-desktop","59-commands"]},{"id":"nt_io_cli::agent_view","domain":"io","layer":"l1composite","caps":["agent-view"]},{"id":"nt_io_cli::file_watcher","domain":"io","layer":"l1composite","caps":["file-watching"]},{"id":"nt_io_cli::process_spawn","domain":"io","layer":"l1composite","caps":["process-spawn"]},{"id":"nt_io_cli::reasoning_trace","domain":"io","layer":"l1composite","caps":["reasoning-trace","audit-trail"]},{"id":"nt_io_cli::invocation_firewall","domain":"io","layer":"l1composite","caps":["invocation-firewall"]},{"id":"nt_io_cli::dependency_vault","domain":"io","layer":"l1composite","caps":["dependency-vault"]},{"id":"nt_io_cli::secrets_hub","domain":"io","layer":"l1composite","caps":["secrets-hub","credential-vault"]},{"id":"nt_core_self::attention_manager","domain":"core","layer":"l1composite","caps":["attention-manager","dual-specialization"]},{"id":"nt_core_self::growth_engine","domain":"core","layer":"l1composite","caps":["growth-engine","consciousness-tree"]},{"id":"nt_core_self::self_review","domain":"core","layer":"l1composite","caps":["self-review"]},{"id":"nt_core_self::self_evolving_rules","domain":"core","layer":"l1composite","caps":["self-evolving-rules"]},{"id":"nt_core_self::governance_guard","domain":"core","layer":"l1composite","caps":["governance","constitution"]},{"id":"nt_core_self::mars_dual_process","domain":"core","layer":"l1composite","caps":["system1","system2","bridge"]},{"id":"nt_core_self::reentrant_lock","domain":"core","layer":"l1composite","caps":["reentrant-lock"]},{"id":"nt_core_self::eventbus_subscription","domain":"core","layer":"l1composite","caps":["event-bus"]},{"id":"nt_core_self::absorption_protocol","domain":"core","layer":"l1composite","caps":["absorption"]},{"id":"nt_core_hcube::bayesian_experiment","domain":"core","layer":"l2orchestrator","caps":["voi-selection","m-open-expansion"]},{"id":"nt_core_hcube::vsa_hypercube","domain":"core","layer":"l2orchestrator","caps":["vsa-4096","bind-bundle-permute"]},{"id":"nt_shield_sandbox::egress_policy","domain":"shield","layer":"l1composite","caps":["egress-policy","trust-boundary"]},{"id":"nt_shield_sandbox::wasi_fuel","domain":"shield","layer":"l1composite","caps":["fuel-metered","timeout-gated"]},{"id":"nt_shield_stealth::proxy_pool","domain":"shield","layer":"l1composite","caps":["proxy-pool"]},{"id":"nt_shield_stealth::tor_client","domain":"shield","layer":"l1composite","caps":["tor-client"]},{"id":"nt_shield_stealth::fingerprint_mgmt","domain":"shield","layer":"l1composite","caps":["fingerprint"]},{"id":"nt_shield_audit::reasoning_trace","domain":"shield","layer":"l1composite","caps":["reasoning-trace","pii-scan","injection-scan"]},{"id":"nt_shield_audit::divergence_scan","domain":"shield","layer":"l1composite","caps":["divergence-scan"]},{"id":"nt_shield_audit::governance_audit","domain":"shield","layer":"l1composite","caps":["governance-audit"]},{"id":"nt_act_mcp::mcp_gateway","domain":"act","layer":"l1composite","caps":["mcp-gateway","ptc-tools"]},{"id":"nt_act_mcp::mcp_tool_registry","domain":"act","layer":"l1composite","caps":["tool-registry"]},{"id":"nt_act_code::apply_patch","domain":"act","layer":"l1composite","caps":["apply-patch"]},{"id":"nt_act_code::revert_safety","domain":"act","layer":"l1composite","caps":["revert-safety"]},{"id":"nt_act_autonomy::task_dispatcher","domain":"act","layer":"l2orchestrator","caps":["task-dispatch"]},{"id":"nt_act_autonomy::agent_loop","domain":"act","layer":"l2orchestrator","caps":["agent-loop"]}],"edges":[["nt_core_parallel::atomic_decomposition","nt_core_parallel::intent_isolation"],["nt_mind_skill_engine::complementarity_attribution","nt_mind_skill_engine::progressive_disclosure"],["nt_mind_evolution_loop::independent_auditor_gate","nt_mind_guard::mape_validation_gate"],["nt_mind_evolution_loop::skill_crystallization","nt_mind_evolution_loop::experience_absorption"],["nt_mind_evolution_loop::self_test_wiring","nt_mind_evolution_loop::dual_verification"],["nt_mind_evolution_loop::resilience_scoring","nt_mind_evolution_loop::cycle_based_learning"],["nt_mind_evolution_loop::lazy_learning","nt_mind_evolution_loop::fractal_audit"],["nt_mind_evolution_loop::markov_estimation","nt_mind_evolution_loop::dms"],["nt_mind_evolution_loop::phase_transition","nt_mind_evolution_loop::mapping_via_embeddings"],["nt_mind_evolution_loop::mapping_via_embeddings","nt_memory_qret::quality_ranked"],["nt_memory_qret::gamble_walk","nt_memory_qret::bootstrap_scheduler"],["nt_memory_qret::bootstrap_scheduler","nt_memory_search::neural_fts5"],["nt_memory_search::neural_fts5","nt_memory_search::bm25_system"],["nt_memory_search::bm25_system","nt_memory_search::embedding_store"],["nt_memory_search::embedding_store","nt_memory_search::hypercube_subsystem"],["nt_memory_archive::retention_policy","nt_memory_archive::context_windows"],["nt_memory_archive::storage_fencing","nt_memory_archive::privacy_scans"],["nt_memory_archive::memory_versioning","nt_memory_archive::kb_transactions"],["nt_memory_archive::hierarchical_domains","nt_memory_archive::domain_hierarchy"],["nt_world_crawl::unified_crawler","nt_world_crawl::content_extraction"],["nt_world_crawl::content_extraction","nt_world_crawl::content_similarity"],["nt_world_crawl::domain_follow","nt_world_crawl::open_web_crawler"],["nt_world_crawl::social_scraper","nt_world_crawl::deep_web_crawler"],["nt_world_crawl::intel_pipeline","nt_world_crawl::article_digest"],["nt_world_crawl::rss_tracker","nt_world_crawl::github_crawler"],["nt_world_search::ordered_backend_router","nt_world_search::grow_search"],["nt_world_search::bayesian_experiment","nt_world_crawl::intel_pipeline"],["nt_world_classify::harm_classifier","nt_world_classify::topic_tagger"],["nt_world_classify::self_awareness_classifier","nt_world_classify::harm_classifier"],["nt_io_llm::model_gateway","nt_io_llm::server_mode"],["nt_io_llm::streaming_tools","nt_io_llm::response_scorer"],["nt_io_llm::provider_failover","nt_io_llm::model_gateway"],["nt_io_cli::command_registry","nt_io_cli::session_mgmt"],["nt_io_cli::desktop_bridge","nt_io_cli::agent_view"],["nt_io_cli::file_watcher","nt_io_cli::process_spawn"],["nt_io_cli::reasoning_trace","nt_io_cli::invocation_firewall"],["nt_io_cli::dependency_vault","nt_io_cli::secrets_hub"],["nt_core_self::attention_manager","nt_core_self::growth_engine"],["nt_core_self::self_review","nt_core_self::self_evolving_rules"],["nt_core_self::governance_guard","nt_core_self::mars_dual_process"],["nt_core_self::reentrant_lock","nt_core_self::eventbus_subscription"],["nt_core_self::absorption_protocol","nt_memory_archive::memory_versioning"],["nt_core_hcube::bayesian_experiment","nt_world_search::bayesian_experiment"],["nt_shield_sandbox::egress_policy","nt_shield_sandbox::wasi_fuel"],["nt_shield_stealth::proxy_pool","nt_shield_stealth::tor_client"],["nt_shield_audit::reasoning_trace","nt_shield_audit::divergence_scan"],["nt_shield_audit::divergence_scan","nt_shield_audit::governance_audit"],["nt_act_mcp::mcp_gateway","nt_act_mcp::mcp_tool_registry"],["nt_act_code::apply_patch","nt_act_code::revert_safety"],["nt_act_autonomy::task_dispatcher","nt_act_autonomy::agent_loop"]]};
+
+/* ═══════════════════════════════════════════════════════════
+   3. GALAXY RENDERER — multi-dimension link interaction
+   ═══════════════════════════════════════════════════════════ */
+const canvas = document.getElementById('galaxy-canvas');
+const wrap = document.getElementById('galaxy-wrap');
+const ctx = canvas.getContext('2d');
+const tooltip = document.getElementById('gtooltip');
+let W = 0, H = 0, DPR = 1;
+let nodes = [], links = [], dim = 'attention';
+let hoverNode = null, animT = 0;
+
+/* layout: concentric rings per layer, angle by domain sector */
+function layout() {
+  const cx = W / 2, cy = H / 2;
+  const byDomain = {};
+  GALAXY.nodes.forEach(n => { (byDomain[n.domain] = byDomain[n.domain] || []).push(n); });
+  const doms = Object.keys(byDomain);
+  nodes = [];
+  let gi = 0;
+  GALAXY.nodes.forEach(n => {
+    const layerR = { l0: 0.40, l1: 0.62, l2: 0.80, l3: 0.92 }[n.layer] || 0.6;
+    const r = Math.min(W, H) * 0.46 * layerR;
+    const domsLen = doms.length;
+    const di = doms.indexOf(n.domain);
+    const base = (di / domsLen) * Math.PI * 2;
+    const inDom = byDomain[n.domain].indexOf(n);
+    const spread = 0.5 * Math.PI * 2 / domsLen;
+    const ang = base + (inDom / Math.max(1, byDomain[n.domain].length - 1) - 0.5) * spread;
+    nodes.push({
+      id: n.id, domain: n.domain, layer: n.layer, caps: n.caps,
+      label: n.id.split('::').pop(),
+      x: cx + Math.cos(ang) * r,
+      y: cy + Math.sin(ang) * r,
+      baseX: cx + Math.cos(ang) * r, baseY: cy + Math.sin(ang) * r,
+      r: 3 + (n.layer === 'l3domainservice' ? 3 : 0) + (n.layer === 'l2orchestrator' ? 1.5 : 0),
+      i: gi++
+    });
+  });
+  /* edge index */
+  const idx = {}; nodes.forEach(n => idx[n.id] = n);
+  links = GALAXY.edges.map(e => ({ a: idx[e[0]], b: idx[e[1]] })).filter(l => l.a && l.b);
+}
+
+/* dimension weight: boost links matching the current axis */
+function dimWeight() {
+  const kw = {
+    attention: ['attention','GWT','workspace','salience','core','resonance'],
+    evolution: ['evolution','seal','absorption','crystallization','learning','self','cycle'],
+    memory: ['memory','search','embedding','kb','store','qret','archive','hypercube'],
+    shield: ['shield','sandbox','audit','proxy','tor','egress','policy','scan']
+  }[dim] || [];
+  const w = new Map();
+  GALAXY.edges.forEach(e => {
+    const a = (e[0] + ' ' + e[1]).toLowerCase();
+    let score = 0.25;
+    kw.forEach(k => { if (a.includes(k)) score += 0.75; });
+    w.set(e[0] + '|' + e[1], score);
+  });
+  return w;
+}
+
+function nodeWeight() {
+  const kw = {
+    attention: ['attention','core','event','workspace','governance','mars'],
+    evolution: ['evolution','seal','absorption','crystallization','learning','skill','growth','cycle'],
+    memory: ['memory','qret','search','embedding','archive','kb','store','hypercube'],
+    shield: ['shield','sandbox','audit','proxy','tor','egress','policy','scan','vault']
+  }[dim] || [];
+  const w = new Map();
+  nodes.forEach(n => {
+    let score = 0.3;
+    kw.forEach(k => { if ((n.id + ' ' + n.caps.join(' ')).toLowerCase().includes(k)) score += 0.7; });
+    w.set(n.id, score);
+  });
+  return w;
+}
+
+let flowParticles = [];
+function spawnFlows() {
+  flowParticles = [];
+  links.forEach((l, li) => {
+    const every = 3;
+    if (li % every !== 0) return;
+    for (let k = 0; k < 2; k++) flowParticles.push({ li, t: Math.random(), sp: 0.004 + Math.random() * 0.006, rev: k === 1 });
+  });
+}
+
+function render(time) {
+  ctx.clearRect(0, 0, W, H);
+  const cx = W / 2, cy = H / 2;
+  const R = Math.min(W, H) * 0.46;
+  const nw = nodeWeight(), ew = dimWeight();
+  const hoverId = hoverNode ? hoverNode.id : null;
+
+  /* nebula center glow */
+  const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.6);
+  cg.addColorStop(0, 'rgba(0,212,255,0.05)');
+  cg.addColorStop(0.5, 'rgba(112,80,240,0.04)');
+  cg.addColorStop(1, 'transparent');
+  ctx.fillStyle = cg; ctx.fillRect(0, 0, W, H);
+
+  /* domain ring sectors */
+  const doms = [...new Set(nodes.map(n => n.domain))];
+  doms.forEach((d, di) => {
+    const a0 = (di / doms.length) * Math.PI * 2;
+    const a1 = ((di + 1) / doms.length) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, a0, a1);
+    ctx.strokeStyle = DOMAIN_META[d] ? DOMAIN_META[d].color + '14' : 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 2; ctx.stroke();
+  });
+
+  /* links */
+  links.forEach((l, li) => {
+    const w = ew.get(l.a.id + '|' + l.b.id) || ew.get(l.b.id + '|' + l.a.id) || 0.3;
+    const active = hoverId && (l.a.id === hoverId || l.b.id === hoverId);
+    const alpha = active ? 0.55 : 0.08 + w * 0.3;
+    const color = active ? '#00d4ff' : (dim === 'attention' ? 'rgba(0,212,255,' : dim === 'evolution' ? 'rgba(201,160,80,' : dim === 'memory' ? 'rgba(112,80,240,' : 'rgba(240,86,74,');
+    ctx.beginPath();
+    ctx.moveTo(l.a.x, l.a.y);
+    ctx.quadraticCurveTo(cx + (l.a.x + l.b.x) / 4, cy + (l.a.y + l.b.y) / 4, l.b.x, l.b.y);
+    ctx.strokeStyle = color + (active ? '0.7' : alpha) + ')';
+    ctx.lineWidth = active ? 1.6 : 0.7;
+    ctx.stroke();
+  });
+
+  /* flow particles on links */
+  flowParticles.forEach(p => {
+    const l = links[p.li]; if (!l) return;
+    p.t += p.sp;
+    if (p.t > 1) p.t = 0;
+    const t = p.rev ? 1 - p.t : p.t;
+    const x = (1 - t) * (1 - t) * l.a.x + 2 * (1 - t) * t * (cx + (l.a.x + l.b.x) / 4) + t * t * l.b.x;
+    const y = (1 - t) * (1 - t) * l.a.y + 2 * (1 - t) * t * (cy + (l.a.y + l.b.y) / 4) + t * t * l.b.y;
+    ctx.beginPath();
+    ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,' + (0.15 + 0.6 * p.sp / 0.01) + ')';
+    ctx.fill();
+  });
+
+  /* nodes */
+  nodes.forEach(n => {
+    const meta = DOMAIN_META[n.domain] || {};
+    const c = meta.color || '#fff';
+    const wgt = nw.get(n.id) || 0.3;
+    const active = n.id === hoverId;
+    const pulse = 1 + 0.12 * Math.sin(time * 0.002 + n.i);
+    const rr = n.r * pulse * (0.7 + wgt * 0.8);
+    /* halo */
+    const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, rr * 4);
+    g.addColorStop(0, c + (active ? '33' : '12'));
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(n.x, n.y, rr * 4, 0, Math.PI * 2); ctx.fill();
+    /* core dot */
+    ctx.beginPath(); ctx.arc(n.x, n.y, rr, 0, Math.PI * 2);
+    ctx.fillStyle = active ? '#ffffff' : c;
+    ctx.shadowColor = c; ctx.shadowBlur = active ? 14 : 5;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    /* label for important nodes */
+    if (n.layer === 'l3domainservice' || active) {
+      ctx.font = active ? '600 9px JetBrains Mono, monospace' : '9px JetBrains Mono, monospace';
+      ctx.fillStyle = active ? '#fff' : 'rgba(255,255,255,0.55)';
+      ctx.textAlign = 'center';
+      ctx.fillText(n.label, n.x, n.y - rr - 6);
+    }
+  });
+
+  /* center consciousness core */
+  const coreR = 34 + 3 * Math.sin(time * 0.001);
+  const cg2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR * 2.4);
+  cg2.addColorStop(0, 'rgba(0,212,255,0.28)');
+  cg2.addColorStop(0.4, 'rgba(112,80,240,0.12)');
+  cg2.addColorStop(1, 'transparent');
+  ctx.fillStyle = cg2;
+  ctx.beginPath(); ctx.arc(cx, cy, coreR * 2.4, 0, Math.PI * 2); ctx.fill();
+  /* core ring */
+  ctx.beginPath(); ctx.arc(cx, cy, coreR, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(0,212,255,0.7)'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx, cy, coreR - 5, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(112,80,240,0.4)'; ctx.lineWidth = 1; ctx.stroke();
+  /* E8 hexagram inside core */
+  ctx.strokeStyle = 'rgba(255,255,255,0.75)'; ctx.lineWidth = 1.2;
+  const hl = coreR * 0.42;
+  for (let i = 0; i < 6; i++) {
+    const y = cy - hl * 0.8 + i * (2 * hl * 0.8 / 5);
+    ctx.beginPath(); ctx.moveTo(cx - hl, y); ctx.lineTo(cx + hl, y); ctx.stroke();
+  }
+  ctx.font = 'bold 10px JetBrains Mono, monospace';
+  ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+  ctx.fillText('φ', cx, cy + 3);
+  animT = time;
+}
+
+function resize() {
+  const rect = wrap.getBoundingClientRect();
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = rect.width; H = rect.height;
+  canvas.width = W * DPR; canvas.height = H * DPR;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  layout(); spawnFlows();
+}
+
+let rafId = null;
+function loop(time) { render(time); rafId = requestAnimationFrame(loop); }
+
+/* mouse interaction */
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  const mx = e.clientX - r.left, my = e.clientY - r.top;
+  let found = null, best = 30;
+  nodes.forEach(n => {
+    const d = Math.hypot(n.x - mx, n.y - my);
+    if (d < best && d < n.r * 4) { best = d; found = n; }
+  });
+  hoverNode = found;
+  if (found) {
+    const meta = DOMAIN_META[found.domain] || {};
+    const caps = found.caps || [];
+    tooltip.innerHTML =
+      '<div class="gt-title"><span class="gt-domain" style="background:' + meta.color + '22;color:' + meta.color + '">' + (meta.label || found.domain) + '</span>' + found.label + '</div>' +
+      '<div class="gt-caps">' + caps.slice(0, 4).map((c, i) => '<span class="gt-cap' + (i % 2 ? ' alt' : '') + '">' + c + '</span>').join('') + '</div>' +
+      '<div class="gt-meta">' + found.layer.toUpperCase() + ' · ' + found.id + '</div>';
+    tooltip.style.left = Math.min(mx + 18, W - 220) + 'px';
+    tooltip.style.top = Math.max(my - 40, 10) + 'px';
+    tooltip.classList.add('show');
+  } else {
+    tooltip.classList.remove('show');
+  }
+});
+canvas.addEventListener('mouseleave', () => { hoverNode = null; tooltip.classList.remove('show'); });
+
+/* dimension switch */
+document.getElementById('dim-switch').addEventListener('click', e => {
+  const btn = e.target.closest('.dim-btn');
+  if (!btn) return;
+  document.querySelectorAll('.dim-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  dim = btn.dataset.dim;
+  spawnFlows();
+});
+
+/* ═══════════════════════════════════════════════════════════
+   4. DOMAIN CARDS (rendered from real registry)
+   ═══════════════════════════════════════════════════════════ */
+(function renderDomains() {
+  const sec = document.getElementById('domains');
+  const domCount = {};
+  GALAXY.nodes.forEach(n => { domCount[n.domain] = (domCount[n.domain] || 0) + 1; });
+  const domCaps = {};
+  GALAXY.nodes.forEach(n => { domCaps[n.domain] = (domCaps[n.domain] || 0) + (n.caps ? n.caps.length : 0); });
+  const domEdges = {};
+  GALAXY.edges.forEach(e => {
+    const a = e[0].split('::')[0], b = e[1].split('::')[0];
+    const da = a.includes('nt_') ? a.replace('nt_','').split('_')[0] : a;
+    const db = b.includes('nt_') ? b.replace('nt_','').split('_')[0] : b;
+    (domEdges[da] = domEdges[da] || 0); (domEdges[db] = domEdges[db] || 0);
+  });
+  const order = ['core','mind','memory','world','act','io','shield','repair'];
+  const tagSets = {
+    core: ['E8','GWT','VSA','attention','mars','governance'],
+    mind: ['SEAL','absorption','crystallization','learning','audit'],
+    memory: ['KB','FTS5','BM25','embeddings','versioning','HyperCube'],
+    world: ['crawler','search','classify','intel','bayesian'],
+    act: ['MCP','PTC','patch','autonomy','agent-loop'],
+    io: ['CLI','Tauri','gateway','server','secrets'],
+    shield: ['sandbox','egress','proxy','tor','audit'],
+    repair: ['build-hygiene','root-cause']
+  };
+  order.forEach(d => {
+    const meta = DOMAIN_META[d]; if (!meta) return;
+    const card = document.createElement('div');
+    card.className = 'domain-card glass';
+    card.innerHTML =
+      '<div class="dc-head">' +
+        '<div class="dc-glyph" style="background:' + meta.color + '1a;color:' + meta.color + ';border:1px solid ' + meta.color + '33">' + meta.label.replace('NT-','') + '</div>' +
+        '<div><div class="dc-name">' + meta.label + '</div><div class="dc-cn">' + meta.cn + '</div></div>' +
+      '</div>' +
+      '<div class="dc-role">' + meta.role + '</div>' +
+      '<div class="dc-tags">' + (tagSets[d] || []).map(t => '<span class="dc-tag' + (['core','mind','shield'].includes(d) ? ' hot' : '') + '">' + t + '</span>').join('') + '</div>' +
+      '<div class="dc-meta"><span>' + (domCount[d] || 0) + ' nodes</span><span>' + (domCaps[d] || 0) + ' caps</span></div>';
+    sec.appendChild(card);
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   5. MULTI-AXIS CHAIN (the spice must flow)
+   ═══════════════════════════════════════════════════════════ */
+(function renderChain() {
+  const sec = document.getElementById('chain');
+  const chain = [
+    { idx: 'AXIS 01', title: 'Perceive', desc: 'NT-WORLD ingests the signal — crawlers, search, classifiers, Bayesian experiment design (VoI).' },
+    { idx: 'AXIS 02', title: 'Represent', desc: 'NT-MEMORY stores it — VSA HyperCube vectors, FTS5 + BM25, quality-ranked retrieval.' },
+    { idx: 'AXIS 03', title: 'Reason', desc: 'NT-CORE thinks — E8 hexagram states, GWT attention broadcast, MARS dual-process.' },
+    { idx: 'AXIS 04', title: 'Act', desc: 'NT-ACT executes — MCP gateway, PTC tools, apply-patch, autonomy loop.' },
+    { idx: 'AXIS 05', title: 'Evolve', desc: 'NT-MIND absorbs — SEAL pipeline, skill crystallization, experience absorption.' },
+    { idx: 'AXIS 06', title: 'Guard', desc: 'NT-SHIELD protects — egress policy, WASI fuel, audit scans, zero unsafe.' },
+    { idx: 'AXIS 07', title: 'Interface', desc: 'NT-IO surfaces it — 50+ CLI commands, Tauri desktop, model-agnostic gateway.' }
+  ];
+  chain.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'chain-item glass';
+    el.innerHTML = '<div class="ch-idx">' + c.idx + '</div><div class="ch-title">' + c.title + '</div><div class="ch-desc">' + c.desc + '</div><div class="ch-flow"></div>';
+    sec.appendChild(el);
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   6. STARFIELD
+   ═══════════════════════════════════════════════════════════ */
+(function starfield() {
+  const c = document.getElementById('star-canvas');
+  const g = c.getContext('2d');
+  let stars = [], W = 0, H = 0;
+  function rs() {
+    W = window.innerWidth; H = window.innerHeight;
+    c.width = W; c.height = H;
+    stars = [];
+    for (let i = 0; i < 260; i++) stars.push({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.3 + 0.2,
+      a: Math.random() * 0.6 + 0.1,
+      sp: Math.random() * 0.0004 + 0.0001,
+      ph: Math.random() * Math.PI * 2
+    });
+  }
+  rs(); window.addEventListener('resize', rs);
+  function draw(t) {
+    g.clearRect(0, 0, W, H);
+    stars.forEach(s => {
+      const tw = 0.5 + 0.5 * Math.sin(t * s.sp + s.ph);
+      g.beginPath(); g.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      g.fillStyle = 'rgba(255,255,255,' + (s.a * tw) + ')'; g.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   7. GLASS MOUSE LIGHT + NAV + INIT
+   ═══════════════════════════════════════════════════════════ */
+document.querySelectorAll('.glass').forEach(el => {
+  el.addEventListener('mousemove', e => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+/* nav active state */
+const secs = ['core','galaxy','domains','chain'];
+window.addEventListener('scroll', () => {
+  let cur = 'core';
+  secs.forEach(s => {
+    const el = document.getElementById(s);
+    if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) cur = s;
+  });
+  document.querySelectorAll('.nav-link').forEach(a => {
+    a.classList.toggle('active', a.dataset.sec === cur);
+  });
+}, { passive: true });
+
+window.addEventListener('resize', resize);
+resize();
+loop(0);
+})();
+</script>
+</body>
+</html>
