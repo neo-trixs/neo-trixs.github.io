@@ -3,29 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="NeoTrix — AI-native developer toolkit with a self-evolving consciousness core. Interactive 28 Lunar Mansions star-map: consciousness core at the celestial pole, 28 lodges on the ecliptic, Moon's sidereal month (27.3d), Sun's tropical year (365.25d).">
-<meta name="keywords" content="AI-native developer toolkit, 28 lunar mansions, 二十八宿, 紫微, E8 hexagram, VSA hypercube, GWT attention, SEAL pipeline, consciousness core, star map, Rust, open source">
+<meta name="description" content="NeoTrix — AI-native developer toolkit with a self-evolving consciousness core. Interactive 4-dimensional spiral galaxy: the consciousness core at the center, four 象 (evolution · attention · security · memory) as spiral arms, 28 lunar mansions and 102 capability nodes in orbit. 360° free rotation.">
+<meta name="keywords" content="AI-native developer toolkit, 28 lunar mansions, 二十八宿, 紫微, E8 hexagram, VSA hypercube, GWT attention, SEAL pipeline, 4D galaxy, star map, Rust, open source">
 <meta name="author" content="neo-trixs">
-<meta property="og:title" content="NeoTrix — 紫微星 · 二十八宿星图">
-<meta property="og:description" content="A cognitive operating system rendered as a living star map — the consciousness core at the celestial pole (紫微), 28 lunar mansions on the ecliptic, the Moon pacing the sidereal month (27.3d) while the Sun completes the tropical year (365.25d).">
+<meta property="og:title" content="NeoTrix — 紫微 · 四维星系">
+<meta property="og:description" content="A cognitive operating system rendered as a living 4D spiral galaxy — consciousness core at the center, four 象 arms (evolution / attention / security / memory), the Moon pacing the sidereal month (27.3d) while the Sun completes the tropical year (365.25d). 360° free rotation.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://neo-trixs.github.io">
 <meta name="twitter:card" content="summary_large_image">
-<title>NeoTrix — 紫微星 · 二十八宿星图</title>
+<title>NeoTrix — 紫微 · 四维星系</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NeoTrix","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Linux, Windows","description":"An open-source AI-native developer toolkit with a self-evolving consciousness core rendered as a 28 lunar mansions star map.","url":"https://neo-trixs.github.io"}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NeoTrix","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Linux, Windows","description":"An open-source AI-native developer toolkit with a self-evolving consciousness core rendered as a 4-dimensional spiral galaxy.","url":"https://neo-trixs.github.io"}
 </script>
 <style>
 /* ═══════════════════════════════════════════════════════════
-   NEO TRIX — 紫微二十八宿星图 (Liquid Glass × galaxy-cyber)
-   · center: 紫微星 = consciousness core (celestial pole)
-   · ecliptic band: 28 lunar mansions, 4 象 × 7 宿
+   NEO TRIX — 紫微 · 四维星系 (minimal deep-space)
+   · center: 紫微星 = consciousness core
+   · 4 spiral arms = 4 dimensions (青龙/朱雀/白虎/玄武)
+   · 28 mansions + 102 capability nodes in orbit
    · real time cycles: Moon 27.3d sidereal month,
-     Sun 365.25d tropical year, seasons via 昏见中星
+     Sun 365.25d tropical year
+   · 360° free rotation via OrbitControls
    ═══════════════════════════════════════════════════════════ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -75,22 +77,21 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .nav .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--goldcore);animation:pulse 2.2s infinite}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 6px var(--goldcore)}50%{opacity:0.4;box-shadow:none}}
 
-/* ═══ FULL-VIEWPORT 3D STAR MAP ═══ */
-.starmap-viewport{position:fixed;inset:0;z-index:1;overflow:hidden}
-#starmap-3d{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
-#starmap-3d:active{cursor:grabbing}
-.starmap-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;
+/* ═══ FULL-VIEWPORT 4D SPIRAL GALAXY ═══ */
+.galaxy-viewport{position:fixed;inset:0;z-index:1;overflow:hidden}
+#galaxy-3d{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+#galaxy-3d:active{cursor:grabbing}
+.galaxy-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;
   background:radial-gradient(90% 80% at 50% 45%,transparent 55%,rgba(2,1,8,0.7) 100%)}
 
-.hero-overlay{position:absolute;top:88px;left:clamp(16px,4vw,56px);z-index:5;max-width:500px;pointer-events:none}
-.hero-overlay .badge{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--goldcore);display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.hero-overlay{position:absolute;top:84px;left:clamp(16px,4vw,56px);z-index:5;max-width:460px;pointer-events:none}
+.hero-overlay .badge{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--goldcore);display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .hero-overlay .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--goldcore);box-shadow:0 0 8px var(--goldcore);animation:pulse 2.4s infinite}
-.hero-overlay h1{font-size:clamp(30px,4.5vw,58px);font-weight:800;letter-spacing:4px;line-height:1.1;margin-bottom:10px;
+.hero-overlay h1{font-size:clamp(30px,4.5vw,58px);font-weight:800;letter-spacing:4px;line-height:1.1;margin-bottom:8px;
   background:linear-gradient(180deg,#ffffff,var(--goldcore) 50%,var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 30px rgba(255,215,106,0.25))}
 .hero-overlay h1 .sub-tag{font-size:clamp(12px,1.6vw,16px);font-weight:400;letter-spacing:6px;display:block;margin-top:6px;color:var(--gold);-webkit-text-fill-color:var(--gold)}
-.hero-overlay .sub{font-family:var(--serif);font-style:normal;font-size:clamp(13px,1.5vw,16px);color:var(--ink2);line-height:1.8;margin-bottom:22px;pointer-events:auto}
+.hero-overlay .sub{font-family:var(--serif);font-style:normal;font-size:clamp(13px,1.5vw,15px);color:var(--ink2);line-height:1.8;margin-bottom:20px;pointer-events:auto}
 .hero-overlay .sub b{color:var(--goldcore);font-style:normal}
-.hero-overlay .sub .dim-glow{color:var(--cyan)}
 .hero-overlay .actions{display:flex;gap:12px;flex-wrap:wrap;pointer-events:auto}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:1px;text-decoration:none;font-family:var(--mono);transition:all 0.25s;border:none;cursor:pointer}
 .btn-primary{background:linear-gradient(135deg,var(--goldcore),var(--violet));color:#1a1204;box-shadow:0 8px 28px rgba(255,215,106,0.35)}
@@ -98,8 +99,20 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .btn-glass{background:rgba(255,255,255,0.06);color:var(--ink);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.14)}
 .btn-glass:hover{background:rgba(255,255,255,0.11);transform:translateY(-2px)}
 
-/* celestial telemetry panel (bottom-left) */
-.core-panel{position:absolute;left:clamp(16px,4vw,56px);bottom:56px;z-index:5;width:min(520px,88vw);padding:18px 20px;pointer-events:auto}
+/* 4 dimension axis switch (right, vertical) */
+.dim-hud{position:absolute;right:clamp(14px,2.5vw,32px);top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.dim-btn{font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:9px 16px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:rgba(8,6,24,0.6);backdrop-filter:blur(16px);color:var(--ink2);transition:all 0.3s;text-align:right}
+.dim-btn:hover{color:var(--ink);border-color:rgba(255,255,255,0.3);transform:translateX(-3px)}
+.dim-btn.active{color:#1a1204;background:linear-gradient(135deg,var(--goldcore),var(--violet));border-color:transparent;box-shadow:0 6px 20px rgba(255,215,106,0.35)}
+.dim-btn .d-num{opacity:0.5;margin-right:6px;font-size:8px}
+.dim-btn .d-desc{display:block;font-size:7px;opacity:0.6;letter-spacing:1px;margin-top:2px}
+.dim-btn[data-x=azure]{border-left:2px solid var(--green)}
+.dim-btn[data-x=vermilion]{border-left:2px solid var(--red)}
+.dim-btn[data-x=white]{border-left:2px solid var(--silver)}
+.dim-btn[data-x=black]{border-left:2px solid var(--violet)}
+
+/* consciousness core live panel (bottom-left) */
+.core-panel{position:absolute;left:clamp(16px,4vw,56px);bottom:52px;z-index:5;width:min(520px,88vw);padding:18px 20px;pointer-events:auto}
 .core-panel .cp-title{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--goldcore);display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .core-panel .cp-title .ring{width:8px;height:8px;border:2px solid var(--goldcore);border-radius:50%;box-shadow:0 0 10px var(--goldcore);animation:spin 4s linear infinite;border-top-color:transparent}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -116,41 +129,20 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .cp-sys-item{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:1px}
 .cp-sys-item b{color:var(--goldcore)}
 
-/* 28 mansions ticker (top-right) */
-.lodge-hud{position:absolute;right:clamp(16px,3vw,40px);top:88px;z-index:5;width:min(360px,40vw);pointer-events:auto}
-.lodge-hud .l-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--goldcore);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.lodge-row{display:flex;flex-wrap:wrap;gap:4px}
-.lodge-tick{font-family:var(--serif);font-size:12px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--ink3);border:1px solid rgba(255,255,255,0.05);transition:all 0.3s;cursor:default}
-.lodge-tick.moon{background:rgba(232,236,255,0.14);color:var(--silver);border-color:rgba(201,208,232,0.5);box-shadow:0 0 10px rgba(201,208,232,0.35);transform:scale(1.15)}
-.lodge-tick.sun{box-shadow:inset 0 0 0 1px rgba(255,215,106,0.6);color:var(--gold);}
-
-/* time cycle controls (below lodge ticker) */
-.time-hud{position:absolute;right:clamp(16px,3vw,40px);top:170px;z-index:5;padding:12px 16px;pointer-events:auto}
+/* time cycle controls (below dim, top-right) */
+.time-hud{position:absolute;right:clamp(14px,2.5vw,32px);top:84px;z-index:5;padding:12px 16px;pointer-events:auto;width:min(230px,46vw)}
 .time-hud .t-grid{display:grid;grid-template-columns:auto auto;gap:4px 14px;align-items:center}
 .time-hud .t-label{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:1px;text-transform:uppercase}
 .time-hud .t-value{font-family:var(--serif);font-size:15px;font-weight:600}
 .time-hud .t-value.moon{color:var(--silver)}
 .time-hud .t-value.sun{color:var(--gold)}
-.time-hud .t-value.season{color:var(--green)}
 .time-hud .t-bar{display:flex;gap:4px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.07)}
 .time-hud .t-btn{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:6px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:rgba(8,6,24,0.6);color:var(--ink2);transition:all 0.25s}
 .time-hud .t-btn.active{color:#1a1204;background:linear-gradient(135deg,var(--goldcore),var(--violet));border-color:transparent}
 .time-hud .t-btn:hover{color:var(--ink)}
 
-/* 4 象 dimension switch (right middle) */
-.dim-hud{position:absolute;right:clamp(16px,3vw,40px);top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-.dim-btn{font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:8px 16px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:rgba(8,6,24,0.6);backdrop-filter:blur(16px);color:var(--ink2);transition:all 0.3s;text-align:right}
-.dim-btn:hover{color:var(--ink);border-color:rgba(255,255,255,0.3);transform:translateX(-3px)}
-.dim-btn.active{color:#1a1204;background:linear-gradient(135deg,var(--goldcore),var(--violet));border-color:transparent;box-shadow:0 6px 20px rgba(255,215,106,0.35)}
-.dim-btn .d-num{opacity:0.5;margin-right:6px;font-size:8px}
-.dim-btn .d-desc{display:block;font-size:7px;opacity:0.6;letter-spacing:1px;margin-top:2px}
-.dim-btn[data-x=azure]{border-left:2px solid var(--green)}
-.dim-btn[data-x=vermilion]{border-left:2px solid var(--red)}
-.dim-btn[data-x=white]{border-left:2px solid var(--silver)}
-.dim-btn[data-x=black]{border-left:2px solid var(--violet)}
-
 /* stats + legend (bottom-right) */
-.galaxy-hud{position:absolute;right:clamp(16px,3vw,40px);bottom:56px;z-index:5;text-align:right;pointer-events:none}
+.galaxy-hud{position:absolute;right:clamp(16px,3vw,40px);bottom:52px;z-index:5;text-align:right;pointer-events:none}
 .g-stats{font-family:var(--mono);font-size:10px;color:var(--ink3);line-height:1.7;letter-spacing:1px;margin-bottom:14px}
 .g-stats b{color:var(--goldcore)}
 .g-legend{display:flex;flex-direction:column;gap:5px;align-items:flex-end}
@@ -171,7 +163,7 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .gtooltip .gt-meta{font-family:var(--mono);font-size:8px;color:var(--ink3);margin-top:10px;letter-spacing:1px}
 .gtooltip .gt-role{font-size:11px;color:var(--ink2);margin-top:4px}
 
-.hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:3px;text-transform:uppercase;opacity:0.5;animation:hintFloat 3s ease-in-out infinite}
+.hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:3px;text-transform:uppercase;opacity:0.5;animation:hintFloat 3s ease-in-out infinite;white-space:nowrap}
 @keyframes hintFloat{0%,100%{opacity:0.35}50%{opacity:0.7}}
 
 /* ═══ Below-fold ═══ */
@@ -226,12 +218,11 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   .nav{top:8px;padding:6px 10px}
   .nav a.nav-link{padding:5px 9px;font-size:10px}
   .nav .nav-link-doc{display:none}
-  .lodge-hud{top:76px;right:16px;width:calc(100vw - 32px)}
-  .time-hud{top:150px;right:16px}
-  .dim-hud{top:auto;bottom:320px;right:16px;transform:none;align-items:flex-end}
+  .time-hud{top:76px;right:16px;width:calc(100vw - 32px)}
+  .dim-hud{top:auto;bottom:330px;right:16px;transform:none;align-items:flex-end}
   .core-panel{left:16px;bottom:110px;width:calc(100vw - 32px)}
   .cp-metrics{grid-template-columns:repeat(2,1fr)}
-  .galaxy-hud{right:16px;bottom:180px}
+  .galaxy-hud{right:16px;bottom:200px}
   .g-legend{display:none}
   .hero-overlay{top:80px;left:16px;max-width:90vw}
   .telemetry{gap:12px;font-size:8px}
@@ -252,32 +243,35 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <a class="nav-link doc nav-link-doc" href="guide/getting-started">DOCS</a>
 </nav>
 
-<!-- ═══ 3D 28 MANSIONS STAR MAP ═══ -->
-<section class="starmap-viewport" id="starmap">
-  <canvas id="starmap-3d"></canvas>
-  <div class="starmap-vignette"></div>
+<!-- ═══ 4D SPIRAL GALAXY ═══ -->
+<section class="galaxy-viewport" id="starmap">
+  <canvas id="galaxy-3d"></canvas>
+  <div class="galaxy-vignette"></div>
 
   <div class="hero-overlay">
-    <div class="badge"><span class="dot"></span> 紫微垣 · 二十八宿 — 恒星时运行中</div>
-    <h1>NEO<span style="font-weight:300">TRIX</span><span class="sub-tag">紫微星 · 二十八宿星图</span></h1>
-    <div class="sub">紫微垣为尊，四象拱卫。意识核心居中，<b>二十八宿</b>沿黄道以真周期运转 — 月亮 27.3 日恒星月巡天，太阳 365.25 日周年视行。拖动观星，切换四象之轴。</div>
+    <div class="badge"><span class="dot"></span> 紫微垣 · 四维星系 — 恒星时运行中</div>
+    <h1>NEO<span style="font-weight:300">TRIX</span><span class="sub-tag">紫微 · 四维星系</span></h1>
+    <div class="sub">意识核心居中，<b>四象</b>化为旋臂 — 生发、光明、肃杀、藏蓄。二十八宿沿四维轨道运转，月亮 27.3 日巡天，太阳 365.25 日周行。<b>360° 自由旋转</b>，悬停星宿。</div>
     <div class="actions">
       <a class="btn btn-primary" href="guide/getting-started">→ 启程</a>
       <a class="btn btn-glass" href="https://github.com/neo-trixs/NeoTrix">★ STAR</a>
     </div>
   </div>
 
-  <!-- 28 mansions ticker -->
-  <div class="lodge-hud">
-    <div class="l-title"><span class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--silver);box-shadow:0 0 6px var(--silver)"></span> 二十八宿 · 月巡宿次 <span id="lodge-moon-name" style="color:var(--silver);margin-left:4px"></span></div>
-    <div class="lodge-row" id="lodge-row"></div>
+  <!-- 4 dimension axis switch -->
+  <div class="dim-hud">
+    <button class="dim-btn active" data-x="azure" data-dim="evolution"><span class="d-num">01</span>青龙 · EVOLUTION<span class="d-desc">SEAL · 生发</span></button>
+    <button class="dim-btn" data-x="vermilion" data-dim="attention"><span class="d-num">02</span>朱雀 · ATTENTION<span class="d-desc">GWT · 光明</span></button>
+    <button class="dim-btn" data-x="white" data-dim="shield"><span class="d-num">03</span>白虎 · SECURITY<span class="d-desc">SHIELD · 肃杀</span></button>
+    <button class="dim-btn" data-x="black" data-dim="memory"><span class="d-num">04</span>玄武 · MEMORY<span class="d-desc">HyperCube · 藏蓄</span></button>
   </div>
 
   <!-- time cycles -->
   <div class="time-hud glass">
     <div class="t-grid">
       <span class="t-label">月 · 恒星月</span><span class="t-value moon" id="tv-moon">角 · 上弦</span>
-      <span class="t-label">日 · 周年视行</span><span class="t-value sun" id="tv-sun">心宿 · 春</span>      <span class="t-label">时 · 模拟日</span><span class="t-value" id="tv-day" style="color:var(--goldcore);font-family:var(--mono);font-size:13px">Day 0</span>
+      <span class="t-label">日 · 周年视行</span><span class="t-value sun" id="tv-sun">心宿 · 春</span>
+      <span class="t-label">时 · 模拟日</span><span class="t-value" id="tv-day" style="color:var(--goldcore);font-family:var(--mono);font-size:13px">Day 0</span>
     </div>
     <div class="t-bar">
       <button class="t-btn" data-sp="0.1">0.1×</button>
@@ -285,14 +279,6 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
       <button class="t-btn" data-sp="10">10×</button>
       <button class="t-btn" data-sp="100">100×</button>
     </div>
-  </div>
-
-  <!-- 4 象 dimension switch -->
-  <div class="dim-hud">
-    <button class="dim-btn active" data-x="azure" data-dim="evolution"><span class="d-num">01</span>青龙 · EVOLUTION<span class="d-desc">SEAL · 生发</span></button>
-    <button class="dim-btn" data-x="vermilion" data-dim="attention"><span class="d-num">02</span>朱雀 · ATTENTION<span class="d-desc">GWT · 光明</span></button>
-    <button class="dim-btn" data-x="white" data-dim="shield"><span class="d-num">03</span>白虎 · SECURITY<span class="d-desc">SHIELD · 肃杀</span></button>
-    <button class="dim-btn" data-x="black" data-dim="memory"><span class="d-num">04</span>玄武 · MEMORY<span class="d-desc">HyperCube · 藏蓄</span></button>
   </div>
 
   <!-- consciousness core live panel -->
@@ -319,7 +305,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
     <div class="g-legend" id="g-legend"></div>
   </div>
 
-  <div class="hint">拖动观星 · 滚轮缩放 · 悬停星宿</div>
+  <div class="hint">360° 拖动旋转 · 滚轮缩放 · 悬停星宿</div>
   <div class="gtooltip" id="gtooltip"></div>
 </section>
 
@@ -328,8 +314,8 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <div class="chain">
     <div class="section-head">
       <div class="sec-kicker">◈ THE SPICE MUST FLOW</div>
-      <h2>四象 <span class="grad">进化链</span></h2>
-      <p>二十八宿分属四象，各主一维度。星移不改其序 — 感知、表征、思辨、行动、进化、守卫、界面，如四时更迭，循环无端。</p>
+      <h2>四维 <span class="grad">进化链</span></h2>
+      <p>四象旋臂各主一维度。感知、表征、思辨、行动、进化、守卫、界面 — 如旋臂周流，循环无端。拖动星系，尽览全貌。</p>
     </div>
   </div>
 
@@ -353,7 +339,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
       <a href="https://github.com/neo-trixs/NeoTrix/issues">ISSUES</a>
     </div>
   </div>
-  <div class="foot-signal">Rust · 0 unsafe · 8,771 tests · 474K LOC · 二十八宿同轨运转</div>
+  <div class="foot-signal">Rust · 0 unsafe · 8,771 tests · 474K LOC · 四维同轨运转</div>
 </footer>
 
 <!-- ═══ TELEMETRY ═══ -->
@@ -392,8 +378,6 @@ setInterval(()=>{
 
 /* ═══════════════════════════════════════════════════════════
    2. 二十八宿 ASTRONOMICAL DATA (real ecliptic longitudes)
-   RA given in hours of right ascension → ecliptic longitude.
-   宿由象、赤经、距星名与二十八宿本义构成。
    ═══════════════════════════════════════════════════════════ */
 const XIANG = {
   azure:     { zh:'青龙', en:'Azure Dragon',   dir:'东', color:'#2ee6a8', dim:'evolution', dimZh:'进化',   w:'SEAL · 生发', keyword:'evolution' },
@@ -401,7 +385,6 @@ const XIANG = {
   white:     { zh:'白虎', en:'White Tiger',    dir:'西', color:'#c9d0e8', dim:'shield',    dimZh:'守卫',   w:'SHIELD · 肃杀',keyword:'shield' },
   black:     { zh:'玄武', en:'Black Tortoise', dir:'北', color:'#7050f0', dim:'memory',    dimZh:'记忆',   w:'HyperCube · 藏蓄', keyword:'memory' }
 };
-/* 二十八宿，依传统次序（自角至轸）。赤经为现代近似值（时）。 */
 const LODGES = [
   { zh:'角', pinyin:'Jiǎo',  en:'Horn',            x:'azure',     ra:12.80, star:'α Vir — 角宿一',        attrib:'苍龙之角' },
   { zh:'亢', pinyin:'Kàng',  en:'Neck',            x:'azure',     ra:14.10, star:'κ Vir — 亢宿一',        attrib:'龙喉' },
@@ -432,23 +415,7 @@ const LODGES = [
   { zh:'翼', pinyin:'Yì',    en:'Wings',           x:'vermilion', ra:11.50, star:'α Crt — 翼宿一',        attrib:'鸟翼' },
   { zh:'轸', pinyin:'Zhěn',  en:'Chariot',         x:'vermilion', ra:12.30, star:'γ Crv — 轸宿一',        attrib:'鸟车' }
 ];
-/* 天球换算：赤经(h)→经度，黄纬取 ±(象幅)。 */
 const RA2LON = h => (h/24)*Math.PI*2;
-const R = 34;   /* star map sphere radius */
-const ECL = 23.4*Math.PI/180;
-function lodgePos(l, radius) {
-  const lon = RA2LON(l.ra);
-  /* 置于黄道带：经度=lon，纬=黄道倾角余弦投影 */
-  const lat = -ECL*0.55 + (l.x==='black'?ECL*0.2:0) + (l.x==='azure'?-ECL*0.25:0) + (l.x==='vermilion'?ECL*0.15:0) + (l.x==='white'?ECL*0.0:0);
-  const y = radius*Math.sin(lat);
-  const c = radius*Math.cos(lat);
-  return new THREE.Vector3(c*Math.cos(lon), y, c*Math.sin(lon));
-}
-function eclipticPos(lon, radius) {
-  const y = radius*Math.sin(-ECL*0.2);
-  const c = radius*Math.cos(-ECL*0.2);
-  return new THREE.Vector3(c*Math.cos(lon), y, c*Math.sin(lon));
-}
 
 /* ═══════════════════════════════════════════════════════════
    3. CAPABILITY DATA (real: 102 nodes · 50 edges · 8 domains)
@@ -465,7 +432,6 @@ const DOMAIN_META = {
 };
 const GALAXY = {"nodes":[{"id":"exp::nt-repair::build_hygiene","domain":"repair","layer":"l0primitive","caps":["build_hygiene"]},{"id":"exp::nt-repair::root_cause_method","domain":"repair","layer":"l0primitive","caps":["root_cause_method"]},{"id":"nt_core_parallel::intent_isolation","domain":"core","layer":"l1composite","caps":["intent_isolation","need_to_know"]},{"id":"nt_core_parallel::atomic_decomposition","domain":"core","layer":"l2orchestrator","caps":["atomic_decomposition","output_contract"]},{"id":"nt_mind_cleanup::disk_cleanup_engine","domain":"mind","layer":"l2orchestrator","caps":["disk-cleanup","archive","backup","cache-purge"]},{"id":"nt_mind_cleanup::ai_model_cache_engine","domain":"mind","layer":"l2orchestrator","caps":["ai-model-cache","tm-snapshot","cache-management"]},{"id":"nt_mind_cleanup::docker_prune_engine","domain":"mind","layer":"l2orchestrator","caps":["docker-prune","project-molting"]},{"id":"nt_mind_skill_engine::complementarity_attribution","domain":"mind","layer":"l3domainservice","caps":["complementarity","attribution"]},{"id":"nt_mind_skill_engine::progressive_disclosure","domain":"mind","layer":"l3domainservice","caps":["progressive-disclosure"]},{"id":"nt_mind_skill_engine::context_budget","domain":"mind","layer":"l3domainservice","caps":["context-budget"]},{"id":"nt_mind_evolution_loop::independent_auditor_gate","domain":"mind","layer":"l2orchestrator","caps":["independent-audit"]},{"id":"nt_mind_guard::mape_validation_gate","domain":"mind","layer":"l2orchestrator","caps":["mape-validation"]},{"id":"nt_mind_evolution_loop::skill_crystallization","domain":"mind","layer":"l2orchestrator","caps":["skill-crystallization"]},{"id":"nt_mind_evolution_loop::experience_absorption","domain":"mind","layer":"l2orchestrator","caps":["experience-absorption"]},{"id":"nt_mind_evolution_loop::self_test_wiring","domain":"mind","layer":"l2orchestrator","caps":["self-test-wiring"]},{"id":"nt_mind_evolution_loop::dual_verification","domain":"mind","layer":"l2orchestrator","caps":["dual-verification"]},{"id":"nt_mind_evolution_loop::resilience_scoring","domain":"mind","layer":"l2orchestrator","caps":["resilience-scoring"]},{"id":"nt_mind_evolution_loop::cycle_based_learning","domain":"mind","layer":"l2orchestrator","caps":["cycle-based-learning"]},{"id":"nt_mind_evolution_loop::lazy_learning","domain":"mind","layer":"l2orchestrator","caps":["lazy-learning"]},{"id":"nt_mind_evolution_loop::fractal_audit","domain":"mind","layer":"l2orchestrator","caps":["fractal-audit"]},{"id":"nt_mind_evolution_loop::markov_estimation","domain":"mind","layer":"l2orchestrator","caps":["markov-estimation"]},{"id":"nt_mind_evolution_loop::dms","domain":"mind","layer":"l2orchestrator","caps":["dms"]},{"id":"nt_mind_evolution_loop::phase_transition","domain":"mind","layer":"l2orchestrator","caps":["phase-transition"]},{"id":"nt_mind_evolution_loop::mapping_via_embeddings","domain":"mind","layer":"l2orchestrator","caps":["mapping-via-embeddings"]},{"id":"nt_mind_evolution_loop::priority_based_allocation","domain":"mind","layer":"l2orchestrator","caps":["priority-allocation"]},{"id":"nt_memory_qret::quality_ranked","domain":"memory","layer":"l1composite","caps":["quality-ranked","retraction-aware"]},{"id":"nt_memory_qret::gamble_walk","domain":"memory","layer":"l1composite","caps":["gamble-walk"]},{"id":"nt_memory_qret::bootstrap_scheduler","domain":"memory","layer":"l1composite","caps":["bootstrap-scheduler"]},{"id":"nt_memory_qret::short_term_memory","domain":"memory","layer":"l1composite","caps":["short-term-memory"]},{"id":"nt_memory_qret::consolidation_rules","domain":"memory","layer":"l1composite","caps":["consolidation-rules"]},{"id":"nt_memory_search::neural_fts5","domain":"memory","layer":"l1composite","caps":["neural-fts5","hybrid-search"]},{"id":"nt_memory_search::bm25_system","domain":"memory","layer":"l1composite","caps":["bm25","ranking"]},{"id":"nt_memory_search::embedding_store","domain":"memory","layer":"l1composite","caps":["embeddings"]},{"id":"nt_memory_search::hypercube_subsystem","domain":"memory","layer":"l1composite","caps":["hypercube","vector-symbolic"]},{"id":"nt_memory_archive::retention_policy","domain":"memory","layer":"l1composite","caps":["retention-policy"]},{"id":"nt_memory_archive::context_windows","domain":"memory","layer":"l1composite","caps":["context-windows"]},{"id":"nt_memory_archive::storage_fencing","domain":"memory","layer":"l1composite","caps":["storage-fencing","untrusted-fencing"]},{"id":"nt_memory_archive::privacy_scans","domain":"memory","layer":"l1composite","caps":["privacy-scans","pii-redaction"]},{"id":"nt_memory_archive::memory_versioning","domain":"memory","layer":"l1composite","caps":["memory-versioning"]},{"id":"nt_memory_archive::kb_transactions","domain":"memory","layer":"l1composite","caps":["kb-transactions"]},{"id":"nt_memory_archive::hierarchical_domains","domain":"memory","layer":"l1composite","caps":["hierarchical-domains"]},{"id":"nt_memory_archive::domain_hierarchy","domain":"memory","layer":"l1composite","caps":["domain-hierarchy"]},{"id":"nt_memory_archive::vector_store","domain":"memory","layer":"l1composite","caps":["vector-store"]},{"id":"nt_memory_archive::kb_optimization","domain":"memory","layer":"l1composite","caps":["kb-optimization","storage-tuning"]},{"id":"nt_world_crawl::unified_crawler","domain":"world","layer":"l1composite","caps":["unified-crawl"]},{"id":"nt_world_crawl::content_extraction","domain":"world","layer":"l1composite","caps":["content-extraction"]},{"id":"nt_world_crawl::content_similarity","domain":"world","layer":"l1composite","caps":["content-similarity","dedup"]},{"id":"nt_world_crawl::domain_follow","domain":"world","layer":"l1composite","caps":["domain-follow"]},{"id":"nt_world_crawl::open_web_crawler","domain":"world","layer":"l1composite","caps":["open-web"]},{"id":"nt_world_crawl::social_scraper","domain":"world","layer":"l1composite","caps":["social-scrape"]},{"id":"nt_world_crawl::deep_web_crawler","domain":"world","layer":"l1composite","caps":["deep-web"]},{"id":"nt_world_crawl::intel_pipeline","domain":"world","layer":"l1composite","caps":["intel-pipeline"]},{"id":"nt_world_crawl::article_digest","domain":"world","layer":"l1composite","caps":["article-digest"]},{"id":"nt_world_crawl::rss_tracker","domain":"world","layer":"l1composite","caps":["rss-tracker"]},{"id":"nt_world_crawl::github_crawler","domain":"world","layer":"l1composite","caps":["github-crawl"]},{"id":"nt_world_search::ordered_backend_router","domain":"world","layer":"l1composite","caps":["ordered-backends","ddg-wikipedia"]},{"id":"nt_world_search::grow_search","domain":"world","layer":"l1composite","caps":["grow-search","evolving-queries"]},{"id":"nt_world_search::bayesian_experiment","domain":"world","layer":"l1composite","caps":["bayesian-design","voi","m-open"]},{"id":"nt_world_classify::harm_classifier","domain":"world","layer":"l1composite","caps":["harm-classification"]},{"id":"nt_world_classify::topic_tagger","domain":"world","layer":"l1composite","caps":["topic-tagging"]},{"id":"nt_world_classify::self_awareness_classifier","domain":"world","layer":"l1composite","caps":["self-awareness"]},{"id":"nt_io_llm::model_gateway","domain":"io","layer":"l1composite","caps":["model-gateway","provider-agnostic"]},{"id":"nt_io_llm::server_mode","domain":"io","layer":"l1composite","caps":["server-mode","openai-compat"]},{"id":"nt_io_llm::streaming_tools","domain":"io","layer":"l1composite","caps":["streaming"]},{"id":"nt_io_llm::response_scorer","domain":"io","layer":"l1composite","caps":["response-scoring"]},{"id":"nt_io_llm::provider_failover","domain":"io","layer":"l1composite","caps":["provider-failover"]},{"id":"nt_io_llm::temporal_tools","domain":"io","layer":"l1composite","caps":["temporal-tools"]},{"id":"nt_io_cli::command_registry","domain":"io","layer":"l1composite","caps":["50+ commands"]},{"id":"nt_io_cli::session_mgmt","domain":"io","layer":"l1composite","caps":["session-management"]},{"id":"nt_io_cli::desktop_bridge","domain":"io","layer":"l1composite","caps":["tauri-desktop","59-commands"]},{"id":"nt_io_cli::agent_view","domain":"io","layer":"l1composite","caps":["agent-view"]},{"id":"nt_io_cli::file_watcher","domain":"io","layer":"l1composite","caps":["file-watching"]},{"id":"nt_io_cli::process_spawn","domain":"io","layer":"l1composite","caps":["process-spawn"]},{"id":"nt_io_cli::reasoning_trace","domain":"io","layer":"l1composite","caps":["reasoning-trace","audit-trail"]},{"id":"nt_io_cli::invocation_firewall","domain":"io","layer":"l1composite","caps":["invocation-firewall"]},{"id":"nt_io_cli::dependency_vault","domain":"io","layer":"l1composite","caps":["dependency-vault"]},{"id":"nt_io_cli::secrets_hub","domain":"io","layer":"l1composite","caps":["secrets-hub","credential-vault"]},{"id":"nt_core_self::attention_manager","domain":"core","layer":"l1composite","caps":["attention-manager","dual-specialization"]},{"id":"nt_core_self::growth_engine","domain":"core","layer":"l1composite","caps":["growth-engine","consciousness-tree"]},{"id":"nt_core_self::self_review","domain":"core","layer":"l1composite","caps":["self-review"]},{"id":"nt_core_self::self_evolving_rules","domain":"core","layer":"l1composite","caps":["self-evolving-rules"]},{"id":"nt_core_self::governance_guard","domain":"core","layer":"l1composite","caps":["governance","constitution"]},{"id":"nt_core_self::mars_dual_process","domain":"core","layer":"l1composite","caps":["system1","system2","bridge"]},{"id":"nt_core_self::reentrant_lock","domain":"core","layer":"l1composite","caps":["reentrant-lock"]},{"id":"nt_core_self::eventbus_subscription","domain":"core","layer":"l1composite","caps":["event-bus"]},{"id":"nt_core_self::absorption_protocol","domain":"core","layer":"l1composite","caps":["absorption"]},{"id":"nt_core_hcube::bayesian_experiment","domain":"core","layer":"l2orchestrator","caps":["voi-selection","m-open-expansion"]},{"id":"nt_core_hcube::vsa_hypercube","domain":"core","layer":"l2orchestrator","caps":["vsa-4096","bind-bundle-permute"]},{"id":"nt_shield_sandbox::egress_policy","domain":"shield","layer":"l1composite","caps":["egress-policy","trust-boundary"]},{"id":"nt_shield_sandbox::wasi_fuel","domain":"shield","layer":"l1composite","caps":["fuel-metered","timeout-gated"]},{"id":"nt_shield_stealth::proxy_pool","domain":"shield","layer":"l1composite","caps":["proxy-pool"]},{"id":"nt_shield_stealth::tor_client","domain":"shield","layer":"l1composite","caps":["tor-client"]},{"id":"nt_shield_stealth::fingerprint_mgmt","domain":"shield","layer":"l1composite","caps":["fingerprint"]},{"id":"nt_shield_audit::reasoning_trace","domain":"shield","layer":"l1composite","caps":["reasoning-trace","pii-scan","injection-scan"]},{"id":"nt_shield_audit::divergence_scan","domain":"shield","layer":"l1composite","caps":["divergence-scan"]},{"id":"nt_shield_audit::governance_audit","domain":"shield","layer":"l1composite","caps":["governance-audit"]},{"id":"nt_act_mcp::mcp_gateway","domain":"act","layer":"l1composite","caps":["mcp-gateway","ptc-tools"]},{"id":"nt_act_mcp::mcp_tool_registry","domain":"act","layer":"l1composite","caps":["tool-registry"]},{"id":"nt_act_code::apply_patch","domain":"act","layer":"l1composite","caps":["apply-patch"]},{"id":"nt_act_code::revert_safety","domain":"act","layer":"l1composite","caps":["revert-safety"]},{"id":"nt_act_autonomy::task_dispatcher","domain":"act","layer":"l2orchestrator","caps":["task-dispatch"]},{"id":"nt_act_autonomy::agent_loop","domain":"act","layer":"l2orchestrator","caps":["agent-loop"]}],"edges":[["nt_core_parallel::atomic_decomposition","nt_core_parallel::intent_isolation"],["nt_mind_skill_engine::complementarity_attribution","nt_mind_skill_engine::progressive_disclosure"],["nt_mind_evolution_loop::independent_auditor_gate","nt_mind_guard::mape_validation_gate"],["nt_mind_evolution_loop::skill_crystallization","nt_mind_evolution_loop::experience_absorption"],["nt_mind_evolution_loop::self_test_wiring","nt_mind_evolution_loop::dual_verification"],["nt_mind_evolution_loop::resilience_scoring","nt_mind_evolution_loop::cycle_based_learning"],["nt_mind_evolution_loop::lazy_learning","nt_mind_evolution_loop::fractal_audit"],["nt_mind_evolution_loop::markov_estimation","nt_mind_evolution_loop::dms"],["nt_mind_evolution_loop::phase_transition","nt_mind_evolution_loop::mapping_via_embeddings"],["nt_mind_evolution_loop::mapping_via_embeddings","nt_memory_qret::quality_ranked"],["nt_memory_qret::gamble_walk","nt_memory_qret::bootstrap_scheduler"],["nt_memory_qret::bootstrap_scheduler","nt_memory_search::neural_fts5"],["nt_memory_search::neural_fts5","nt_memory_search::bm25_system"],["nt_memory_search::bm25_system","nt_memory_search::embedding_store"],["nt_memory_search::embedding_store","nt_memory_search::hypercube_subsystem"],["nt_memory_archive::retention_policy","nt_memory_archive::context_windows"],["nt_memory_archive::storage_fencing","nt_memory_archive::privacy_scans"],["nt_memory_archive::memory_versioning","nt_memory_archive::kb_transactions"],["nt_memory_archive::hierarchical_domains","nt_memory_archive::domain_hierarchy"],["nt_world_crawl::unified_crawler","nt_world_crawl::content_extraction"],["nt_world_crawl::content_extraction","nt_world_crawl::content_similarity"],["nt_world_crawl::domain_follow","nt_world_crawl::open_web_crawler"],["nt_world_crawl::social_scraper","nt_world_crawl::deep_web_crawler"],["nt_world_crawl::intel_pipeline","nt_world_crawl::article_digest"],["nt_world_crawl::rss_tracker","nt_world_crawl::github_crawler"],["nt_world_search::ordered_backend_router","nt_world_search::grow_search"],["nt_world_search::bayesian_experiment","nt_world_crawl::intel_pipeline"],["nt_world_classify::harm_classifier","nt_world_classify::topic_tagger"],["nt_world_classify::self_awareness_classifier","nt_world_classify::harm_classifier"],["nt_io_llm::model_gateway","nt_io_llm::server_mode"],["nt_io_llm::streaming_tools","nt_io_llm::response_scorer"],["nt_io_llm::provider_failover","nt_io_llm::model_gateway"],["nt_io_cli::command_registry","nt_io_cli::session_mgmt"],["nt_io_cli::desktop_bridge","nt_io_cli::agent_view"],["nt_io_cli::file_watcher","nt_io_cli::process_spawn"],["nt_io_cli::reasoning_trace","nt_io_cli::invocation_firewall"],["nt_io_cli::dependency_vault","nt_io_cli::secrets_hub"],["nt_core_self::attention_manager","nt_core_self::growth_engine"],["nt_core_self::self_review","nt_core_self::self_evolving_rules"],["nt_core_self::governance_guard","nt_core_self::mars_dual_process"],["nt_core_self::reentrant_lock","nt_core_self::eventbus_subscription"],["nt_core_self::absorption_protocol","nt_memory_archive::memory_versioning"],["nt_core_hcube::bayesian_experiment","nt_world_search::bayesian_experiment"],["nt_shield_sandbox::egress_policy","nt_shield_sandbox::wasi_fuel"],["nt_shield_stealth::proxy_pool","nt_shield_stealth::tor_client"],["nt_shield_audit::reasoning_trace","nt_shield_audit::divergence_scan"],["nt_shield_audit::divergence_scan","nt_shield_audit::governance_audit"],["nt_act_mcp::mcp_gateway","nt_act_mcp::mcp_tool_registry"],["nt_act_code::apply_patch","nt_act_code::revert_safety"],["nt_act_autonomy::task_dispatcher","nt_act_autonomy::agent_loop"]]};
 
-/* domain → 象 assignment (每象承载对应注意力轴) */
 const DOMAIN_XIANG = {
   core:'black',   /* 紫微在极, 同归玄武藏蓄之轴 (memory) */
   mind:'azure',   /* 青龙 · evolution */
@@ -478,9 +444,12 @@ const DOMAIN_XIANG = {
 };
 
 /* ═══════════════════════════════════════════════════════════
-   4. THREE.JS STAR MAP
+   4. THREE.JS 4D SPIRAL GALAXY
+   · 4 spiral arms, one per 象 (dimension)
+   · core star at center, mansions on arms, nodes in orbit
+   · 360° free rotation
    ═══════════════════════════════════════════════════════════ */
-const canvas = document.getElementById('starmap-3d');
+const canvas = document.getElementById('galaxy-3d');
 const wrapper = document.getElementById('starmap');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -488,100 +457,99 @@ renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x020108, 0.0075);
-const camera = new THREE.PerspectiveCamera(55, wrapper.clientWidth/wrapper.clientHeight, 0.1, 400);
-camera.position.set(0, 40, 96);
+scene.fog = new THREE.FogExp2(0x020108, 0.006);
+const camera = new THREE.PerspectiveCamera(52, wrapper.clientWidth/wrapper.clientHeight, 0.1, 400);
+camera.position.set(52, 34, 82);
 
+/* 360° free rotation: full azimuth + polar freedom, auto-rotate */
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.dampingFactor = 0.08;
+controls.dampingFactor = 0.07;
 controls.autoRotate = true;
-controls.autoRotateSpeed = 0.5;
-controls.minDistance = 26;
-controls.maxDistance = 180;
+controls.autoRotateSpeed = 0.6;
+controls.minDistance = 30;
+controls.maxDistance = 190;
 controls.enablePan = false;
+controls.minPolarAngle = 0.05;
+controls.maxPolarAngle = Math.PI - 0.05;
 
-const starGroup = new THREE.Group();
-scene.add(starGroup);
+const galaxyGroup = new THREE.Group();
+scene.add(galaxyGroup);
 
-/* node registry */
 const nodeById = {};
 const meshToNode = new Map();
 
-/* celestial grid: equator + ecliptic reference circles */
-function ringCircle(radius, tiltY, segments, color, opacity) {
-  const pts=[];
-  for(let i=0;i<=segments;i++){
-    const a=i/segments*Math.PI*2;
-    pts.push(new THREE.Vector3(radius*Math.cos(a), radius*Math.sin(tiltY), radius*Math.sin(a)));
-  }
-  const g=new THREE.BufferGeometry().setFromPoints(pts);
-  const m=new THREE.LineBasicMaterial({color, transparent:true, opacity});
-  const l=new THREE.Line(g,m);
-  starGroup.add(l);
-  return l;
-}
-const eqRing = ringCircle(R*0.99, 0, 96, 0x7050f0, 0.12);
-const ecRing = ringCircle(R*0.99, -ECL, 96, 0xffd76a, 0.10);
+/* 4D spiral arm geometry:
+   each 象 → a spiral arm from core outward.
+   angle sweeps per arm, radius grows, mansions sit on the arm. */
+const ARM_TURN   = 2.2;         /* radians of sweep per arm */
+const ARM_R0     = 11;          /* inner radius */
+const ARM_R1     = 44;          /* outer radius */
+const ARM_Y_AMP  = 2.6;         /* vertical breathing of arms */
 
-/* 紫微星 = consciousness core at the pole */
+/* order of 象 → arm index: 青龙0 朱雀1 白虎2 玄武3 (匹配 dim 按钮) */
+const XIANG_ORDER = ['azure','vermilion','white','black'];
+const xiangIndex = l => XIANG_ORDER.indexOf(l.x);
+
+function spiralPoint(xiangKey, k, R) {
+  /* k: 0..1 position along the arm */
+  const i = XIANG_ORDER.indexOf(xiangKey);
+  const base = (i / 4) * Math.PI * 2 + 0.35;
+  const theta = base + k * ARM_TURN;
+  const r = ARM_R0 + k * (ARM_R1 - ARM_R0);
+  const y = Math.sin(k * Math.PI * 2 + i * 1.7) * ARM_Y_AMP;
+  return new THREE.Vector3(r * Math.cos(theta), y, r * Math.sin(theta));
+}
+
+/* 紫微星 = consciousness core at the center */
 const core = { data:{ id:'core::consciousness_core', domain:'core', caps:['consciousness_core','phi','coherence'] } };
 {
-  const pos = new THREE.Vector3(0, R*0.88, 0);
-  const geo = new THREE.SphereGeometry(2.1, 32, 32);
+  const pos = new THREE.Vector3(0, 0, 0);
+  const geo = new THREE.SphereGeometry(2.4, 40, 40);
   const mat = new THREE.MeshBasicMaterial({ color:0xffd76a });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.position.copy(pos);
-  starGroup.add(mesh);
-  /* golden halo */
-  const halo = new THREE.Mesh(new THREE.SphereGeometry(3.6, 24, 24),
-    new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.16 }));
-  halo.position.copy(pos); starGroup.add(halo);
-  /* corona ring */
-  const cor = new THREE.Mesh(new THREE.RingGeometry(4.4, 5.2, 48),
-    new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.5, side:THREE.DoubleSide }));
-  cor.position.copy(pos); cor.rotation.x = Math.PI/2; starGroup.add(cor);
-  /* polar axis line */
-  const axis = new THREE.Line(new THREE.BufferGeometry().setFromPoints([
-    new THREE.Vector3(0,-R*1.05,0), new THREE.Vector3(0,R*1.05,0)]),
-    new THREE.LineBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.15 }));
-  starGroup.add(axis);
-  core.mesh = mesh; core.pos = pos;
+  galaxyGroup.add(mesh);
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(4.4, 28, 28),
+    new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.15 }));
+  halo.position.copy(pos); galaxyGroup.add(halo);
+  const cor = new THREE.Mesh(new THREE.RingGeometry(5.2, 6.2, 64),
+    new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.4, side:THREE.DoubleSide }));
+  cor.rotation.x = Math.PI/2; galaxyGroup.add(cor);
+  core.mesh = mesh; core.pos = pos; core.ring = cor;
   meshToNode.set(mesh, { type:'node', rec:{ data:core.data, domain:'core', mesh, isCore:true } });
   meshToNode.set(halo, { type:'node', rec:{ data:core.data, domain:'core', mesh:halo, isCore:true } });
 }
 
-/* 紫微内垣：core 域 13 节点环绕北极 */
+/* 紫微内垣：core 域 13 节点环绕核心 */
 const coreNodes = GALAXY.nodes.filter(n=>n.domain==='core');
 coreNodes.forEach((n,i)=>{
   const color = new THREE.Color(DOMAIN_META.core.color);
   const a0 = i/coreNodes.length*Math.PI*2;
-  const r = 7.5 + (i%3)*2.2;
+  const r = 8.2 + (i%3)*2.4;
   const yOff = (i%2===0?1:-1)*(0.5+(i%4)*0.4);
   const size = n.layer==='l3domainservice'?0.5:n.layer==='l2orchestrator'?0.38:0.28;
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color}));
-  starGroup.add(mesh);
+  galaxyGroup.add(mesh);
   const rec = { mesh, data:n, domain:n.domain, orbit:{ a0, r, yOff, sp:0.02+ (i%5)*0.004 } };
   mesh.position.set(core.pos.x + Math.cos(a0)*r, core.pos.y + yOff, core.pos.z + Math.sin(a0)*r);
   nodeById[n.id]=rec;
   meshToNode.set(mesh,{type:'node',rec});
 });
 
-/* 二十八宿 stars */
+/* 二十八宿: 4 spiral arms, 7 mansions per arm */
 const lodgeMeshes = {};
 LODGES.forEach((l,i)=>{
   const xiang = XIANG[l.x];
-  const pos = lodgePos(l, R);
+  const k = (i % 7) / 6;                 /* 0..1 along its arm */
+  const pos = spiralPoint(l.x, k, ARM_R1);
   const color = new THREE.Color(xiang.color);
-  /* main star */
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(l.x==='vermilion'?1.0:0.85, 20, 20),
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1.0, 20, 20),
     new THREE.MeshBasicMaterial({color}));
-  mesh.position.copy(pos); starGroup.add(mesh);
-  /* halo */
-  const halo = new THREE.Mesh(new THREE.SphereGeometry(1.9, 16, 16),
+  mesh.position.copy(pos); galaxyGroup.add(mesh);
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(2.2, 16, 16),
     new THREE.MeshBasicMaterial({color, transparent:true, opacity:0.15}));
-  halo.position.copy(pos); starGroup.add(halo);
-  /* label sprite via canvas */
+  halo.position.copy(pos); galaxyGroup.add(halo);
   const cvs = document.createElement('canvas'); cvs.width=64; cvs.height=64;
   const ctx = cvs.getContext('2d');
   ctx.clearRect(0,0,64,64);
@@ -593,57 +561,50 @@ LODGES.forEach((l,i)=>{
   const tex = new THREE.CanvasTexture(cvs);
   const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
   spr.scale.set(3.4, 3.4, 1);
-  spr.position.copy(pos); spr.position.y += 2.4;
-  starGroup.add(spr);
-  lodgeMeshes[l.zh] = { mesh, halo, spr, data:l, pos, xiang };
+  spr.position.copy(pos); spr.position.y += 2.6;
+  galaxyGroup.add(spr);
+  lodgeMeshes[l.zh] = { mesh, halo, spr, data:l, pos, xiang, k };
   meshToNode.set(mesh, { type:'lodge', lodge:l, mesh });
   meshToNode.set(halo, { type:'lodge', lodge:l, mesh });
 });
 
-/* 象连接线：同象七宿连成弧 */
+/* 螺旋臂连接线: 同象七宿连成旋臂 */
 Object.keys(XIANG).forEach(x=>{
   const lodges = LODGES.filter(l=>l.x===x);
   if(lodges.length<2) return;
-  const pts = lodges.map(l=>lodgePos(l, R));
-  const curve = new THREE.CatmullRomCurve3(pts, false, 'catmullrom', 0.5);
-  const cpts = curve.getPoints(48);
+  const pts = [];
+  for(let k=0;k<=1.0001;k+=0.03){
+    pts.push(spiralPoint(x, k, ARM_R1));
+  }
+  const curve = new THREE.CatmullRomCurve3(pts, false, 'catmullrom', 0.3);
+  const cpts = curve.getPoints(60);
   const g = new THREE.BufferGeometry().setFromPoints(cpts);
   const col = new THREE.Color(XIANG[x].color);
-  const m = new THREE.LineBasicMaterial({ color:col, transparent:true, opacity:0.4 });
-  starGroup.add(new THREE.Line(g,m));
+  const m = new THREE.LineBasicMaterial({ color:col, transparent:true, opacity:0.35 });
+  galaxyGroup.add(new THREE.Line(g,m));
 });
 
-/* 能力节点 → 宿主宿 (per domain assignment) */
-const domainLodgePool = {
-  core:null,
-  mind:LODGES.filter(l=>l.x==='azure'),
-  act:LODGES.filter(l=>l.x==='vermilion'),
-  io:LODGES.filter(l=>l.x==='vermilion'),
-  memory:LODGES.filter(l=>l.x==='black'),
-  world:LODGES.filter(l=>l.x==='white'),
-  shield:LODGES.filter(l=>l.x==='white'),
-  repair:LODGES.filter(l=>l.x==='azure')
-};
+/* 能力节点 → 沿旋臂分布 (per domain assignment) */
 const capMeshes = [];
 GALAXY.nodes.filter(n=>n.domain!=='core').forEach((n,i)=>{
   const meta = DOMAIN_META[n.domain] || { color:'#ffffff' };
-  const pool = domainLodgePool[n.domain];
-  if(!pool || pool.length===0) return;
-  /* 轮流分配给七宿 */
-  const lodge = pool[i % pool.length];
-  const host = lodgePos(lodge, R);
+  const xiangKey = DOMAIN_XIANG[n.domain];
+  if(!xiangKey) return;
+  const k = (i % 7) / 6;                 /* position along the arm */
+  const base = spiralPoint(xiangKey, k, ARM_R1);
   const color = new THREE.Color(meta.color);
-  const rr = 3.4 + Math.random()*2.4;
+  const rr = 2.8 + Math.random()*2.2;
   const a0 = Math.random()*Math.PI*2;
-  const yJ = (Math.random()-0.5)*1.2;
+  const yJ = (Math.random()-0.5)*1.1;
   const size = n.layer==='l3domainservice'?0.5:n.layer==='l2orchestrator'?0.38:0.28;
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color}));
-  starGroup.add(mesh);
+  galaxyGroup.add(mesh);
   const halo = new THREE.Mesh(new THREE.SphereGeometry(size*2.8,10,10),
     new THREE.MeshBasicMaterial({color, transparent:true, opacity:0.08}));
-  starGroup.add(halo);
-  const rec = { mesh, halo, data:n, domain:n.domain, orbit:{ host:host.clone(), a0, rr, yJ, sp:0.04+Math.random()*0.05 } };
-  mesh.position.set(host.x + Math.cos(a0)*rr, host.y + yJ, host.z + Math.sin(a0)*rr);
+  galaxyGroup.add(halo);
+  const rec = { mesh, halo, data:n, domain:n.domain, k, xiangKey,
+    orbit:{ host:base.clone(), rr, a0, yJ, sp:0.04+Math.random()*0.05 } };
+  mesh.position.set(base.x + Math.cos(a0)*rr, base.y + yJ, base.z + Math.sin(a0)*rr);
   capMeshes.push(rec);
   nodeById[n.id]=rec;
   meshToNode.set(mesh,{type:'node',rec});
@@ -657,44 +618,39 @@ GALAXY.edges.forEach((e, li)=>{
   if(!a || !b) return;
   const curve = new THREE.QuadraticBezierCurve3(
     a.mesh.position.clone(),
-    a.mesh.position.clone().add(b.mesh.position.clone()).multiplyScalar(0.5).add(new THREE.Vector3((Math.random()-0.5)*6,(Math.random()-0.5)*6,(Math.random()-0.5)*6)),
+    a.mesh.position.clone().add(b.mesh.position.clone()).multiplyScalar(0.5).add(new THREE.Vector3((Math.random()-0.5)*5,(Math.random()-0.5)*5,(Math.random()-0.5)*5)),
     b.mesh.position.clone());
   const pts = curve.getPoints(20);
   const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
   const col = new THREE.Color(DOMAIN_META[a.domain].color);
-  const line = new THREE.Line(lineGeo, new THREE.LineBasicMaterial({color:col, transparent:true, opacity:0.25}));
-  starGroup.add(line);
+  const line = new THREE.Line(lineGeo, new THREE.LineBasicMaterial({color:col, transparent:true, opacity:0.22}));
+  galaxyGroup.add(line);
   linkObjects.push({line, curve, a, b, color:col, control:curve.v2.clone()});
 });
 
 /* ═══════════════════════════════════════════════════════════
    5. REAL TIME CYCLES — Moon sidereal month + Sun tropical year
-   Moon: 27.321661 d (sidereal month)
-   Sun : 365.242190 d (tropical year)
-   At 1×: 1 second ≈ 1 simulated day (Moon circles in 27.3s)
    ═══════════════════════════════════════════════════════════ */
 const SIDEREAL_MONTH = 27.321661;
 const TROPICAL_YEAR  = 365.242190;
 const SYNODIC_MONTH  = 29.530589;
 let simDay = 0.0;
-let dayRate = 1.0; /* simulated days per real second */
+let dayRate = 1.0;
 const moonMesh = new THREE.Mesh(new THREE.SphereGeometry(1.25, 24, 24),
   new THREE.MeshBasicMaterial({ color:0xc9d0e8 }));
-starGroup.add(moonMesh);
+galaxyGroup.add(moonMesh);
 const moonHalo = new THREE.Mesh(new THREE.SphereGeometry(2.2, 16, 16),
   new THREE.MeshBasicMaterial({ color:0xc9d0e8, transparent:true, opacity:0.18 }));
-starGroup.add(moonHalo);
+galaxyGroup.add(moonHalo);
 const sunMesh = new THREE.Mesh(new THREE.SphereGeometry(1.5, 24, 24),
   new THREE.MeshBasicMaterial({ color:0xffd76a }));
-starGroup.add(sunMesh);
+galaxyGroup.add(sunMesh);
 const sunHalo = new THREE.Mesh(new THREE.SphereGeometry(2.8, 16, 16),
   new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.18 }));
-starGroup.add(sunHalo);
+galaxyGroup.add(sunHalo);
 
 function moonLon(day){ return ((day / SIDEREAL_MONTH) % 1) * Math.PI*2; }
 function sunLon(day) { return ((day / TROPICAL_YEAR)  % 1) * Math.PI*2; }
-
-/* phase from synodic cycle */
 function moonPhaseName(day){
   const p = ((day % SYNODIC_MONTH)/SYNODIC_MONTH);
   if(p<0.06||p>=0.94) return '新月';
@@ -706,9 +662,6 @@ function moonPhaseName(day){
   if(p<0.97) return '下弦';
   return '残月';
 }
-
-/* 季节 via 太阳黄经（现代节气四分法）：
-   λ=0° 春分 · 90° 夏至 · 180° 秋分 · 270° 冬至 */
 const SEASON = ['春','夏','秋','冬'];
 function lodgeAtLon(lon){
   let best=null, bestD=1e9;
@@ -726,35 +679,18 @@ function seasonOfDay(day){
   return SEASON[((q % 4) + 4) % 4];
 }
 
-/* HUD elements */
-const lodgeRow = document.getElementById('lodge-row');
-const lodgeTicks = {};
-LODGES.forEach(l=>{
-  const el=document.createElement('div');
-  el.className='lodge-tick';
-  el.title = l.en + ' · ' + l.star;
-  el.textContent = l.zh;
-  el.style.borderColor = XIANG[l.x].color+'33';
-  el.addEventListener('click', ()=>{
-    camera.position.set(lodgePos(l,R).x*3.2, lodgePos(l,R).y*3.2+12, lodgePos(l,R).z*3.2);
-    controls.target.copy(lodgePos(l,R));
-  });
-  lodgeRow.appendChild(el);
-  lodgeTicks[l.zh]=el;
-});
+/* moon/sun orbit on an inclined circle through the galaxy */
+function bodyPos(lon, radius, tilt){
+  return new THREE.Vector3(
+    radius*Math.cos(lon),
+    radius*Math.sin(tilt),
+    radius*Math.sin(lon));
+}
 
-/* time speed buttons */
-document.querySelectorAll('.t-btn').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.t-btn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    dayRate = parseFloat(b.dataset.sp);
-  });
-});
-
-/* dim (四象) buttons */
+/* ═══════════════════════════════════════════════════════════
+   6. DIMENSION SWITCH — highlight one 象 arm
+   ═══════════════════════════════════════════════════════════ */
 let dim = 'evolution';
-const dimWeights = {};
 function computeDimWeights(keyword){
   const kw = ['attention','core','event','workspace','governance','mars','gwt','resonance','evolution','seal','absorption','crystallization','learning','skill','growth','cycle','loop','memory','qret','search','embedding','archive','kb','store','hypercube','vector','shield','sandbox','audit','proxy','tor','egress','policy','scan','vault','firewall'];
   const nw=new Map(), ew=new Map();
@@ -774,11 +710,6 @@ function applyDim(){
   const xiang = Object.keys(XIANG).find(k=>XIANG[k].dim===dim);
   const kw = XIANG[xiang].keyword;
   const w = computeDimWeights(kw);
-  /* lodge emphasis: highlight the active 象 */
-  LODGES.forEach(l=>{
-    const tk = lodgeTicks[l.zh];
-    if(tk) tk.style.opacity = (l.x===xiang)?'1':'0.35';
-  });
   Object.keys(lodgeMeshes).forEach(zh=>{
     const lm = lodgeMeshes[zh];
     const on = (lm.data.x===xiang);
@@ -787,7 +718,6 @@ function applyDim(){
     lm.mesh.material.transparent = true;
     lm.halo.material.opacity = on?0.3:0.08;
   });
-  /* node emphasis */
   capMeshes.forEach(r=>{
     const nwv = w.nw.get(r.data.id)||0.25;
     const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
@@ -811,8 +741,17 @@ document.querySelectorAll('.dim-btn').forEach(btn=>{
 });
 applyDim();
 
+/* time speed buttons */
+document.querySelectorAll('.t-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.t-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    dayRate = parseFloat(b.dataset.sp);
+  });
+});
+
 /* ═══════════════════════════════════════════════════════════
-   6. TOOLTIP + HOVER
+   7. TOOLTIP + HOVER
    ═══════════════════════════════════════════════════════════ */
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -848,7 +787,7 @@ renderer.domElement.addEventListener('pointermove', e=>{
   pointer.x = ((e.clientX-r.left)/r.width)*2-1;
   pointer.y = -((e.clientY-r.top)/r.height)*2+1;
   raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObjects(starGroup.children);
+  const hits = raycaster.intersectObjects(galaxyGroup.children);
   let found=null;
   for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
   if(hoveredMesh && (!found || (found.rec && hoveredMesh!==found.rec.mesh))){
@@ -871,7 +810,7 @@ renderer.domElement.addEventListener('pointermove', e=>{
 });
 
 /* ═══════════════════════════════════════════════════════════
-   7. RENDER LOOP — real cycles + orbits
+   8. RENDER LOOP — real cycles + orbits
    ═══════════════════════════════════════════════════════════ */
 let lastT = null;
 function render(t){
@@ -880,37 +819,32 @@ function render(t){
   simDay += dt*dayRate;
   if (simDay < 0) simDay = 0;
 
-  /* moon position: lon advances with sidereal month */
+  /* moon/sun positions */
   const mLon = moonLon(simDay);
   const sLon = sunLon(simDay);
-  const mPos = eclipticPos(mLon, R);
-  const sPos = eclipticPos(sLon, R*1.06);
+  const mPos = bodyPos(mLon, ARM_R1*0.92, -0.12);
+  const sPos = bodyPos(sLon, ARM_R1*1.05, 0.18);
   moonMesh.position.copy(mPos); moonHalo.position.copy(mPos);
   sunMesh.position.copy(sPos);  sunHalo.position.copy(sPos);
 
-  /* current lodge of the moon + sun */
   const mLodge = lodgeAtLon(mLon);
   const sLodge = lodgeAtLon(sLon);
-  Object.keys(lodgeTicks).forEach(zh=>{
-    const el = lodgeTicks[zh];
-    el.classList.toggle('moon', zh===mLodge.zh);
-    el.classList.toggle('sun',  zh===sLodge.zh);
-  });
 
-  /* HUD time text */
   const el=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;};
   el('tv-moon', mLodge.zh + ' · ' + moonPhaseName(simDay));
   el('tv-sun',  sLodge.zh + ' · ' + seasonOfDay(simDay));
   el('tv-day',  'Day ' + simDay.toFixed(1));
-  el('lodge-moon-name', '→ 月过「'+mLodge.zh+'」· 日躔「'+sLodge.zh+'」');
 
   /* 内垣 core orbit */
   coreNodes.forEach(n=>{
-    const a = n.orbit.a0 + t*0.0003*n.orbit.sp;
-    n.mesh.position.set(core.pos.x+Math.cos(a)*n.orbit.r, core.pos.y+n.orbit.yOff, core.pos.z+Math.sin(a)*n.orbit.r);
+    const rec = nodeById[n.id];
+    if(!rec || !rec.orbit) return;
+    const o = rec.orbit;
+    const a = o.a0 + t*0.0003*o.sp;
+    rec.mesh.position.set(core.pos.x+Math.cos(a)*o.r, core.pos.y+o.yOff, core.pos.z+Math.sin(a)*o.r);
   });
 
-  /* capability node orbits around host lodge */
+  /* capability node orbits around host point on the arm */
   capMeshes.forEach(r=>{
     const o = r.orbit;
     const a = o.a0 + t*0.00045*o.sp;
@@ -927,6 +861,9 @@ function render(t){
     l.line.geometry.dispose();
     l.line.geometry = new THREE.BufferGeometry().setFromPoints(c.getPoints(16));
   });
+
+  /* core corona slow spin */
+  if(core.ring) core.ring.rotation.z = t*0.0002;
 
   controls.update();
   renderer.render(scene, camera);
@@ -945,7 +882,7 @@ window.addEventListener('resize', onResize);
   const lg = document.getElementById('g-legend');
   const counts = { azure:0, vermilion:0, white:0, black:0 };
   GALAXY.nodes.forEach(n=>{ if(n.domain!=='core') counts[DOMAIN_XIANG[n.domain]]=(counts[DOMAIN_XIANG[n.domain]]||0)+1; });
-  ['azure','vermilion','white','black'].forEach(x=>{
+  XIANG_ORDER.forEach(x=>{
     const xiang = XIANG[x];
     const el=document.createElement('div');
     el.className='legend-item';
