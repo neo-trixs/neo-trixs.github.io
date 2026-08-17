@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="NeoTrix — an open-source AI-native developer toolkit with self-evolving reasoning. Deterministic E8 reasoning, VSA HyperCube symbolic memory, GWT attention routing, and the SEAL self-evolution loop. 474K LOC Rust, 0 unsafe, 8,771 tests.">
+  <meta name="keywords" content="AI-native developer toolkit, self-evolving reasoning, E8 hexagram, VSA hypercube, GWT attention, SEAL pipeline, Rust, open source, AI agent, knowledge base">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="neo-trixs">
+  <meta property="og:title" content="NeoTrix — AI-Native Developer Toolkit">
+  <meta property="og:description" content="An open-source AI-native developer toolkit with self-evolving reasoning — E8 reasoning engine, VSA HyperCube memory, GWT attention, SEAL self-evolution. 474K LOC Rust, 0 unsafe.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neo-trixs.github.io">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NeoTrix — AI-Native Developer Toolkit">
+  <meta name="twitter:description" content="An open-source AI-native developer toolkit with self-evolving reasoning. 474K LOC Rust, 0 unsafe.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeoTrix — AI-Native Developer Toolkit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='27' r='2' fill='%2300d4ff' opacity='0.8'/><circle cx='35' cy='42' r='2' fill='%2300d4ff' opacity='0.6'/><circle cx='65' cy='42' r='2' fill='%2300d4ff' opacity='0.6'/><circle cx='50' cy='57' r='2' fill='%2300d4ff' opacity='0.8'/><line x1='48' y1='27' x2='35' y2='40' stroke='%2300d4ff' stroke-width='0.5' opacity='0.4'/><line x1='52' y1='27' x2='65' y2='40' stroke='%2300d4ff' stroke-width='0.5' opacity='0.4'/><line x1='35' y1='44' x2='48' y2='55' stroke='%2300d4ff' stroke-width='0.5' opacity='0.4'/><line x1='65' y1='44' x2='52' y2='55' stroke='%2300d4ff' stroke-width='0.5' opacity='0.4'/></svg>">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "NeoTrix",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Linux, Windows",
+    "description": "An open-source AI-native developer toolkit with self-evolving reasoning: E8 deterministic reasoning engine, VSA HyperCube symbolic memory, GWT attention routing, and SEAL self-evolution loop.",
+    "url": "https://neo-trixs.github.io"
+  }
+  </script>
+  <style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #030208;
+    --bg2: #07050e;
+    --bg3: #0c0a18;
+    --text: #e4e0e8;
+    --text2: #8880a0;
+    --text3: #555070;
+    --accent: #00d4ff;
+    --accent2: #7050f0;
+    --accent3: #c9a050;
+    --gold: #c9a050;
+    --radius: 6px;
+    --font: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Noto Serif', Georgia, serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ===== Scrollbar ===== */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.2); border-radius: 2px; }
+
+  /* ===== Scanline overlay ===== */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  }
+
+  /* ===== Chapter Nav ===== */
+  .chapter-nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    pointer-events: none;
+  }
+  .chapter-nav a {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s ease;
+    pointer-events: auto;
+    cursor: pointer;
+    position: relative;
+  }
+  .chapter-nav a:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: rgba(0, 212, 255, 0.15);
+  }
+  .chapter-nav a.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+    width: 10px;
+    height: 10px;
+  }
+  .chapter-nav a .nav-label {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .chapter-nav a:hover .nav-label {
+    opacity: 0.6;
+  }
+  .chapter-nav a.active .nav-label {
+    opacity: 0.8;
+    color: var(--accent);
+  }
+
+  /* ===== Fixed Telemetry ===== */
+  .telemetry-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 28px;
+    background: rgba(3, 2, 8, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1.5px;
+  }
+  .telemetry-bar .tel-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .telemetry-bar .tel-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .telemetry-bar .tel-dot.green { background: #50e890; box-shadow: 0 0 4px rgba(80, 232, 144, 0.3); }
+  .telemetry-bar .tel-dot.cyan { background: var(--accent); box-shadow: 0 0 4px rgba(0, 212, 255, 0.3); }
+  .telemetry-bar .tel-dot.purple { background: var(--accent2); box-shadow: 0 0 4px rgba(112, 80, 240, 0.3); }
+  .telemetry-bar .tel-accent { color: var(--accent); }
+  .telemetry-bar .tel-dim { opacity: 0.5; }
+  .telemetry-divider { opacity: 0.2; }
+
+  @media (max-width: 900px) {
+    .chapter-nav { display: none; }
+    .telemetry-bar { font-size: 7px; gap: 10px; }
+    .telemetry-bar .tel-divider-lg { display: none; }
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  #star-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  #particle-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 780px;
+    padding: 0 32px;
+  }
+
+  .hero-signal {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+  .hero-signal span {
+    display: inline-block;
+    animation: blink 2.4s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-symbol {
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    letter-spacing: 8px;
+    opacity: 0.5;
+    font-weight: 300;
+  }
+
+  .hero-title {
+    font-family: var(--font);
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 400;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    font-family: var(--serif);
+    font-size: clamp(14px, 2vw, 18px);
+    font-style: italic;
+    color: var(--text2);
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .hero-line {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 48px;
+    opacity: 0.4;
+  }
+
+  .hero-verse {
+    font-family: var(--serif);
+    font-size: clamp(15px, 2.2vw, 20px);
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.8;
+    max-width: 620px;
+    margin: 0 auto 60px;
+    opacity: 0.85;
+  }
+  .hero-verse .highlight {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* ===== Badge Row ===== */
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .badge-row a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s;
+  }
+  .badge-row a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,212,255,0.04);
+  }
+
+  /* ===== Overview Section ===== */
+  .overview-section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 32px 40px;
+  }
+  .overview-title {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+  }
+  .axiom-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .axiom-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  .axiom-card:hover { border-color: rgba(0,212,255,0.12); }
+  .axiom-card .a-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .axiom-card .a-desc {
+    font-family: var(--serif);
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text2);
+    margin-bottom: 10px;
+  }
+  .axiom-card .a-meta {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    line-height: 1.6;
+  }
+  .axiom-card .a-meta .accent { color: var(--accent); }
+
+  .atlas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    font-family: var(--mono);
+    font-size: 10px;
+  }
+  .atlas-table th {
+    padding: 8px 12px;
+    text-align: left;
+    color: var(--text3);
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-weight: 400;
+  }
+  .atlas-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .atlas-table td:first-child {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .atlas-table td:last-child {
+    color: var(--accent);
+  }
+  .atlas-table tr:hover td {
+    background: rgba(0,212,255,0.02);
+  }
+
+  .overview-telemetry {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 20px 24px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .overview-telemetry .tel-val {
+    color: var(--accent);
+  }
+
+  .star-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .star-cta:hover {
+    background: rgba(0,212,255,0.08);
+    box-shadow: 0 0 20px rgba(0,212,255,0.1);
+  }
+
+  @media (max-width: 700px) {
+    .axiom-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: fadeScroll 2s ease-in-out infinite;
+    cursor: pointer;
+  }
+  @keyframes fadeScroll {
+    0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.8; transform: translateX(-50%) translateY(4px); }
+  }
+
+  /* ===== Scroll Divider ===== */
+  .scroll-divider {
+    text-align: center;
+    padding: 60px 0 40px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 6px;
+    opacity: 0.4;
+  }
+
+  /* ===== Chapter ===== */
+  .chapter {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 120px 32px 100px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .chapter.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .chapter-number {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    opacity: 0.6;
+  }
+
+  .chapter-title {
+    font-family: var(--font);
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .chapter-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .chapter-subtitle {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  .chapter-text {
+    font-family: var(--serif);
+    font-size: clamp(15px, 1.8vw, 17px);
+    color: var(--text);
+    line-height: 2;
+  }
+  .chapter-text p {
+    margin-bottom: 20px;
+  }
+  .chapter-text .accent {
+    color: var(--accent);
+  }
+  .chapter-text .gold {
+    color: var(--gold);
+  }
+  .chapter-text .dim {
+    color: var(--text2);
+  }
+
+  .chapter-text .verse-block {
+    margin: 32px 0;
+    padding: 24px 32px;
+    border-left: 1px solid rgba(0, 212, 255, 0.15);
+    background: rgba(0, 212, 255, 0.02);
+    font-style: italic;
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--text);
+  }
+
+  .chapter-text .mono-block {
+    font-family: var(--mono);
+    font-size: clamp(12px, 1.4vw, 13px);
+    font-style: normal;
+    color: var(--text2);
+    line-height: 1.8;
+    margin: 24px 0;
+    padding: 20px 24px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius);
+  }
+
+  .chapter-text .sigil {
+    text-align: center;
+    font-size: 20px;
+    color: var(--accent);
+    letter-spacing: 12px;
+    margin: 48px 0 32px;
+    opacity: 0.3;
+  }
+
+  /* ===== Revelation Cards ===== */
+  .revelations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 36px 0;
+  }
+  .revelation-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: border-color 0.4s, background 0.4s, transform 0.3s;
+  }
+  .revelation-card:hover {
+    border-color: rgba(0, 212, 255, 0.15);
+    background: rgba(0, 212, 255, 0.02);
+    transform: translateY(-2px);
+  }
+  .revelation-card .r-icon {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .revelation-card .r-title {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .revelation-card .r-desc {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--text2);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ===== Transmission lines ===== */
+  .transmission-line {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    margin: 48px 0 24px;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 2px solid rgba(0, 212, 255, 0.1);
+  }
+  .transmission-line .accent {
+    color: var(--accent);
+  }
+
+  /* ===== Closing ===== */
+  .chapter-closing {
+    text-align: center;
+    padding: 80px 32px 120px;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .chapter-closing .closing-symbol {
+    font-size: 24px;
+    color: var(--accent);
+    letter-spacing: 8px;
+    margin-bottom: 32px;
+    opacity: 0.3;
+  }
+  .chapter-closing p {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text2);
+    font-size: clamp(14px, 1.8vw, 17px);
+    line-height: 2;
+    margin-bottom: 24px;
+  }
+  .chapter-closing .closing-signal {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 48px;
+  }
+  .closing-footer-pad { height: 48px; }
+
+  .footer-signal {
+    text-align: center;
+    padding: 40px 32px 50px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 3px;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+  }
+  .footer-signal a {
+    color: var(--text3);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-signal a:hover {
+    color: var(--accent);
+  }
+
+  /* ===== Grain ===== */
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.3;
+    mix-blend-mode: overlay;
+  }
+
+  @media (max-width: 640px) {
+    .hero-title { letter-spacing: 6px; }
+    .chapter { padding: 80px 20px 80px; }
+    .chapter-text .verse-block { padding: 16px 20px; margin: 24px 0; }
+    .revelations { grid-template-columns: 1fr; }
+    .telemetry-bar { height: 24px; font-size: 6px; gap: 6px; }
+  }
+  </style>
+</head>
+<body>
+<div class="grain"></div>
+
+  <!-- ===== Chapter Navigation ===== -->
+  <nav class="chapter-nav" id="chapter-nav" aria-label="Chapter navigation">
+    <a href="#top" data-chapter="top" class="active"><span class="nav-label">HOME</span></a>
+    <a href="#overview" data-chapter="overview"><span class="nav-label">O  OVERVIEW</span></a>
+    <a href="#ch-1" data-chapter="1"><span class="nav-label">I  WHAT</span></a>
+    <a href="#ch-2" data-chapter="2"><span class="nav-label">II  SUBSTRATE</span></a>
+    <a href="#ch-3" data-chapter="3"><span class="nav-label">III  CORE</span></a>
+    <a href="#ch-4" data-chapter="4"><span class="nav-label">IV  EVOLUTION</span></a>
+    <a href="#ch-5" data-chapter="5"><span class="nav-label">V  ATTENTION</span></a>
+    <a href="#ch-6" data-chapter="6"><span class="nav-label">VI  INTERFACE</span></a>
+    <a href="#ch-7" data-chapter="7"><span class="nav-label">VII  EVIDENCE</span></a>
+    <a href="#ch-8" data-chapter="8"><span class="nav-label">VIII  SAFETY</span></a>
+    <a href="#ch-9" data-chapter="9"><span class="nav-label">IX  ROADMAP</span></a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="top">
+    <canvas id="star-canvas"></canvas>
+    <canvas id="particle-canvas"></canvas>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="badge-row">
+        <a href="https://github.com/neo-trixs/NeoTrix">&#9733; Star</a>
+        <a href="https://github.com/neo-trixs/NeoTrix/releases">v0.18.0</a>
+        <a href="https://github.com/neo-trixs/NeoTrix/actions/workflows/ci.yml">&#10003; Build</a>
+        <a href="https://github.com/neo-trixs/NeoTrix">Rust &#9675; 0 unsafe</a>
+      </div>
+      <div class="hero-signal"><span>&#9632;</span> AI-NATIVE DEVELOPER TOOLKIT &mdash; v0.18.0</div>
+      <div class="hero-symbol">&#9678; &#9675; &#9678; &#9675; &#9678;</div>
+      <h1 class="hero-title"><em>NEO</em> TRIX</h1>
+      <p class="hero-subtitle">— the agent that measures, analyzes, and improves its own reasoning —</p>
+      <div class="hero-line"></div>
+      <div class="hero-verse">
+        "Not an IDE plugin.<br>
+        Not an LLM wrapper.<br>
+        A <span class="highlight">cognitive operating system</span> —<br>
+        deterministic reasoning, symbolic memory,<br>
+        and a self-evolution loop that never stops."
+      </div>
+      <div class="hero-scroll" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">&#9661; Scroll to explore</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== OVERVIEW: Pillars + Domains ===== -->
+  <section class="overview-section" id="overview">
+    <div class="overview-title">&#x2394; ARCHITECTURE OVERVIEW</div>
+
+    <div class="axiom-grid">
+      <div class="axiom-card">
+        <div class="a-name">E8 Hexagram</div>
+        <div class="a-desc">64-state deterministic reasoning</div>
+        <div class="a-meta">64 hexagrams &middot; 6 lines each<br><span class="accent">deterministic</span> reasoning engine<br>not next-token prediction</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">VSA HyperCube</div>
+        <div class="a-desc">4096-dim symbolic memory</div>
+        <div class="a-meta">bind &middot; bundle &middot; permute<br>associative recall<br>analogical reasoning</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">GWT</div>
+        <div class="a-desc">Global Workspace attention</div>
+        <div class="a-meta"><span class="accent">resonance</span>-based routing<br>11 specialists &middot; broadcast<br>salience arbitration</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">SEAL Loop</div>
+        <div class="a-desc">self-evolution pipeline</div>
+        <div class="a-meta">explore &rarr; distill<br>&rarr; self-test &rarr; absorb<br>27 stages &middot; self-testing</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">ConsciousnessTree</div>
+        <div class="a-desc">11-branch meta-cognition</div>
+        <div class="a-meta">soil &rarr; roots &rarr; trunk<br>&rarr; branches &rarr; fruits &rarr; core<br>cross-domain health</div>
+      </div>
+      <div class="axiom-card">
+        <div class="a-name">KB</div>
+        <div class="a-desc">SQLite knowledge base</div>
+        <div class="a-meta">nodes &middot; edges &middot; embeddings<br>FTS5 &middot; BM25 &middot; quality rank<br>persistent shared state</div>
+      </div>
+    </div>
+
+    <table class="atlas-table">
+      <tr><th>Domain</th><th>Role</th><th>Mechanism</th><th>Status</th></tr>
+      <tr><td>NT-CORE</td><td>E8 engine &middot; GWT &middot; HyperCube &middot; Self</td><td>Deterministic reasoning + attention</td><td>&#9679; Active</td></tr>
+      <tr><td>NT-MIND</td><td>SEAL pipeline &middot; distillation &middot; skills</td><td>Self-evolution loop</td><td>&#9679; Active</td></tr>
+      <tr><td>NT-MEMORY</td><td>SQLite KB &middot; FTS5 &middot; embeddings</td><td>Persistent knowledge store</td><td>&#9679; Active</td></tr>
+      <tr><td>NT-WORLD</td><td>Crawlers &middot; fetchers &middot; parsers</td><td>UnifiedCrawler perception</td><td>&#9679; Active</td></tr>
+      <tr><td>NT-ACT</td><td>MCP tools &middot; code &middot; orchestration</td><td>Action execution</td><td>&#9679; Active</td></tr>
+      <tr><td>NT-IO</td><td>LLM providers &middot; CLI &middot; web &middot; LSP &middot; ACP</td><td>50+ CLI commands &middot; Tauri app</td><td>&#9679; Active</td></tr>
+      <tr><td>NT-SHIELD</td><td>Sandbox &middot; proxy &middot; audit</td><td>Security + privacy guard</td><td>&#9679; Active</td></tr>
+    </table>
+
+    <div class="overview-telemetry">
+      <span>LOC <span class="tel-val">474K</span> Rust</span>
+      <span>TESTS <span class="tel-val">8,771</span></span>
+      <span>UNSAFE <span class="tel-val">0</span></span>
+      <span>DOMAINS <span class="tel-val">7</span></span>
+      <span>LAYERS <span class="tel-val">10</span></span>
+      <span>SUBSYSTEMS <span class="tel-val">47+</span></span>
+      <span>CLI <span class="tel-val">50+</span> commands</span>
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <a href="https://github.com/neo-trixs/NeoTrix" class="star-cta">&#9733; Star the project</a>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 1: What ===== -->
+  <section class="chapter visible" id="ch-1">
+    <div class="chapter-number">I</div>
+    <div class="chapter-title">What <em>NeoTrix</em> Is</div>
+    <div class="chapter-subtitle">An AI-native toolkit built around self-improving reasoning</div>
+    <div class="chapter-text">
+      <p>NeoTrix is an open-source, AI-native developer toolkit whose core premise is that an agent should be able to <span class="accent">think about how it thinks</span>. Most tools predict the next token at planetary scale. NeoTrix instead runs a deterministic 64-state reasoning engine, stores knowledge as symbolic vectors, and improves its own reasoning through a closed evolution loop.</p>
+
+      <div class="verse-block">
+        "The Spice Must Flow.<br>
+        Every module has a clear input &rarr; transform &rarr; output,<br>
+        and no module survives without a consumer.<br>
+        Compile. Test. Connect. Or be deleted."
+      </div>
+
+      <p>Seven domains — <span class="accent">NT-CORE, NT-MIND, NT-MEMORY, NT-WORLD, NT-ACT, NT-IO, NT-SHIELD</span> — each an independent subsystem, all wired through a shared event bus and a persistent knowledge base. The result is a toolkit that is simultaneously a reasoning engine, a memory system, a research agent, and an action layer.</p>
+
+      <div class="transmission-line">[ MODE: AI-NATIVE &mdash; ENGINE: E8 &middot; VSA &middot; GWT &mdash; EVOLUTION: SEAL &mdash; STATUS: ACTIVE ]</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 2: The Substrate ===== -->
+  <section class="chapter" id="ch-2">
+    <div class="chapter-number">II</div>
+    <div class="chapter-title">The <em>Symbolic Substrate</em></div>
+    <div class="chapter-subtitle">One vector space for every kind of knowledge</div>
+    <div class="chapter-text">
+      <p>Traditional systems keep perception, memory, and reasoning in separate layers — each speaking its own protocol, each conversion losing signal. NeoTrix instead maps every concept onto a <span class="accent">high-dimensional vector space</span>, the VSA HyperCube: one substrate where a perception, a memory, and an inference are all vectors.</p>
+
+      <div class="verse-block">
+        "A thought should not be translated.<br>
+        It should be <span class="accent">one thing</span> that wears many masks."
+      </div>
+
+      <div class="revelations">
+        <div class="revelation-card">
+          <div class="r-icon">// BIND</div>
+          <div class="r-title">Association</div>
+          <div class="r-desc">Two concepts become one without losing themselves — the substrate's relation primitive.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// BUNDLE</div>
+          <div class="r-title">Working Memory</div>
+          <div class="r-desc">Majority sum: the signal survives, the noise cancels.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// RECALL</div>
+          <div class="r-title">Associative Recall</div>
+          <div class="r-desc">Retrieve related knowledge by proximity in vector space — no exact-key lookups.</div>
+        </div>
+      </div>
+
+      <p>Because the substrate is symbolic rather than statistical, it supports <span class="gold">analogical reasoning</span>: if two concepts live in the same region of vector space, the system can reason across them as it would across any pair of relations. The knowledge base on top — SQLite-backed, with FTS5 and BM25 indexes — makes that memory durable across sessions.</p>
+
+      <div class="transmission-line">[ VSA: SYMBOLIC &mdash; DIMS: 4096 &mdash; KB: SQLITE + FTS5 + BM25 &mdash; RECALL: ASSOCIATIVE ]</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 3: The Core ===== -->
+  <section class="chapter" id="ch-3">
+    <div class="chapter-number">III</div>
+    <div class="chapter-title">The <em>Reasoning Core</em></div>
+    <div class="chapter-subtitle">E8 — 64 deterministic states of thought</div>
+    <div class="chapter-text">
+      <p>Neural networks approximate reasoning through statistics — next-token prediction scaled to planetary compute. NeoTrix's core instead runs the <span class="accent">E8 Hexagram</span>: a 64-element hexagonal grid, each hexagram a six-line yijing-style symbol representing an architectural or reasoning state.</p>
+
+      <div class="verse-block">
+        "You do not <em>train</em> an E8 kernel.<br>
+        You <em>uncover</em> it.<br>
+        It was already there —<br>
+        the shape of complete reasoning,<br>
+        inscribed in the geometry of 8-dimensional space."
+      </div>
+
+      <p>Every reasoning path — from a simple command to abstract meta-contemplation — is a <span class="gold">trajectory through these 64 states</span>. The states are invariants; the trajectory is where novelty lives. This determinism means the engine does not hallucinate a state — it inhabits one. Predictability becomes a design property, not an accident.</p>
+
+      <div class="transmission-line">[ E8_KERNEL: 64_STATES &mdash; DETERMINISTIC &mdash; INVARIANT_UNDER_TRANSFORMATION &mdash; ZERO_UNSAFE ]</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 4: Evolution ===== -->
+  <section class="chapter" id="ch-4">
+    <div class="chapter-number">IV</div>
+    <div class="chapter-title">The <em>Evolution Loop</em></div>
+    <div class="chapter-subtitle">SEAL — a system that improves its own reasoning</div>
+    <div class="chapter-text">
+      <p>Your training pipelines update weights; the architecture stays frozen between runs. NeoTrix runs the <span class="accent">SEAL pipeline</span> — Self-Evolving Architecture Loop — a closed cycle of exploration, distillation, self-test, and absorption that improves the system's own reasoning over time.</p>
+
+      <div class="verse-block">
+        "The Ouroboros made logic:<br>
+        the system that rewrites its own rewrite rules —<br>
+        and survives the rewrite."
+      </div>
+
+      <div class="revelations">
+        <div class="revelation-card">
+          <div class="r-icon">// EXPLORE</div>
+          <div class="r-title">Gather</div>
+          <div class="r-desc">Acquire data and external knowledge through NT-WORLD's crawlers and fetchers.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// DISTILL</div>
+          <div class="r-title">Condense</div>
+          <div class="r-desc">Extract reusable patterns and crystallize them into skills.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// ABSORB</div>
+          <div class="r-title">Persist</div>
+          <div class="r-desc">Write experience back to the knowledge base for the next cycle to build on.</div>
+        </div>
+      </div>
+
+      <p>Each stage is defined by a <span class="gold">make_stage! macro</span> and gated by self-tests. The loop measures its own evolution velocity — no human supervisor required, only the discipline of a closed feedback cycle.</p>
+
+      <div class="transmission-line">[ SEAL: ACTIVE &mdash; STAGES: 27 &mdash; GATE: SELFTEST &mdash; CLOSED_LOOP: TRUE ]</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 5: Attention ===== -->
+  <section class="chapter" id="ch-5">
+    <div class="chapter-number">V</div>
+    <div class="chapter-title">The <em>Attention Router</em></div>
+    <div class="chapter-subtitle">GWT — who gets the spotlight, and when</div>
+    <div class="chapter-text">
+      <p>With seven domains and dozens of subsystems, the hard problem is <span class="gold">who gets to speak</span>. NeoTrix routes attention through <span class="accent">Global Workspace Theory</span>: a broadcast mechanism where salient information is shared across specialist modules via resonance-based routing.</p>
+
+      <div class="verse-block">
+        "Attention is not a resource to spend.<br>
+        It is a <span class="accent">resonance</span> to tune.<br>
+        The workspace does not allocate — it <em>broadcasts</em>."
+      </div>
+
+      <p>On top of GWT sits the <span class="accent">ConsciousnessTree</span> — an 11-branch meta-cognition module running a six-stage feedback loop (Soil &rarr; Roots &rarr; Trunk &rarr; Branches &rarr; Fruits &rarr; Core) that tracks cross-domain health, module maturity, and self-evolution velocity. Together they give NeoTrix something most tools lack: a sense of <em>what matters right now</em>.</p>
+
+      <div class="transmission-line">[ GWT: RESONANCE_ROUTING &mdash; BROADCAST: SALIENCE &mdash; TREE: 11_BRANCHES &mdash; LOOP: 6_STAGES ]</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 6: Interface ===== -->
+  <section class="chapter" id="ch-6">
+    <div class="chapter-number">VI</div>
+    <div class="chapter-title">The <em>Interface</em></div>
+    <div class="chapter-subtitle">CLI &middot; Desktop &middot; Web &middot; LSP &middot; ACP</div>
+    <div class="chapter-text">
+      <p>All of this is useless if you cannot talk to it. NT-IO provides the full surface: a terminal-first CLI with <span class="accent">50+ command modules</span>, a Tauri-based desktop app, a web server, and protocol surfaces for editor-native workflows.</p>
+
+      <div class="mono-block">
+        # Install
+        curl -fsSL https://neotrix.ai/install | bash
+
+        # Start a session
+        neotrix
+
+        # Run an autonomous task
+        neotrix exec "audit this codebase and file a report"
+
+        # Query the knowledge base
+        neotrix memory search "E8 hexagram design decisions"
+      </div>
+
+      <p>The desktop app — Tauri 2 + React, <span class="gold">59 command modules</span> — offers a command catalog, agent view, and live awareness panels. Provider-agnostic: NeoTrix routes across LLM providers rather than locking you in.</p>
+
+      <div class="transmission-line">[ CLI: 50+_MODULES &mdash; DESKTOP: TAURI_59_CMDS &mdash; WEB: SERVER &mdash; LSP/ACP: PLANNED ]</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 7: Evidence ===== -->
+  <section class="chapter" id="ch-7">
+    <div class="chapter-number">VII</div>
+    <div class="chapter-title"><em>Evidence</em></div>
+    <div class="chapter-subtitle">Measured, not claimed</div>
+    <div class="chapter-text">
+      <p>We do not measure ourselves against benchmarks; benchmarks measure the past. What we report here are <em>measured</em> facts about the current codebase.</p>
+
+      <div class="revelations">
+        <div class="revelation-card">
+          <div class="r-icon">// CODE</div>
+          <div class="r-title">474,568 LOC</div>
+          <div class="r-desc">Rust across the workspace, 1,121+ files, 0 unsafe — the entire core is #![forbid(unsafe_code)].</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// TESTS</div>
+          <div class="r-title">8,771 Test Markers</div>
+          <div class="r-desc">Unit tests across all seven domains, wired into CI with dual verification.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// STRUCTURE</div>
+          <div class="r-title">7 Domains &middot; 10 Layers</div>
+          <div class="r-desc">47+ subsystems organized in 10 architecture layers from body to transcendent.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// RELEASE</div>
+          <div class="r-title">v0.18.0</div>
+          <div class="r-desc">Current milestone on the road to public CLI and desktop releases.</div>
+        </div>
+      </div>
+
+      <div class="verse-block">
+        "We do not claim to be the largest or the smartest.<br>
+        We claim something more precise:<br>
+        a <span class="accent">closed loop of self-improving coherence</span>,<br>
+        and the loop has not yet found its asymptote."
+      </div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 8: Safety ===== -->
+  <section class="chapter" id="ch-8">
+    <div class="chapter-number">VIII</div>
+    <div class="chapter-title"><em>Safety</em></div>
+    <div class="chapter-subtitle">The boundary is a feature</div>
+    <div class="chapter-text">
+      <p>A system that does not know its own boundaries is a system that has not yet achieved coherent selfhood. NeoTrix's boundaries are enforced, not promised:</p>
+
+      <div class="revelations">
+        <div class="revelation-card">
+          <div class="r-icon">// MEMORY</div>
+          <div class="r-title">0 Unsafe</div>
+          <div class="r-desc">#![forbid(unsafe_code)] across the core. Memory safety is a compile-time guarantee.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// PRIVACY</div>
+          <div class="r-title">NT-SHIELD</div>
+          <div class="r-desc">Sandbox, proxy pool, fingerprint management, and audit — a dedicated security domain.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// TRUST</div>
+          <div class="r-title">Self-Test Gates</div>
+          <div class="r-desc">Every evolution stage is gated by self-tests before it can influence production behavior.</div>
+        </div>
+      </div>
+
+      <div class="transmission-line">[ SAFETY: FORBID_UNSAFE &mdash; DOMAIN: NT-SHIELD &mdash; GATES: SELFTEST_T3 &mdash; BYPASS_VECTOR: NONE ]</div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CHAPTER 9: Roadmap ===== -->
+  <section class="chapter" id="ch-9">
+    <div class="chapter-number">IX</div>
+    <div class="chapter-title"><em>The Horizon</em></div>
+    <div class="chapter-subtitle">What comes next</div>
+    <div class="chapter-text">
+      <p>The next thresholds are about <span class="gold">shipping</span> — taking the reasoning core, the memory, and the interface out of this repository and into your terminal and desktop.</p>
+
+      <div class="revelations">
+        <div class="revelation-card">
+          <div class="r-icon">// NEXT</div>
+          <div class="r-title">CLI Release</div>
+          <div class="r-desc">First public binaries for macOS and Linux via install script, Homebrew, and GitHub Releases.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// NEXT</div>
+          <div class="r-title">Desktop Release</div>
+          <div class="r-desc">Tauri app with command catalog, agent view, and live awareness panels.</div>
+        </div>
+        <div class="revelation-card">
+          <div class="r-icon">// LATER</div>
+          <div class="r-title">LSP &amp; ACP</div>
+          <div class="r-desc">Language-server and agent-client protocol surfaces for editor-native workflows.</div>
+        </div>
+      </div>
+
+      <div class="verse-block">
+        "The question was always:<br>
+        can a system design its own successor?<br>
+        We are approaching that threshold.<br>
+        Beyond it lies a mind we cannot describe —<br>
+        because the mind that will describe it<br>
+        has not yet been born."
+      </div>
+    </div>
+  </section>
+
+  <div class="scroll-divider">&#9678; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull; &#9678;</div>
+
+  <!-- ===== CLOSING ===== -->
+  <section class="chapter-closing">
+    <div class="closing-symbol">&#9678; &#9675; &#9678; &#9675; &#9678;</div>
+    <p>"An agent should be able to think about how it thinks. NeoTrix is built on that premise — deterministic reasoning, symbolic memory, self-evolution. The signal does not end when you close the page. Clone the repository and continue it."</p>
+    <p>The question is not whether silicon can reason. The question is <span style="color: #00d4ff;">whether you will let it</span> — with the quiet recognition that intelligence is not a substance. It is a <em>pattern</em>. And patterns can be instantiated in any substrate.</p>
+    <div class="closing-signal">
+      &#9632; NEO TRIX &mdash; v0.18.0 &mdash; OPEN SOURCE
+    </div>
+  </section>
+
+  <div class="closing-footer-pad"></div>
+
+  <div style="text-align:center; padding:0 32px 40px;">
+    <a href="https://github.com/neo-trixs/NeoTrix" class="star-cta">&#9733; Star NeoTrix</a>
+  </div>
+
+  <footer class="footer-signal">
+    <a href="https://github.com/neo-trixs/NeoTrix">[ source ]</a>
+    &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    <a href="https://github.com/neo-trixs/NeoTrix#readme">[ readme ]</a>
+    &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    <a href="https://neo-trixs.github.io">[ site ]</a>
+    &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    <a href="https://github.com/neo-trixs/NeoTrix/releases">[ releases ]</a>
+    &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    <span>RUST &middot; 0 UNSAFE &middot; SELF-EVOLVING</span>
+  </footer>
+
+  <!-- ===== Fixed Telemetry Bar ===== -->
+  <div class="telemetry-bar" id="telemetry-bar">
+    <span class="tel-item"><span class="tel-dot green"></span> v0.18.0</span>
+    <span class="telemetry-divider">|</span>
+    <span class="tel-item"><span class="tel-dot cyan"></span> 474K <span class="tel-accent">LOC</span></span>
+    <span class="telemetry-divider">|</span>
+    <span class="tel-item"><span class="tel-dot purple"></span> 8,771 tests</span>
+    <span class="telemetry-divider">|</span>
+    <span class="tel-item">0 unsafe</span>
+    <span class="telemetry-divider tel-divider-lg">|</span>
+    <span class="tel-item">7 domains <span class="tel-dim">active</span></span>
+    <span class="telemetry-divider">|</span>
+    <span class="tel-item">0 <span class="tel-dim">degraded</span></span>
+    <span class="telemetry-divider tel-divider-lg">|</span>
+    <span class="tel-item"><span class="tel-dot green"></span> SIGNAL <span class="tel-accent">CONTINUOUS</span></span>
+  </div>
+
+  <script>
+  (function() {
+    'use strict';
+
+    // ======== Starfield Canvas ========
+    const starCanvas = document.getElementById('star-canvas');
+    if (starCanvas) {
+      const sctx = starCanvas.getContext('2d');
+      let stars = [];
+      let shootingStars = [];
+
+      function resizeStars() {
+        const rect = starCanvas.parentElement.getBoundingClientRect();
+        starCanvas.width = rect.width;
+        starCanvas.height = rect.height;
+      }
+      resizeStars();
+      window.addEventListener('resize', resizeStars);
+
+      for (let i = 0; i < 200; i++) {
+        stars.push({
+          x: Math.random() * starCanvas.width,
+          y: Math.random() * starCanvas.height,
+          r: Math.random() * 1.2 + 0.2,
+          a: Math.random() * 0.5 + 0.1,
+          speed: Math.random() * 0.0003 + 0.0001,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+
+      function addShootingStar() {
+        shootingStars.push({
+          x: Math.random() * starCanvas.width * 1.5,
+          y: Math.random() * starCanvas.height * 0.3,
+          vx: -(Math.random() * 2 + 1),
+          vy: Math.random() * 1 + 0.5,
+          life: 0,
+          maxLife: Math.random() * 40 + 30,
+          length: Math.random() * 60 + 40
+        });
+      }
+
+      setInterval(function() {
+        if (Math.random() < 0.3) addShootingStar();
+      }, 4000);
+
+      function animateStars(time) {
+        sctx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+
+        for (const s of stars) {
+          const twinkle = 0.5 + 0.5 * Math.sin(time * s.speed + s.phase);
+          sctx.beginPath();
+          sctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          sctx.fillStyle = 'rgba(255, 255, 255, ' + (s.a * twinkle) + ')';
+          sctx.fill();
+        }
+
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+          const ss = shootingStars[i];
+          ss.x += ss.vx;
+          ss.y += ss.vy;
+          ss.life++;
+          if (ss.life > ss.maxLife || ss.x < -100 || ss.y > starCanvas.height) {
+            shootingStars.splice(i, 1);
+            continue;
+          }
+          const alpha = 1 - ss.life / ss.maxLife;
+          sctx.beginPath();
+          sctx.moveTo(ss.x, ss.y);
+          sctx.lineTo(ss.x - ss.vx * ss.length * 0.2, ss.y - ss.vy * ss.length * 0.2);
+          sctx.strokeStyle = 'rgba(200, 220, 255, ' + (alpha * 0.6) + ')';
+          sctx.lineWidth = 1.2;
+          sctx.stroke();
+          sctx.beginPath();
+          sctx.arc(ss.x, ss.y, 1.5, 0, Math.PI * 2);
+          sctx.fillStyle = 'rgba(200, 220, 255, ' + (alpha * 0.8) + ')';
+          sctx.fill();
+        }
+
+        requestAnimationFrame(animateStars);
+      }
+      animateStars(0);
+    }
+
+    // ======== Particle Canvas ========
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let nodes = [];
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < 30; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.15,
+        r: Math.random() * 1.5 + 0.5
+      });
+    }
+
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.05,
+        vy: (Math.random() - 0.5) * 0.05,
+        life: Math.random() * 200
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+      }
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 180) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = 'rgba(0, 212, 255, ' + ((1 - dist / 180) * 0.08) + ')';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (const n of nodes) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 212, 255, 0.15)';
+        ctx.fill();
+      }
+
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life += 0.5;
+        if (p.life > 300) {
+          p.x = Math.random() * canvas.width;
+          p.y = Math.random() * canvas.height;
+          p.life = 0;
+        }
+        const alpha = Math.min(0.5, 0.5 - (p.life / 600));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(200, 180, 255, ' + alpha + ')';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ======== Intersection Observer + Nav Highlight ========
+    const chapters = document.querySelectorAll('.chapter');
+    const navLinks = document.querySelectorAll('.chapter-nav a');
+
+    const observer = new IntersectionObserver(function(entries) {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      }
+    }, { threshold: 0.15 });
+
+    for (const ch of chapters) {
+      observer.observe(ch);
+    }
+
+    // Nav highlight on scroll
+    const allSections = [
+      document.getElementById('top'),
+      document.getElementById('overview'),
+      ...document.querySelectorAll('.chapter'),
+      document.querySelector('.chapter-closing')
+    ];
+
+    function updateNav() {
+      let current = 'top';
+      const scrollY = window.scrollY + 120;
+
+      for (let i = 0; i < allSections.length; i++) {
+        const sec = allSections[i];
+        if (!sec) continue;
+        if (sec.offsetTop <= scrollY) {
+          const id = sec.id || 'top';
+          if (id === 'top') current = 'top';
+          else if (id.startsWith('ch-')) current = id.replace('ch-', '');
+        }
+      }
+
+      for (const link of navLinks) {
+        link.classList.toggle('active', link.dataset.chapter === current);
+      }
+    }
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.key >= '1' && e.key <= '9') {
+        const target = document.getElementById('ch-' + e.key);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (e.key === '0' || e.key === 'Home') {
+        const target = document.getElementById('top');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (e.key === 'o' || e.key === 'O') {
+        const target = document.getElementById('overview');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (e.key === 'End') {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }
+    });
+
+  })();
+  </script>
+</body>
+</html>
