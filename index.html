@@ -78,13 +78,15 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 6px var(--goldcore)}50%{opacity:0.4;box-shadow:none}}
 
 /* ═══ FULL-VIEWPORT 4D SPIRAL GALAXY ═══ */
-.galaxy-viewport{position:fixed;inset:0;z-index:1;overflow:hidden}
+.hero-sec{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:96px clamp(16px,4vw,56px) 48px;z-index:2;overflow:hidden}
+.galaxy-viewport{position:relative;width:100%;height:100vh;height:100dvh;z-index:1;overflow:hidden;scroll-margin-top:0}
+#starmap,#docs{scroll-margin-top:70px}
 #galaxy-3d{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
 #galaxy-3d:active{cursor:grabbing}
 .galaxy-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;
   background:radial-gradient(90% 80% at 50% 45%,transparent 55%,rgba(2,1,8,0.7) 100%)}
 
-.hero-overlay{position:absolute;top:84px;left:clamp(16px,4vw,56px);z-index:5;max-width:460px;pointer-events:none}
+.hero-overlay{position:relative;max-width:460px;pointer-events:none}
 .hero-overlay .badge{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--goldcore);display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .hero-overlay .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--goldcore);box-shadow:0 0 8px var(--goldcore);animation:pulse 2.4s infinite}
 .hero-overlay h1{font-size:clamp(30px,4.5vw,58px);font-weight:800;letter-spacing:4px;line-height:1.1;margin-bottom:8px;
@@ -213,7 +215,7 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 @keyframes hintFloat{0%,100%{opacity:0.35}50%{opacity:0.7}}
 
 /* ═══ Below-fold ═══ */
-.page-body{position:relative;z-index:10;margin-top:100vh}
+.page-body{position:relative;z-index:10}
 .chain{width:min(1200px,94vw);margin:0 auto;padding:70px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .section-head{grid-column:1/-1;text-align:center;margin-bottom:20px}
 .section-head .sec-kicker{font-family:var(--mono);font-size:11px;letter-spacing:5px;color:var(--gold);margin-bottom:14px;text-transform:uppercase}
@@ -266,7 +268,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   .nav .nav-link-doc{display:none}
   .detail-panel{left:16px !important;right:16px !important;width:auto !important}
   .dp-metrics{grid-template-columns:repeat(2,1fr)}
-  .hero-overlay{top:80px;left:16px;max-width:90vw}
+  .hero-overlay{max-width:90vw}
   .telemetry{gap:12px;font-size:8px}
 }
 </style>
@@ -281,24 +283,27 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <a class="logo" href="#top"><img src="logo-animated.svg" alt="NeoTrix">NEO<span style="color:var(--goldcore)">TRIX</span></a>
   <span class="nav-dot"></span>
   <a class="nav-link active" href="#starmap" data-sec="starmap">星图</a>
-  <a class="nav-link" href="#chain" data-sec="chain">进化链</a>
+  <a class="nav-link" href="#docs" data-sec="docs">文档</a>
   <a class="nav-link doc nav-link-doc" href="guide/getting-started">DOCS</a>
 </nav>
 
-<!-- ═══ 4D SPIRAL GALAXY ═══ -->
-<section class="galaxy-viewport" id="starmap">
-  <canvas id="galaxy-3d"></canvas>
-  <div class="galaxy-vignette"></div>
-
+<!-- ═══ TOP HERO ═══ -->
+<section class="hero-sec" id="top">
   <div class="hero-overlay">
-    <div class="badge"><span class="dot"></span> 意识核心 · 能力网 — 自进化引擎运行中</div>
-    <h1>NEO<span style="font-weight:300">TRIX</span><span class="sub-tag">意识核心 · 能力星图</span></h1>
-    <div class="sub"><b>紫微垣居中 — 意识核心 (ConsciousnessTree)</b>, 六阶段自进化闭环。环绕其外的是 <b>8 大能力星座</b>: NT-CORE · NT-MIND · NT-MEMORY · NT-WORLD · NT-ACT · NT-IO · NT-SHIELD · NT-REPAIR — 238 颗能力星球皆为真实代码模块, 100 条星链为真实依赖。<b>点击星球探索能力网</b>, 搜索定位任意模块。</div>
+    <div class="badge"><span class="dot"></span> 意识核心 · 能力星网 — 四维电流运行中</div>
+    <h1>NEO<span style="font-weight:300">TRIX</span><span class="sub-tag">意识核心 · 四维能力星网</span></h1>
+    <div class="sub"><b>紫微垣居中 — 意识核心 (ConsciousnessTree)</b>, 六阶段自进化闭环。环绕其外的是 <b>4 大能力维度</b>: 玄武藏蓄 · 青龙进化 · 朱雀行动 · 白虎感知守卫 — 238 颗能力星球皆为真实代码模块, 100 条星链带<b>电流流动</b>。内环 <b>7 步进化链</b> (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息。<b>点击星球探索能力网</b>, 搜索定位任意模块。</div>
     <div class="actions">
       <a class="btn btn-primary" href="guide/getting-started">→ 启程</a>
       <a class="btn btn-glass" href="https://github.com/neo-trixs/NeoTrix">★ STAR</a>
     </div>
   </div>
+</section>
+
+<!-- ═══ 4D STAR NET ═══ -->
+<section class="galaxy-viewport" id="starmap">
+  <canvas id="galaxy-3d"></canvas>
+  <div class="galaxy-vignette"></div>
 
   <!-- star detail panel (everything lives behind a click) -->
   <div class="detail-panel glass" id="detail-panel">
@@ -337,12 +342,12 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
 </section>
 
 <!-- ═══ BELOW FOLD ═══ -->
-<main class="page-body" id="chain">
+<main class="page-body" id="docs">
   <div class="chain">
     <div class="section-head">
       <div class="sec-kicker">◈ THE SPICE MUST FLOW</div>
-      <h2>意识 <span class="grad">进化链</span></h2>
-      <p>感知、表征、思辨、行动、进化、守卫、界面 — 七大能力周流不息。意识核心裁决注意力分配，能力网承载自进化回路。拖动星图，尽览全貌。</p>
+      <h2>四维 <span class="grad">能力星网</span></h2>
+      <p>玄武藏蓄 (思忆 · 表征) · 青龙进化 (生发 · 自愈) · 朱雀行动 (注意 · 界面) · 白虎感知守卫 — 四大能力维度承载 8 域 238 颗能力星球。意识核心裁决注意力分配，电流沿星链流动，7 步进化链 (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息。拖动星图，尽览全貌。</p>
     </div>
   </div>
 
@@ -374,10 +379,10 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <span class="t-item"><span class="t-dot green"></span> v0.18.0</span><span class="t-sep">|</span>
   <span class="t-item"><span class="t-dot gold"></span> φ <span class="t-v">0.372</span></span><span class="t-sep">|</span>
   <span class="t-item"><span class="t-dot violet"></span> coherence <span class="t-v">0.868</span></span><span class="t-sep">|</span>
-  <span class="t-item"><span class="t-dot gold"></span> 102 nodes</span><span class="t-sep">|</span>
-  <span class="t-item"><span class="t-dot violet"></span> 311 caps</span><span class="t-sep">|</span>
-  <span class="t-item"><span class="t-dot silver"></span> 月巡 27.3d</span><span class="t-sep">|</span>
-  <span class="t-item"><span class="t-dot red"></span> 日行 365.25d</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot gold"></span> 238 nodes</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot violet"></span> 100 links</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot silver"></span> 四维星网</span><span class="t-sep">|</span>
+  <span class="t-item"><span class="t-dot red"></span> 进化链 7 步</span><span class="t-sep">|</span>
   <span class="t-item">0 unsafe</span><span class="t-sep">|</span>
   <span class="t-item"><span class="t-dot green"></span> SIGNAL <span class="t-v">CONTINUOUS</span></span>
 </div>
@@ -391,9 +396,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 (function(){
 'use strict';
 
-/* ═══════════════════════════════════════════════════════════
-   1. LIVE CONSCIOUSNESS TELEMETRY (behind 意识核心 click)
-   ═══════════════════════════════════════════════════════════ */
+/* 1. LIVE CONSCIOUSNESS TELEMETRY (behind 意识核心 click) */
 const CORE = { cycle:25, phi:0.3716, coherence:0.8675, fruits:55, mars_s1:8, mars_s2:8, bridge:5, gov:1.0, fog:0.550, shadows:0, const:80, branches:11 };
 const jit = (v,p) => v*(1+(Math.random()-0.5)*p);
 let corePanelOpen = false;
@@ -405,50 +408,17 @@ setInterval(()=>{
   el('m-fog',jit(CORE.fog,0.02).toFixed(3));
 },2500);
 
-/* ═══════════════════════════════════════════════════════════
-   2. 二十八宿 ASTRONOMICAL DATA (decorative celestial layer)
-   ═══════════════════════════════════════════════════════════ */
+/* 2. 四象 — 4 能力维度 (方向/颜色/关键字) */
 const XIANG = {
-  azure:     { zh:'青龙', en:'Azure Dragon',   dir:'东', color:'#2ee6a8', dim:'evolution', dimZh:'进化',   w:'SEAL · 生发', keyword:'evolution' },
-  vermilion: { zh:'朱雀', en:'Vermilion Bird', dir:'南', color:'#f0564a', dim:'attention', dimZh:'注意',   w:'GWT · 光明',  keyword:'attention' },
-  white:     { zh:'白虎', en:'White Tiger',    dir:'西', color:'#c9d0e8', dim:'shield',    dimZh:'守卫',   w:'SHIELD · 肃杀',keyword:'shield' },
+  azure:     { zh:'青龙', en:'Azure Dragon',   dir:'东', color:'#2ee6a8', dim:'evolution', dimZh:'进化',   w:'SEAL · 生发',   keyword:'evolution' },
+  vermilion: { zh:'朱雀', en:'Vermilion Bird', dir:'南', color:'#f0564a', dim:'attention', dimZh:'注意',   w:'GWT · 光明',    keyword:'attention' },
+  white:     { zh:'白虎', en:'White Tiger',    dir:'西', color:'#c9d0e8', dim:'shield',    dimZh:'守卫',   w:'SHIELD · 肃杀', keyword:'shield' },
   black:     { zh:'玄武', en:'Black Tortoise', dir:'北', color:'#7050f0', dim:'memory',    dimZh:'记忆',   w:'HyperCube · 藏蓄', keyword:'memory' }
 };
-const LODGES = [
-  { zh:'角', pinyin:'Jiǎo',  en:'Horn',            x:'azure',     ra:12.80, star:'α Vir — 角宿一',        attrib:'苍龙之角' },
-  { zh:'亢', pinyin:'Kàng',  en:'Neck',            x:'azure',     ra:14.10, star:'κ Vir — 亢宿一',        attrib:'龙喉' },
-  { zh:'氐', pinyin:'Dī',    en:'Root',            x:'azure',     ra:14.90, star:'α Lib — 氐宿一',        attrib:'龙足' },
-  { zh:'房', pinyin:'Fáng',  en:'Room',            x:'azure',     ra:15.80, star:'π Sco — 房宿一',        attrib:'龙腹 · 明堂' },
-  { zh:'心', pinyin:'Xīn',   en:'Heart',           x:'azure',     ra:16.30, star:'σ Sco — 心宿二 (Antares)', attrib:'大火' },
-  { zh:'尾', pinyin:'Wěi',   en:'Tail',            x:'azure',     ra:17.00, star:'μ Sco — 尾宿一',        attrib:'龙尾' },
-  { zh:'箕', pinyin:'Jī',    en:'Winnowing Basket',x:'azure',     ra:18.00, star:'γ Sgr — 箕宿一',        attrib:'簸扬' },
-  { zh:'斗', pinyin:'Dǒu',   en:'Dipper',          x:'black',     ra:18.60, star:'φ Sgr — 斗宿一',        attrib:'南斗' },
-  { zh:'牛', pinyin:'Niú',   en:'Ox',              x:'black',     ra:20.00, star:'β Cap — 牛宿一',        attrib:'牵牛' },
-  { zh:'女', pinyin:'Nǚ',    en:'Maid',            x:'black',     ra:20.70, star:'ε Aqr — 女宿一',        attrib:'织女' },
-  { zh:'虚', pinyin:'Xū',    en:'Emptiness',       x:'black',     ra:21.40, star:'β Aqr — 虚宿一',        attrib:'玄枵之次' },
-  { zh:'危', pinyin:'Wēi',   en:'Rooftop',         x:'black',     ra:22.10, star:'α Aqr — 危宿一',        attrib:'危楼' },
-  { zh:'室', pinyin:'Shì',   en:'Encampment',      x:'black',     ra:23.00, star:'α Peg — 室宿一',        attrib:'营室 · 定之方中' },
-  { zh:'壁', pinyin:'Bì',    en:'Wall',            x:'black',     ra: 0.17, star:'γ Peg — 壁宿一',        attrib:'东壁' },
-  { zh:'奎', pinyin:'Kuí',   en:'Legs',            x:'white',     ra: 0.80, star:'ζ And — 奎宿一',        attrib:'封豕' },
-  { zh:'娄', pinyin:'Lóu',   en:'Bond',            x:'white',     ra: 1.90, star:'β Ari — 娄宿一',        attrib:'聚众' },
-  { zh:'胃', pinyin:'Wèi',   en:'Stomach',         x:'white',     ra: 2.70, star:'35 Ari — 胃宿一',       attrib:'天仓' },
-  { zh:'昴', pinyin:'Mǎo',   en:'Hairy Head',      x:'white',     ra: 3.70, star:'M45 η Tau — 昴星团',    attrib:'昴星团' },
-  { zh:'毕', pinyin:'Bì',    en:'Net',             x:'white',     ra: 4.50, star:'ε Tau — 毕宿一',        attrib:'毕八星 · 网罟' },
-  { zh:'觜', pinyin:'Zī',    en:'Turtle Beak',     x:'white',     ra: 5.50, star:'λ Ori — 觜宿一',        attrib:'参首' },
-  { zh:'参', pinyin:'Shēn',  en:'Three Stars',     x:'white',     ra: 5.90, star:'ζ Ori — 参宿一 (Alnitak)', attrib:'参三星 · 猎户腰带' },
-  { zh:'井', pinyin:'Jǐng',  en:'Well',            x:'vermilion', ra: 6.50, star:'μ Gem — 井宿一',        attrib:'东井' },
-  { zh:'鬼', pinyin:'Guǐ',   en:'Ghost',           x:'vermilion', ra: 8.50, star:'θ Cnc — 鬼宿一',        attrib:'舆鬼' },
-  { zh:'柳', pinyin:'Liǔ',   en:'Willow',          x:'vermilion', ra: 9.00, star:'δ Hya — 柳宿一',        attrib:'鸟喙' },
-  { zh:'星', pinyin:'Xīng',  en:'Star',            x:'vermilion', ra:10.00, star:'α Hya — 星宿一',        attrib:'七星 · 鸟颈' },
-  { zh:'张', pinyin:'Zhāng', en:'Extended Net',    x:'vermilion', ra:10.70, star:'υ¹ Hya — 张宿一',       attrib:'鸟嗉' },
-  { zh:'翼', pinyin:'Yì',    en:'Wings',           x:'vermilion', ra:11.50, star:'α Crt — 翼宿一',        attrib:'鸟翼' },
-  { zh:'轸', pinyin:'Zhěn',  en:'Chariot',         x:'vermilion', ra:12.30, star:'γ Crv — 轸宿一',        attrib:'鸟车' }
-];
-const RA2LON = h => (h/24)*Math.PI*2;
+const DIM_ORDER = ['black','azure','vermilion','white'];   /* 北 东 南 西 */
+const DIM_ANGLES = { black:-Math.PI/2, azure:0, vermilion:Math.PI/2, white:Math.PI };
 
-/* ═══════════════════════════════════════════════════════════
-   3. CAPABILITY DATA (real: 102 nodes · 50 edges · 8 domains)
-   ═══════════════════════════════════════════════════════════ */
+/* 3. CAPABILITY DATA (real: 238 nodes · 100 edges · 8 domains) */
 const DOMAIN_META = {
   core:   { label:'NT-CORE',   color:'#ffd76a', cn:'紫微 · 帝星', role:'E8 reasoning · GWT attention · VSA HyperCube · Self', name:'Core' },
   mind:   { label:'NT-MIND',   color:'#2ee6a8', cn:'进化工匠',   role:'SEAL pipeline · distillation · skill crystallization', name:'Mind' },
@@ -472,12 +442,7 @@ const DOMAIN_XIANG = {
   repair:'azure'
 };
 
-/* ═══════════════════════════════════════════════════════════
-   4. THREE.JS 紫微星图 (real celestial layout)
-   · 二十八宿按真实赤经 (RA) 环布于黄道带
-   · 四象各据一方: 青龙·东 / 玄武·北 / 白虎·西 / 朱雀·南
-   · 紫微垣居中, 内垣 core 节点环拱, 360° 自由旋转
-   ═══════════════════════════════════════════════════════════ */
+/* 4. THREE.JS setup */
 const canvas = document.getElementById('galaxy-3d');
 const wrapper = document.getElementById('starmap');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
@@ -490,7 +455,6 @@ scene.fog = new THREE.FogExp2(0x020108, 0.006);
 const camera = new THREE.PerspectiveCamera(52, wrapper.clientWidth/wrapper.clientHeight, 0.1, 400);
 camera.position.set(0, 78, 88);
 
-/* 360° free rotation: full azimuth + polar freedom, auto-rotate */
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.07;
@@ -508,40 +472,15 @@ scene.add(galaxyGroup);
 const nodeById = {};
 const meshToNode = new Map();
 
-/* ── 真实星图几何 ─────────────────────────────
-   RA (赤经) → 圆周角。北(玄武)在上, 南(朱雀)在下,
-   东(青龙)在左, 西(白虎)在右 — 俯视星空。
-   角宿 (RA 12.8h, 东方之首) 转至 π 使青龙居左。 */
-const XIANG_ORDER = ['azure','vermilion','white','black'];
-const STAR_R = 44;                     /* 二十八宿环半径 (黄道带) */
-const ROT_OFF = Math.PI - RA2LON(12.8);/* 角宿 → 正左 (东方) */
-function lodgePoint(l, R){
-  const a = RA2LON(l.ra) + ROT_OFF;
-  return new THREE.Vector3(R*Math.cos(a), 0, R*Math.sin(a));
-}
-/* 某象七宿所占的弧段 (处理跨 24h 换日) */
-const ARCS = (function(){
-  const m = {};
-  XIANG_ORDER.forEach(x=>{
-    const as = LODGES.filter(l=>l.x===x).map(l=>RA2LON(l.ra)).sort((p,q)=>p-q);
-    const n = as.length;
-    let maxGap=-1, gi=0;
-    for(let i=1;i<n;i++){ const g=as[i]-as[i-1]; if(g>maxGap){maxGap=g;gi=i;} }
-    const wrapGap = as[0]+Math.PI*2-as[n-1];
-    if(wrapGap>maxGap){ gi=0; }
-    const arc=[];
-    for(let i=0;i<n;i++){
-      let a = as[(gi+i)%n];
-      if(a < as[gi]) a += Math.PI*2;
-      arc.push(a);
-    }
-    arc.sort((p,q)=>p-q);
-    m[x]={ a0:arc[0], a1:arc[n-1], mid:(arc[0]+arc[n-1])/2 };
-  });
-  return m;
-})();
+/* 4 维度定义: 按四象聚簇, 每维纳入对应域 */
+const coreYardNodes = GALAXY.nodes.filter(n=>n.domain==='core').slice(0,10);
+const inYard = new Set(coreYardNodes.map(n=>n.id));
+const DIMENSIONS = DIM_ORDER.map(key=>{
+  const nodes = GALAXY.nodes.filter(n=>!inYard.has(n.id) && DOMAIN_XIANG[n.domain]===key);
+  return { key, meta:XIANG[key], angle:DIM_ANGLES[key], nodes, count:nodes.length, domains:[...new Set(nodes.map(n=>n.domain))] };
+});
 
-/* 紫微星 = consciousness core at the center */
+/* 意识核心 = ConsciousnessTree at center */
 const core = { data:{ id:'core::consciousness_core', domain:'core', caps:['consciousness_core','phi','coherence'] } };
 {
   const pos = new THREE.Vector3(0, 0, 0);
@@ -557,152 +496,71 @@ const core = { data:{ id:'core::consciousness_core', domain:'core', caps:['consc
     new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.4, side:THREE.DoubleSide }));
   cor.rotation.x = Math.PI/2; galaxyGroup.add(cor);
   core.mesh = mesh; core.pos = pos; core.ring = cor;
-  meshToNode.set(mesh, { type:'node', rec:{ data:core.data, domain:'core', mesh, isCore:true } });
-  meshToNode.set(halo, { type:'node', rec:{ data:core.data, domain:'core', mesh:halo, isCore:true } });
+  meshToNode.set(mesh, { type:'core', rec:{ data:core.data, domain:'core', mesh, isCore:true } });
+  meshToNode.set(halo, { type:'core', rec:{ data:core.data, domain:'core', mesh:halo, isCore:true } });
 }
 
-/* 意识核心内垣: 少量关键基础节点紧贴核心 (非全部 core 节点) */
-const coreNodes = GALAXY.nodes.filter(n=>n.domain==='core').slice(0, 10);
-coreNodes.forEach((n,i)=>{
+/* 意识核心内垣: 10 个关键基础节点紧贴核心 */
+coreYardNodes.forEach((n,i)=>{
   const color = new THREE.Color(DOMAIN_META.core.color);
-  const a0 = i/coreNodes.length*Math.PI*2;
+  const a0 = i/coreYardNodes.length*Math.PI*2;
   const r = 7.6 + (i%2)*2.0;
   const yOff = (i%2===0?1:-1)*(0.5+(i%2)*0.4);
   const size = 0.3;
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color}));
   galaxyGroup.add(mesh);
-  const rec = { mesh, data:n, domain:n.domain, orbit:{ a0, r, yOff, sp:0.02+ (i%5)*0.004 } };
-  mesh.position.set(core.pos.x + Math.cos(a0)*r, core.pos.y + yOff, core.pos.z + Math.sin(a0)*r);
+  const rec = { mesh, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:DOMAIN_XIANG[n.domain], orbit:{ a0, r, yOff, sp:0.02+ (i%5)*0.004 } };
+  mesh.position.set(Math.cos(a0)*r, yOff, Math.sin(a0)*r);
   nodeById[n.id]=rec;
   meshToNode.set(mesh,{type:'node',rec});
 });
 
-/* 二十八宿: 真实赤经环布于黄道带 */
-const lodgeMeshes = {};
-LODGES.forEach((l,i)=>{
-  const xiang = XIANG[l.x];
-  const pos = lodgePoint(l, STAR_R);
-  const color = new THREE.Color(xiang.color);
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1.0, 20, 20),
-    new THREE.MeshBasicMaterial({color}));
-  mesh.position.copy(pos); galaxyGroup.add(mesh);
-  const halo = new THREE.Mesh(new THREE.SphereGeometry(2.2, 16, 16),
-    new THREE.MeshBasicMaterial({color, transparent:true, opacity:0.15}));
-  halo.position.copy(pos); galaxyGroup.add(halo);
-  const cvs = document.createElement('canvas'); cvs.width=64; cvs.height=64;
-  const ctx = cvs.getContext('2d');
-  ctx.clearRect(0,0,64,64);
-  ctx.font='700 34px "Noto Serif SC", serif';
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.shadowColor=xiang.color; ctx.shadowBlur=8;
-  ctx.fillStyle='#ffffff';
-  ctx.fillText(l.zh, 32, 34);
-  const tex = new THREE.CanvasTexture(cvs);
-  const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
-  spr.scale.set(3.4, 3.4, 1);
-  spr.position.copy(pos); spr.position.y += 2.6;
-  galaxyGroup.add(spr);
-  lodgeMeshes[l.zh] = { mesh, halo, spr, data:l, pos, xiang, k:i/7 };
-  meshToNode.set(mesh, { type:'lodge', lodge:l, mesh });
-  meshToNode.set(halo, { type:'lodge', lodge:l, mesh });
-});
-
-/* 黄道带环: 月亮/太阳轨道平面 */
-{
-  const g = new THREE.BufferGeometry().setFromPoints(
-    Array.from({length:201},(_,k)=>{ const a=k/200*Math.PI*2; return new THREE.Vector3(STAR_R*Math.cos(a), 0, STAR_R*Math.sin(a)); }));
-  const m = new THREE.Line(g, new THREE.LineBasicMaterial({ color:0xc9d0e8, transparent:true, opacity:0.15 }));
-  galaxyGroup.add(m);
-  const g2 = new THREE.BufferGeometry().setFromPoints(
-    Array.from({length:201},(_,k)=>{ const a=k/200*Math.PI*2; return new THREE.Vector3(6.4*Math.cos(a), 0, 6.4*Math.sin(a)); }));
-  const m2 = new THREE.Line(g2, new THREE.LineBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.15 }));
-  galaxyGroup.add(m2);
-}
-
-/* 四象天区弧线: 连接同象七宿 (按赤经序) */
-Object.keys(XIANG).forEach(x=>{
-  const lodges = LODGES.filter(l=>l.x===x).sort((p,q)=>p.ra-q.ra);
-  if(lodges.length<2) return;
-  const pts = [];
-  for(let k=0;k<=1.0001;k+=0.02){
-    const a = ARCS[x].a0 + (ARCS[x].a1-ARCS[x].a0)*k;
-    pts.push(new THREE.Vector3(STAR_R*Math.cos(a), 0, STAR_R*Math.sin(a)));
-  }
-  const curve = new THREE.CatmullRomCurve3(pts, false, 'catmullrom', 0.3);
-  const cpts = curve.getPoints(60);
-  const g = new THREE.BufferGeometry().setFromPoints(cpts);
-  const col = new THREE.Color(XIANG[x].color);
-  const m = new THREE.Line(g, new THREE.LineBasicMaterial({ color:col, transparent:true, opacity:0.35 }));
-  galaxyGroup.add(m);
-});
-
-/* 能力节点 → 星座扇区分布: 每个域一个星座扇区, 节点沿扇区弧环布 */
+/* 4 维度: 每维一条轴光线 + 中心光晕 + 节点星云 (无扇区壳) */
 const capMeshes = [];
-const capByDomain = {};
-const inYard = new Set(GALAXY.nodes.filter(n=>n.domain==='core').slice(0, 10).map(n=>n.id));
-GALAXY.nodes.filter(n=>n.domain!=='core' || !inYard.has(n.id)).forEach(n=>{
-  (capByDomain[n.domain] = capByDomain[n.domain]||[]).push(n);
-});
-const CONSTELLATIONS = Object.keys(DOMAIN_META).map(d=>{
-  const nodes = capByDomain[d]||[];
-  return { domain:d, meta:DOMAIN_META[d], xiangKey:DOMAIN_XIANG[d], nodes, count:nodes.length };
-});
+const DIM_AXIS_R = 12;
+const DIM_R = 46;
+const DIM_SWEEP = Math.PI/2 * 0.92;
+DIMENSIONS.forEach((dm, di)=>{
+  const cA = dm.angle;
+  dm.center = new THREE.Vector3(DIM_R*Math.cos(cA), 0, DIM_R*Math.sin(cA));
+  dm.ci = di;
 
-/* 星座扇区几何: 8 个域均匀分布在核心周围 (第 i 域扇区中心角 = 2π·i/8) */
-function constellationAngle(i){
-  return i/8*Math.PI*2 - Math.PI/2;   /* 从正上方向下排布 */
-}
-const CONST_START_R = 16;      /* 星座扇区内缘半径 */
-const CONST_BAND_W = 26;       /* 扇区带宽 (径向) */
-const CONST_SWEEP = Math.PI*2/8 * 0.9;  /* 扇区张角 (留缝隙) */
+  /* 轴光线: 核心 → 维度中心 */
+  const axPts = [new THREE.Vector3(0,0,0), dm.center.clone()];
+  dm.axis = new THREE.Line(new THREE.BufferGeometry().setFromPoints(axPts),
+    new THREE.LineBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.22 }));
+  galaxyGroup.add(dm.axis);
 
-CONSTELLATIONS.forEach((cs, ci)=>{
-  const color = new THREE.Color(cs.meta.color);
-  const cA = constellationAngle(ci);
-  cs.centerAngle = cA;
-  cs.ci = ci;
-  const bandMid = CONST_START_R + CONST_BAND_W/2;
-  cs.center = new THREE.Vector3(bandMid*Math.cos(cA), 0, bandMid*Math.sin(cA));
+  /* 维度中心光晕 */
+  dm.glow = new THREE.Mesh(new THREE.SphereGeometry(1.1, 20, 20),
+    new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.55 }));
+  dm.glow.position.copy(dm.center); galaxyGroup.add(dm.glow);
+  const ghalo = new THREE.Mesh(new THREE.SphereGeometry(3.0, 18, 18),
+    new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.1 }));
+  ghalo.position.copy(dm.center); galaxyGroup.add(ghalo);
+  meshToNode.set(dm.glow, { type:'dimension', dm });
+  meshToNode.set(ghalo,  { type:'dimension', dm });
 
-  /* 星座扇区壳: 半透明环弧 + 内缘弧线 */
-  const shellGeo = new THREE.RingGeometry(CONST_START_R-1, CONST_START_R+CONST_BAND_W+1, 64, 1,
-    cA-CONST_SWEEP/2, CONST_SWEEP);
-  const shellMat = new THREE.MeshBasicMaterial({ color, transparent:true, opacity:0.045,
-    side:THREE.DoubleSide, depthWrite:false });
-  const shell = new THREE.Mesh(shellGeo, shellMat);
-  shell.rotation.x = Math.PI/2; galaxyGroup.add(shell);
-  cs.shell = shell;
-
-  const arcPts = [];
-  for(let k=0;k<=40;k++){
-    const a = (cA-CONST_SWEEP/2) + CONST_SWEEP*(k/40);
-    arcPts.push(new THREE.Vector3(CONST_START_R*Math.cos(a), 0, CONST_START_R*Math.sin(a)));
-  }
-  const arcGeo = new THREE.BufferGeometry().setFromPoints(arcPts);
-  const arc = new THREE.Line(arcGeo, new THREE.LineBasicMaterial({ color, transparent:true, opacity:0.5 }));
-  galaxyGroup.add(arc);
-  cs.arc = arc;
-
-  /* 星座内节点: 沿扇区径向多环分布 */
-  cs.nodes.forEach((n, idx)=>{
+  /* 维度内节点: 沿维度方向呈星云状散布, 按 layer 径向分层 */
+  dm.nodes.forEach((n, idx)=>{
     const meta = DOMAIN_META[n.domain] || { color:'#ffffff' };
     const nodeColor = new THREE.Color(meta.color);
-    const frac = cs.nodes.length>1 ? idx/(cs.nodes.length-1) : 0.5;
     const layerN = n.layer==='l3domainservice'?3 : n.layer==='l2orchestrator'?2 : 1;
-    /* 径向分层: 层越高越靠外; 弧内按序均分 */
-    const rBand = CONST_START_R + (layerN-1)*7 + frac*7;
-    const aOff = (frac-0.5)*CONST_SWEEP*0.86;
-    const base = new THREE.Vector3(rBand*Math.cos(cA+aOff), 0, rBand*Math.sin(cA+aOff));
-    const rr = 0.9 + Math.random()*0.9;
+    const spread = DIM_SWEEP*0.9;
+    const aOff = (Math.random()-0.5)*spread;
+    const a = cA + aOff;
+    const rBand = DIM_AXIS_R + (layerN-1)*9 + Math.random()*(DIM_R - DIM_AXIS_R - 18);
+    const base = new THREE.Vector3(rBand*Math.cos(a), 0, rBand*Math.sin(a));
+    const rr = 1.2 + Math.random()*1.6;
     const a0 = Math.random()*Math.PI*2;
-    const yJ = (Math.random()-0.5)*1.2;
+    const yJ = (Math.random()-0.5)*2.2;
     const size = n.layer==='l3domainservice'?0.55:n.layer==='l2orchestrator'?0.4:0.3;
     const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color:nodeColor}));
     galaxyGroup.add(mesh);
     const halo = new THREE.Mesh(new THREE.SphereGeometry(size*2.8,10,10),
       new THREE.MeshBasicMaterial({color:nodeColor, transparent:true, opacity:0.08}));
     galaxyGroup.add(halo);
-    const rec = { mesh, halo, data:n, domain:n.domain, k:frac, xiangKey:DOMAIN_XIANG[n.domain],
+    const rec = { mesh, halo, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:dm.key,
       orbit:{ host:base.clone(), rr, a0, yJ, sp:0.04+Math.random()*0.05 } };
     mesh.position.set(base.x + Math.cos(a0)*rr, base.y + yJ, base.z + Math.sin(a0)*rr);
     capMeshes.push(rec);
@@ -710,14 +568,67 @@ CONSTELLATIONS.forEach((cs, ci)=>{
     meshToNode.set(mesh,{type:'node',rec});
     meshToNode.set(halo,{type:'node',rec});
   });
-
-  /* 星座壳/弧可点击 → 星座详情 */
-  cs.planetMesh = cs.nodes.map(n=>nodeById[n.id]);
-  meshToNode.set(shell, { type:'constellation', cs });
-  meshToNode.set(arc, { type:'constellation', cs });
 });
 
-/* links (curved) */
+/* 5. 进化链环 — 7 步围绕核心, 电流沿环流动 (融合进化链进星图) */
+const EVO_STEPS = [
+  { n:'01', t:'Perceive',  zh:'感知', domain:'world'  },
+  { n:'02', t:'Represent', zh:'表征', domain:'memory' },
+  { n:'03', t:'Reason',    zh:'思辨', domain:'core'   },
+  { n:'04', t:'Act',       zh:'行动', domain:'act'    },
+  { n:'05', t:'Evolve',    zh:'进化', domain:'mind'   },
+  { n:'06', t:'Guard',     zh:'守卫', domain:'shield' },
+  { n:'07', t:'Interface', zh:'呈现', domain:'io'     }
+];
+const EVO_R = 16;
+const evoNodes = [];
+const evoCurrents = [];
+{
+  /* 进化环轨道 */
+  const ringPts = Array.from({length:129},(_,k)=>{ const a=k/128*Math.PI*2; return new THREE.Vector3(EVO_R*Math.cos(a), 0, EVO_R*Math.sin(a)); });
+  const ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(ringPts),
+    new THREE.LineBasicMaterial({ color:0x8a93b8, transparent:true, opacity:0.16 }));
+  galaxyGroup.add(ring);
+}
+EVO_STEPS.forEach((s, i)=>{
+  const a = i/EVO_STEPS.length*Math.PI*2;
+  const pos = new THREE.Vector3(EVO_R*Math.cos(a), 0, EVO_R*Math.sin(a));
+  const col = new THREE.Color(DOMAIN_META[s.domain].color);
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.85, 20, 20), new THREE.MeshBasicMaterial({color:col}));
+  mesh.position.copy(pos); galaxyGroup.add(mesh);
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(1.7, 16, 16),
+    new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.18}));
+  halo.position.copy(pos); galaxyGroup.add(halo);
+  /* 数字 + 名称 标签 */
+  const cvs = document.createElement('canvas'); cvs.width=200; cvs.height=80;
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,200,80);
+  ctx.font='700 26px "Noto Serif SC", serif';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.shadowColor=DOMAIN_META[s.domain].color; ctx.shadowBlur=10;
+  ctx.fillStyle='#ffffff';
+  ctx.fillText(s.n, 40, 40);
+  ctx.fillStyle=DOMAIN_META[s.domain].color;
+  ctx.fillText(s.zh+' · '+s.t, 118, 40);
+  const tex = new THREE.CanvasTexture(cvs);
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
+  spr.scale.set(5.2, 2.08, 1);
+  spr.position.copy(pos); spr.position.y += 2.6;
+  galaxyGroup.add(spr);
+  const rec = { data:{ id:'evo::'+s.domain, domain:s.domain, caps:[s.t] }, mesh, halo, spr, domain:s.domain, pos, step:i };
+  evoNodes.push(rec);
+  meshToNode.set(mesh, { type:'evo', rec });
+  meshToNode.set(halo, { type:'evo', rec });
+  /* 环上电流粒子: 步 i → 步 i+1 */
+  const c0 = i/EVO_STEPS.length*Math.PI*2;
+  const c1 = (i+1)/EVO_STEPS.length*Math.PI*2;
+  const p = new THREE.Mesh(new THREE.SphereGeometry(0.26, 10, 10),
+    new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.95}));
+  galaxyGroup.add(p);
+  evoCurrents.push({ p, a0:c0, a1:c1, t:Math.random(), sp:0.05+Math.random()*0.05 });
+});
+
+/* 6. links (curved) + 电流粒子沿链流动 */
 const linkObjects = [];
 GALAXY.edges.forEach((e, li)=>{
   const a = nodeById[e[0]], b = nodeById[e[1]];
@@ -726,193 +637,97 @@ GALAXY.edges.forEach((e, li)=>{
     a.mesh.position.clone(),
     a.mesh.position.clone().add(b.mesh.position.clone()).multiplyScalar(0.5).add(new THREE.Vector3((Math.random()-0.5)*5,(Math.random()-0.5)*5,(Math.random()-0.5)*5)),
     b.mesh.position.clone());
-  const pts = curve.getPoints(20);
-  const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
+  const pts = curve.getPoints(24);
   const col = new THREE.Color(DOMAIN_META[a.domain].color);
-  const line = new THREE.Line(lineGeo, new THREE.LineBasicMaterial({color:col, transparent:true, opacity:0.22}));
+  const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+    new THREE.LineBasicMaterial({color:col, transparent:true, opacity:0.12}));
   galaxyGroup.add(line);
-  linkObjects.push({line, curve, a, b, color:col, control:curve.v2.clone()});
+  /* 电流粒子沿曲线流动 */
+  const cur = new THREE.Mesh(new THREE.SphereGeometry(0.2, 8, 8),
+    new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.9}));
+  galaxyGroup.add(cur);
+  linkObjects.push({ line, curve, a, b, color:col, control:curve.v2.clone(), cur, t:Math.random(), sp:0.10+Math.random()*0.12 });
 });
 
-/* ═══════════════════════════════════════════════════════════
-   5. REAL TIME CYCLES — Moon sidereal month + Sun tropical year
-   ═══════════════════════════════════════════════════════════ */
-const SIDEREAL_MONTH = 27.321661;
-const TROPICAL_YEAR  = 365.242190;
-const SYNODIC_MONTH  = 29.530589;
-let simDay = 0.0;
-let dayRate = 1.0;
-const moonMesh = new THREE.Mesh(new THREE.SphereGeometry(1.25, 24, 24),
-  new THREE.MeshBasicMaterial({ color:0xc9d0e8 }));
-galaxyGroup.add(moonMesh);
-const moonHalo = new THREE.Mesh(new THREE.SphereGeometry(2.2, 16, 16),
-  new THREE.MeshBasicMaterial({ color:0xc9d0e8, transparent:true, opacity:0.18 }));
-galaxyGroup.add(moonHalo);
-const sunMesh = new THREE.Mesh(new THREE.SphereGeometry(1.5, 24, 24),
-  new THREE.MeshBasicMaterial({ color:0xffd76a }));
-galaxyGroup.add(sunMesh);
-const sunHalo = new THREE.Mesh(new THREE.SphereGeometry(2.8, 16, 16),
-  new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.18 }));
-galaxyGroup.add(sunHalo);
-meshToNode.set(moonMesh, { type:'moon', mesh:moonMesh });
-meshToNode.set(moonHalo, { type:'moon', mesh:moonHalo });
-meshToNode.set(sunMesh,  { type:'sun',  mesh:sunMesh });
-meshToNode.set(sunHalo,  { type:'sun',  mesh:sunHalo });
-
-function moonLon(day){ return ((day / SIDEREAL_MONTH) % 1) * Math.PI*2; }
-function sunLon(day) { return ((day / TROPICAL_YEAR)  % 1) * Math.PI*2; }
-function moonPhaseName(day){
-  const p = ((day % SYNODIC_MONTH)/SYNODIC_MONTH);
-  if(p<0.06||p>=0.94) return '新月';
-  if(p<0.24) return '上蛾眉';
-  if(p<0.44) return '上弦';
-  if(p<0.56) return '盈凸';
-  if(p<0.72) return '满月';
-  if(p<0.86) return '亏凸';
-  if(p<0.97) return '下弦';
-  return '残月';
-}
-const SEASON = ['春','夏','秋','冬'];
-function lodgeAtLon(lon){
-  let best=null, bestD=1e9;
-  LODGES.forEach(l=>{
-    const lLon = RA2LON(l.ra);
-    let d = Math.abs(lLon - lon);
-    d = Math.min(d, Math.PI*2 - d);
-    if(d<bestD){ bestD=d; best=l; }
-  });
-  return best;
-}
-function seasonOfDay(day){
-  const lon = sunLon(day);
-  const q = Math.floor(lon/(Math.PI/2) + 1e-9);
-  return SEASON[((q % 4) + 4) % 4];
-}
-
-/* moon/sun orbit on an inclined circle through the galaxy */
-function bodyPos(lon, radius, tilt){
-  return new THREE.Vector3(
-    radius*Math.cos(lon),
-    radius*Math.sin(tilt),
-    radius*Math.sin(lon));
-}
-
-/* ═══════════════════════════════════════════════════════════
-   6. DIMENSION FOCUS — click a mansion to focus its 象
-   ═══════════════════════════════════════════════════════════ */
-let focusXiang = null;   /* null = 全显 (no dimension focus) */
-function computeDimWeights(keyword){
-  const kw = ['attention','core','event','workspace','governance','mars','gwt','resonance','evolution','seal','absorption','crystallization','learning','skill','growth','cycle','loop','memory','qret','search','embedding','archive','kb','store','hypercube','vector','shield','sandbox','audit','proxy','tor','egress','policy','scan','vault','firewall'];
-  const nw=new Map(), ew=new Map();
-  capMeshes.forEach(r=>{
-    const hay=(r.data.id+' '+r.data.caps.join(' ')).toLowerCase();
-    let w=0.25; kw.forEach(k=>{ if(hay.includes(k)) w+=0.75; });
-    nw.set(r.data.id,w);
-  });
-  linkObjects.forEach(l=>{
-    const hay=(l.a.data.id+' '+l.b.data.id).toLowerCase();
-    let w=0.2; kw.forEach(k=>{ if(hay.includes(k)) w+=0.8; });
-    ew.set(l.a.data.id+'|'+l.b.data.id,w);
-  });
-  return {nw,ew};
-}
+/* 7. 维度聚焦 — 聚焦某维度时点亮该维星云 */
+let focusDim = null;
 function applyDim(){
-  /* 无聚焦 (全显) */
-  if(!focusXiang){
-    Object.keys(lodgeMeshes).forEach(zh=>{
-      const lm = lodgeMeshes[zh];
-      lm.mesh.scale.setScalar(1);
-      lm.mesh.material.opacity = 1;
-      lm.mesh.material.transparent = true;
-      lm.halo.material.opacity = 0.15;
-    });
+  if(!focusDim){
     capMeshes.forEach(r=>{
       const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
       r.mesh.scale.setScalar(base);
-      r.halo.scale.setScalar(base*1.4);
+      r.mesh.material.opacity = 1;
+      r.mesh.material.color.set(DOMAIN_META[r.domain].color);
+      r.halo.material.opacity = 0.08;
     });
     linkObjects.forEach(l=>{
-      l.line.material.opacity = 0.22;
+      l.line.material.opacity = 0.12;
       l.line.material.color.copy(DOMAIN_META[l.a.domain].color);
+    });
+    DIMENSIONS.forEach(dm=>{
+      dm.glow.material.opacity = 0.55;
+      dm.axis.material.opacity = 0.22;
     });
     return;
   }
-  const kw = XIANG[focusXiang].keyword;
-  const w = computeDimWeights(kw);
-  Object.keys(lodgeMeshes).forEach(zh=>{
-    const lm = lodgeMeshes[zh];
-    const on = (lm.data.x===focusXiang);
-    lm.mesh.scale.setScalar(on?1.35:1);
-    lm.mesh.material.opacity = on?1:0.35;
-    lm.mesh.material.transparent = true;
-    lm.halo.material.opacity = on?0.3:0.08;
+  DIMENSIONS.forEach(dm=>{
+    const on = (dm.key===focusDim);
+    dm.glow.material.opacity = on?0.95:0.12;
+    dm.axis.material.opacity = on?0.6:0.06;
   });
   capMeshes.forEach(r=>{
-    const nwv = w.nw.get(r.data.id)||0.25;
+    const hit = (r.dimKey===focusDim);
     const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
-    const s = base*(0.5+nwv*1.2);
-    r.mesh.scale.setScalar(s);
-    r.halo.scale.setScalar(s*1.4);
+    if(hit){ r.mesh.scale.setScalar(base*1.4); r.mesh.material.color.set('#ffffff'); }
+    else { r.mesh.scale.setScalar(base*0.55); r.mesh.material.opacity = 0.15; r.mesh.material.transparent = true; }
   });
   linkObjects.forEach(l=>{
-    const wv = w.ew.get(l.a.data.id+'|'+l.b.data.id)||0.2;
-    l.line.material.opacity = 0.06+wv*0.45;
-    l.line.material.color.copy(DOMAIN_META[l.a.domain].color);
+    const hit = (l.a.dimKey===focusDim)||(l.b.dimKey===focusDim);
+    l.line.material.opacity = hit?0.5:0.05;
+    l.line.material.color.copy(hit?new THREE.Color(DIMENSIONS.find(d=>d.key===focusDim).meta.color):new THREE.Color(DOMAIN_META[l.a.domain].color));
   });
 }
 applyDim();
 
-/* time speed buttons — live inside the sun/moon detail panel */
+/* 面板聚焦按钮 */
 document.getElementById('detail-panel').addEventListener('click', e=>{
-  const tb = e.target.closest('.dp-time-btn');
-  if(tb){
-    panel.querySelectorAll('.dp-time-btn').forEach(x=>x.classList.remove('active'));
-    tb.classList.add('active');
-    dayRate = parseFloat(tb.dataset.sp);
-    return;
-  }
   const fb = e.target.closest('.dp-focus');
-  if(fb){
-    focusXiang = fb.dataset.x;
-    applyDim();
-    return;
-  }
+  if(fb){ focusDim = fb.dataset.d; applyDim(); return; }
   const ab = e.target.closest('.dp-all');
-  if(ab){ focusXiang = null; applyDim(); return; }
+  if(ab){ focusDim = null; applyDim(); return; }
 });
 
-/* ═══════════════════════════════════════════════════════════
-   7. TOOLTIP + HOVER
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ 8. TOOLTIP + HOVER ═══ */
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const tooltip = document.getElementById('gtooltip');
 let hoveredMesh = null;
-let hoveredConst = null;
+let hoveredDim = null;
 function worldToScreen(v){
   const p = v.clone().project(camera);
   return { x:(p.x*0.5+0.5)*wrapper.clientWidth, y:(-p.y*0.5+0.5)*wrapper.clientHeight };
 }
 function showTip(entry, screen){
   let html='';
-  if(entry.type==='lodge'){
-    const l = entry.lodge;
-    const x = XIANG[l.x];
-    html = '<div class="gt-title"><span class="gt-domain" style="background:'+x.color+'22;color:'+x.color+'">'+x.zh+' · '+l.pinyin+'</span>'+l.en+'</div>'+
-      '<div class="gt-role">'+l.star+'</div>'+
-      '<div class="gt-meta">'+l.attrib+' · RA '+l.ra.toFixed(1)+'h · '+x.dir+'方 '+x.zh+'</div>';
-  } else if(entry.type==='constellation'){
-    const cs = entry.cs;
-    html = '<div class="gt-title"><span class="gt-domain" style="background:'+cs.meta.color+'22;color:'+cs.meta.color+'">'+cs.meta.label+'</span>星座 · '+cs.meta.cn+'</div>'+
-      '<div class="gt-caps"><span class="gt-cap">'+cs.count+' 颗能力星球</span></div>'+
-      '<div class="gt-meta">'+cs.meta.role+' · 属'+XIANG[cs.xiangKey].zh+'</div>';
+  if(entry.type==='dimension'){
+    const dm = entry.dm;
+    const domains = dm.domains.map(d=>DOMAIN_META[d].label).join(' · ');
+    html = '<div class="gt-title"><span class="gt-domain" style="background:'+dm.meta.color+'22;color:'+dm.meta.color+'">'+dm.meta.zh+' · '+dm.meta.dir+'</span>'+dm.meta.dimZh+'维度</div>'+
+      '<div class="gt-role">'+domains+'</div>'+
+      '<div class="gt-caps"><span class="gt-cap">'+dm.count+' 颗能力星球</span></div>'+
+      '<div class="gt-meta">'+dm.meta.w+' · 点击聚焦</div>';
+  } else if(entry.type==='evo'){
+    const s = EVO_STEPS[entry.rec.step];
+    html = '<div class="gt-title"><span class="gt-domain" style="background:'+DOMAIN_META[s.domain].color+'22;color:'+DOMAIN_META[s.domain].color+'">'+DOMAIN_META[s.domain].label+'</span>'+s.zh+' · '+s.t+'</div>'+
+      '<div class="gt-role">进化链步骤 '+s.n+'</div>'+
+      '<div class="gt-meta">点击聚焦该域能力</div>';
   } else {
     const rec = entry.rec;
     const meta = DOMAIN_META[rec.domain] || {label:'',color:'#fff'};
     const caps = rec.data.caps||[];
     html = '<div class="gt-title"><span class="gt-domain" style="background:'+meta.color+'22;color:'+meta.color+'">'+meta.label+'</span>'+rec.data.id.split('::').pop()+'</div>'+
       '<div class="gt-caps">'+caps.slice(0,4).map((c,i)=>'<span class="gt-cap'+(i%2?' alt':'')+'">'+c+'</span>').join('')+'</div>'+
-      '<div class="gt-meta">'+rec.data.layer.toUpperCase()+' · '+rec.data.id+'</div>';
+      '<div class="gt-meta">'+rec.data.layer.toUpperCase()+' · 属'+XIANG[rec.xiangKey||rec.dimKey].zh+'维度 · '+rec.data.id+'</div>';
   }
   tooltip.innerHTML = html;
   tooltip.style.left = Math.min(screen.x+16, wrapper.clientWidth-320)+'px';
@@ -934,17 +749,17 @@ renderer.domElement.addEventListener('pointermove', e=>{
     hoveredMesh.material.color.set(hoveredMesh.userData.baseColor||'#ffffff');
     hoveredMesh=null; tooltip.classList.remove('show');
   }
-  if(hoveredConst && !(found && found.type==='constellation')){
-    highlightDomain(hoveredConst.domain, false);
-    hoveredConst=null;
+  if(hoveredDim && !(found && found.type==='dimension')){
+    highlightDim(hoveredDim, false);
+    hoveredDim=null;
   }
   if(found){
     const obj = found.rec?found.rec.mesh:(found.mesh);
-    if(found.type==='constellation'){
-      const cs = found.cs;
-      hoveredConst = cs;
-      highlightDomain(cs.domain, true);
-      const screen = worldToScreen(cs.center);
+    if(found.type==='dimension'){
+      const dm = found.dm;
+      hoveredDim = dm;
+      highlightDim(dm, true);
+      const screen = worldToScreen(dm.center);
       showTip(found, screen);
       return;
     }
@@ -963,28 +778,21 @@ renderer.domElement.addEventListener('pointermove', e=>{
   }
 });
 
-/* ═══════════════════════════════════════════════════════════
-   7b. CLICK → STAR DETAIL PANEL
-   everything lives behind a click on a star:
-   · 意识核心  → ConsciousnessTree LIVE metrics
-   · 二十八宿 → mansion info + focus its 象
-   · 能力节点 → domain + capabilities
-   · 日/月    → real time cycles + speed control
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ 9. CLICK → DETAIL PANEL ═══ */
 const panel = document.getElementById('detail-panel');
 const dpIcon = document.getElementById('dp-icon');
 const dpTitle = document.getElementById('dp-title');
 const dpSub = document.getElementById('dp-sub');
 const dpBody = document.getElementById('dp-body');
 const dpLive = document.getElementById('dp-live');
-let openType = null;   /* 'core' | 'lodge' | 'node' | 'sun' | 'moon' */
+let openType = null;
 
 function renderCoreDetail(){
   openType = 'core'; corePanelOpen = true;
   dpLive.style.display = '';
   dpIcon.style.background = '#ffd76a'; dpIcon.style.color = '#ffd76a';
   dpTitle.innerHTML = '意识核心 · 自进化引擎 <span class="dp-domain" style="background:#ffd76a22;color:#ffd76a">NT-CORE</span>';
-  dpSub.textContent = 'ConsciousnessTree — 六阶段自进化闭环 (土壤→根→干→枝→果→核)。E8 引导思辨, GWT 裁决注意力, 点击能力星座聚焦对应能力域。';
+  dpSub.textContent = 'ConsciousnessTree — 六阶段自进化闭环 (土壤→根→干→枝→果→核)。E8 引导思辨, GWT 裁决注意力。';
   dpBody.innerHTML =
     '<div class="dp-metrics">'+
     '<div class="dp-m"><div class="m-label">φ — 整合信息</div><div class="m-value gold" id="m-phi">'+CORE.phi.toFixed(3)+'</div><div class="m-note">IIT from 64-dim spectrum</div></div>'+
@@ -995,23 +803,11 @@ function renderCoreDetail(){
     '<div class="dp-m"><div class="m-label">Governance</div><div class="m-value green" id="m-gov">'+CORE.gov.toFixed(3)+'</div><div class="m-note">'+CORE.const+' execs · compliant</div></div>'+
     '</div>'+
     '<div class="dp-meta">BRANCHES '+CORE.branches+'/11 · FOG <span id="m-fog">'+CORE.fog.toFixed(3)+'</span> · SHADOWS '+CORE.shadows+' · CONST '+CORE.const+'</div>'+
-    '<div class="dp-actions"><button class="dp-btn dp-all">⇧ 全显四象</button>'+
-    XIANG_ORDER.map((x,i)=>'<button class="dp-btn dp-focus" data-x="'+x+'"><span class="dp-num">0'+(i+1)+'</span>'+XIANG[x].zh+'</button>').join('')+
+    '<div class="dp-actions"><button class="dp-btn dp-all">⇧ 全显四维</button>'+
+    DIMENSIONS.map(dm=>'<button class="dp-btn dp-focus" data-d="'+dm.key+'"><span class="dp-num">'+dm.meta.zh+'</span>'+dm.meta.dimZh+'</button>').join('')+
     '</div>';
   dpSub.innerHTML = dpSub.textContent + ' <span style="color:var(--goldcore)">能力网运行中</span>';
   positionPanel(core.pos);
-}
-function renderLodgeDetail(l){
-  openType = 'lodge'; corePanelOpen = false;
-  dpLive.style.display = 'none';
-  const x = XIANG[l.x];
-  dpIcon.style.background = x.color; dpIcon.style.color = x.color;
-  dpTitle.innerHTML = '<span class="dp-domain" style="background:'+x.color+'22;color:'+x.color+'">'+x.zh+' · '+x.dir+'方 '+x.zh+'</span>'+l.zh+'宿 · '+l.en;
-  dpSub.textContent = l.star;
-  dpBody.innerHTML =
-    '<div class="dp-meta">'+l.attrib+' · 赤经 RA '+l.ra.toFixed(2)+'h · 属'+x.zh+' ('+x.en+') 天区 · '+x.w+'</div>'+
-    '<div class="dp-actions"><button class="dp-btn dp-focus" data-x="'+l.x+'"><span class="dp-num">◉</span>聚焦'+x.zh+'维度</button><button class="dp-btn dp-all">⇧ 全显</button></div>';
-  positionPanel(lodgeMeshes[l.zh].pos);
 }
 function renderNodeDetail(rec){
   openType = 'node'; corePanelOpen = false;
@@ -1021,38 +817,12 @@ function renderNodeDetail(rec){
   dpTitle.innerHTML = '<span class="dp-domain" style="background:'+meta.color+'22;color:'+meta.color+'">'+meta.label+'</span>'+rec.data.id.split('::').pop();
   dpSub.textContent = meta.cn + ' — ' + meta.role;
   const caps = rec.data.caps||[];
+  const dmKey = rec.dimKey||rec.xiangKey;
   dpBody.innerHTML =
     '<div class="dp-caps">'+caps.map((c,i)=>'<span class="dp-cap'+(i%2?' alt':'')+'">'+c+'</span>').join('')+'</div>'+
-    '<div class="dp-meta">'+rec.data.layer.toUpperCase()+' · '+rec.data.id+'</div>'+
-    '<div class="dp-actions"><button class="dp-btn dp-focus" data-x="'+rec.xiangKey+'">◉ 聚焦'+XIANG[rec.xiangKey].zh+'维度</button><button class="dp-btn dp-all">⇧ 全显</button></div>';
+    '<div class="dp-meta">'+rec.data.layer.toUpperCase()+' · 属'+XIANG[dmKey].zh+'维度 · '+rec.data.id+'</div>'+
+    '<div class="dp-actions"><button class="dp-btn dp-focus" data-d="'+dmKey+'">◉ 聚焦'+XIANG[dmKey].zh+'维度</button><button class="dp-btn dp-all">⇧ 全显</button></div>';
   positionPanel(rec.mesh.position);
-}
-function renderTimeDetail(kind){
-  openType = kind; corePanelOpen = false;
-  dpLive.style.display = 'none';
-  if(kind==='sun'){
-    dpIcon.style.background = '#ffd76a'; dpIcon.style.color = '#ffd76a';
-    dpTitle.innerHTML = '太阳 · 周年视行 <span class="dp-domain" style="background:#ffd76a22;color:#ffd76a">黄道</span>';
-    dpSub.textContent = '太阳 365.25 日沿黄道穿越二十八宿 — 太阳在宿为节, 在次为气。';
-  } else {
-    dpIcon.style.background = '#c9d0e8'; dpIcon.style.color = '#c9d0e8';
-    dpTitle.innerHTML = '月亮 · 恒星月 <span class="dp-domain" style="background:#c9d0e822;color:#c9d0e8">月轨</span>';
-    dpSub.textContent = '月亮 27.32 日巡天一周, 朔望周期 29.53 日 — 太阴行度, 与二十八宿相逐。';
-  }
-  dpBody.innerHTML =
-    '<div class="dp-metrics">'+
-    '<div class="dp-m"><div class="m-label">月 · 驻宿</div><div class="m-value silver" id="dp-time-moon">…</div><div class="m-note">moon mansion</div></div>'+
-    '<div class="dp-m"><div class="m-label">日 · 驻宿</div><div class="m-value gold" id="dp-time-sun">…</div><div class="m-note">sun mansion</div></div>'+
-    '<div class="dp-m"><div class="m-label">模拟日</div><div class="m-value cyan" id="dp-time-day">Day 0</div><div class="m-note">simulated</div></div>'+
-    '</div>'+
-    '<div class="dp-bar">'+
-    '<button class="t-btn dp-time-btn" data-sp="0.1">0.1×</button>'+
-    '<button class="t-btn dp-time-btn active" data-sp="1">1×</button>'+
-    '<button class="t-btn dp-time-btn" data-sp="10">10×</button>'+
-    '<button class="t-btn dp-time-btn" data-sp="100">100×</button>'+
-    '</div>'+
-    '<div class="dp-actions"><button class="dp-btn dp-all">⇧ 全显四象</button></div>';
-  positionPanel(kind==='sun'?sunMesh.position:moonMesh.position);
 }
 function positionPanel(worldPos){
   const s = worldToScreen(worldPos);
@@ -1074,33 +844,30 @@ function closePanel(){
 }
 document.getElementById('dp-close').addEventListener('click', closePanel);
 
-/* ═══════════════════════════════════════════════════════════
-   7c. CONSTELLATION OVERLAY — 星座标签跟随投影 + 弹性交互
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ 10. DIMENSION OVERLAY — 四维标签跟随投影 + 弹性交互 ═══ */
 const cstTagsWrap = document.getElementById('cst-tags');
 const cstTagEls = [];
-CONSTELLATIONS.forEach((cs, ci)=>{
+DIMENSIONS.forEach((dm, di)=>{
   const el = document.createElement('div');
   el.className = 'cst-tag';
-  el.dataset.domain = cs.domain;
-  el.style.setProperty('--cst', cs.meta.color);
-  el.style.setProperty('--cstglow', cs.meta.color+'55');
+  el.dataset.domain = dm.key;
+  el.style.setProperty('--cst', dm.meta.color);
+  el.style.setProperty('--cstglow', dm.meta.color+'55');
   el.innerHTML =
-    '<div class="cst-name"><span class="cst-dot"></span>'+cs.meta.label+'</div>'+
-    '<div class="cst-cn">'+cs.meta.cn+'</div>'+
-    '<div class="cst-count"><b>'+cs.count+'</b> 颗能力星球 · 星座 </div>';
+    '<div class="cst-name"><span class="cst-dot"></span>'+dm.meta.zh+' · '+dm.meta.dimZh+'维度</div>'+
+    '<div class="cst-cn">'+dm.domains.map(d=>DOMAIN_META[d].label).join(' · ')+'</div>'+
+    '<div class="cst-count"><b>'+dm.count+'</b> 颗能力星球</div>';
   cstTagsWrap.appendChild(el);
-  el.addEventListener('pointerenter', ()=>highlightDomain(cs.domain, true));
-  el.addEventListener('pointerleave', ()=>highlightDomain(cs.domain, false));
-  el.addEventListener('click', ()=>{ openConstellation(cs); });
-  cstTagEls.push({ el, cs, ci });
+  el.addEventListener('pointerenter', ()=>highlightDim(dm, true));
+  el.addEventListener('pointerleave', ()=>highlightDim(dm, false));
+  el.addEventListener('click', ()=>{ openDimPanel(dm); });
+  cstTagEls.push({ el, dm, di });
 });
-/* 星座标签 3D → 2D 投影 (每帧在 render loop 更新) */
-function projectConstellationTags(){
+function projectDimTags(){
   if(cstTagsWrap.dataset.hidden==='1') return;
   const w = wrapper.clientWidth, h = wrapper.clientHeight;
-  cstTagEls.forEach(({el, cs})=>{
-    const p = cs.center.clone().project(camera);
+  cstTagEls.forEach(({el, dm})=>{
+    const p = dm.center.clone().project(camera);
     if(p.z > 1 || p.x<-1.2 || p.x>1.2 || p.y<-1.2 || p.y>1.2){
       el.classList.remove('visible'); return;
     }
@@ -1111,14 +878,13 @@ function projectConstellationTags(){
     el.classList.add('visible');
   });
 }
-
-/* 星座高亮: 点亮/压暗该域全部节点 */
-let highlightDomain = null;
-let highlightOn = null;   /* 当前 hover 的星座域名 (壳呼吸) */
+/* 维度高亮 */
+let highlightDim = null;
+let highlightOn = null;
 function installHighlight(){
-  highlightDomain = (domain, on)=>{
+  highlightDim = (dm, on)=>{
     capMeshes.forEach(r=>{
-      const hit = (r.domain===domain);
+      const hit = (r.dimKey===dm.key);
       const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
       if(on){
         if(hit){ r.mesh.scale.setScalar(base*1.4); r.mesh.material.color.set('#ffffff'); }
@@ -1129,19 +895,17 @@ function installHighlight(){
         r.mesh.material.opacity = 1;
       }
     });
-    CONSTELLATIONS.forEach(cs=>{
-      const hit = (cs.domain===domain);
-      cs.shell.material.opacity = on ? (hit?0.14:0.02) : 0.045;
-      cs.arc.material.opacity = on ? (hit?1:0.15) : 0.5;
-      if(on && hit){ cs.shell.material.color.set('#ffffff'); }
-      else { cs.shell.material.color.set(DOMAIN_META[cs.domain].color); }
+    DIMENSIONS.forEach(d=>{
+      const hit = (d.key===dm.key);
+      if(on && hit){ d.glow.material.color.set('#ffffff'); d.axis.material.color.set('#ffffff'); }
+      else { d.glow.material.color.set(new THREE.Color(d.meta.color)); d.axis.material.color.set(new THREE.Color(d.meta.color)); }
     });
-    highlightOn = on ? domain : null;
+    highlightOn = on ? dm.key : null;
   };
 }
 installHighlight();
 
-/* 星座详情面板 */
+/* 维度详情面板 */
 const cstPanel = document.getElementById('cst-panel');
 const cstIcon = document.getElementById('cst-icon');
 const cstTitle = document.getElementById('cst-title');
@@ -1149,33 +913,36 @@ const cstSub = document.getElementById('cst-sub');
 const cstStats = document.getElementById('cst-stats');
 const cstPlanets = document.getElementById('cst-planets');
 const cstFoot = document.getElementById('cst-foot');
-function openConstellation(cs){
+function openDimPanel(dm){
   closePanel(); closeCstPanel();
-  cstIcon.style.background = cs.meta.color; cstIcon.style.color = cs.meta.color;
-  cstTitle.textContent = cs.meta.label + ' · ' + cs.meta.cn;
-  cstTitle.style.color = cs.meta.color;
-  cstSub.textContent = cs.meta.role;
+  cstIcon.style.background = dm.meta.color; cstIcon.style.color = dm.meta.color;
+  cstTitle.textContent = dm.meta.zh+' · '+dm.meta.dimZh+'维度';
+  cstTitle.style.color = dm.meta.color;
+  cstSub.textContent = dm.domains.map(d=>DOMAIN_META[d].label+' '+DOMAIN_META[d].role).join(' | ');
   const layerCount = {};
-  cs.nodes.forEach(n=>{ layerCount[n.layer] = (layerCount[n.layer]||0)+1; });
+  dm.nodes.forEach(n=>{ layerCount[n.layer] = (layerCount[n.layer]||0)+1; });
   cstStats.innerHTML =
-    '<div class="cp-m"><div class="cp-label">能力星球</div><div class="cp-value">'+cs.count+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">能力星球</div><div class="cp-value">'+dm.count+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">能力域</div><div class="cp-value">'+dm.domains.length+'</div></div>'+
     '<div class="cp-m"><div class="cp-label">L1 复合</div><div class="cp-value">'+(layerCount.l1composite||0)+'</div></div>'+
     '<div class="cp-m"><div class="cp-label">L2 编排</div><div class="cp-value">'+(layerCount.l2orchestrator||0)+'</div></div>'+
     '<div class="cp-m"><div class="cp-label">L3 服务</div><div class="cp-value">'+(layerCount.l3domainservice||0)+'</div></div>'+
-    '<div class="cp-m"><div class="cp-label">所属星象</div><div class="cp-value">'+XIANG[cs.xiangKey].zh+'</div></div>'+
-    '<div class="cp-m"><div class="cp-label">位置</div><div class="cp-value">扇区 '+((cs.ci!=null?cs.ci:CONSTELLATIONS.indexOf(cs))+1)+'</div></div>';
-  cstPlanets.innerHTML = '<div class="cp-planet">'+
-    cs.nodes.map((n,i)=>
-      '<span class="cp-p" data-id="'+n.id+'"><span class="cp-pt">●</span>'+n.id.split('::').pop()+'</span>'
-    ).join('')+'</div>';
-  cstFoot.textContent = '星座内能力星球按 Layer 分层 · L1 复合 < L2 编排 < L3 服务 · 点击星球聚焦';
+    '<div class="cp-m"><div class="cp-label">方位</div><div class="cp-value">'+dm.meta.dir+'方</div></div>';
+  cstPlanets.innerHTML = dm.domains.map(d=>{
+    const dn = dm.nodes.filter(n=>n.domain===d);
+    return '<div class="cp-domain" style="color:'+DOMAIN_META[d].color+'">'+DOMAIN_META[d].label+' · '+dn.length+'</div>'+
+      '<div class="cp-planet">'+
+      dn.map(n=>'<span class="cp-p" data-id="'+n.id+'"><span class="cp-pt">●</span>'+n.id.split('::').pop()+'</span>').join('')+
+      '</div>';
+  }).join('');
+  cstFoot.textContent = '维度内能力星球按 Layer 分层 · L1 复合 < L2 编排 < L3 服务 · 点击星球聚焦';
   cstPlanets.querySelectorAll('.cp-p').forEach(b=>{
     b.addEventListener('click', ()=>{
       const rec = nodeById[b.dataset.id];
       if(rec){ closeCstPanel(); renderNodeDetail(rec); }
     });
   });
-  const s = worldToScreen(cs.center);
+  const s = worldToScreen(dm.center);
   const pw = Math.min(400, wrapper.clientWidth-32);
   let left = s.x + 24;
   if(left + pw > wrapper.clientWidth-12) left = s.x - pw - 24;
@@ -1195,9 +962,7 @@ function closeCstPanel(){
 }
 document.getElementById('cst-close').addEventListener('click', closeCstPanel);
 
-/* ═══════════════════════════════════════════════════════════
-   7d. CAPABILITY SEARCH — 搜索能力星球 (Q弹高亮)
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ 11. CAPABILITY SEARCH — 搜索能力星球 (Q弹高亮) ═══ */
 const searchInput = document.getElementById('search-input');
 const searchClear = document.getElementById('search-clear');
 const searchCount = document.getElementById('search-count');
@@ -1217,26 +982,26 @@ function applySearch(){
       r.mesh.material.color.set(DOMAIN_META[r.domain].color);
       r.halo.material.opacity = 0.08;
     });
-    CONSTELLATIONS.forEach((cs, ci)=>{
-      const el = cstTagEls[ci] ? cstTagEls[ci].el : null;
+    DIMENSIONS.forEach((dm, di)=>{
+      const el = cstTagEls[di] ? cstTagEls[di].el : null;
       if(el){
         el.style.opacity = '1';
-        el.querySelector('.cst-count').innerHTML = '<b>'+cs.count+'</b> 颗能力星球 · 星座';
+        el.querySelector('.cst-count').innerHTML = '<b>'+dm.count+'</b> 颗能力星球';
       }
     });
     return;
   }
   let matched = 0;
-  CONSTELLATIONS.forEach((cs, ci)=>{
-    const el = cstTagEls[ci] ? cstTagEls[ci].el : null;
+  DIMENSIONS.forEach((dm, di)=>{
+    const el = cstTagEls[di] ? cstTagEls[di].el : null;
     if(!el) return;
     let m = 0;
-    cs.nodes.forEach(n=>{
+    dm.nodes.forEach(n=>{
       const hay = (n.id+' '+n.caps.join(' ')+' '+n.domain).toLowerCase();
       if(hay.includes(q)) m++;
     });
     el.style.opacity = m>0 ? '1' : '0.22';
-    el.querySelector('.cst-count').innerHTML = '<b>'+m+'</b>/'+cs.count+' 颗匹配';
+    el.querySelector('.cst-count').innerHTML = '<b>'+m+'</b>/'+dm.count+' 颗匹配';
   });
   capMeshes.forEach(r=>{
     const hay = (r.data.id+' '+r.data.caps.join(' ')+' '+r.domain).toLowerCase();
@@ -1279,49 +1044,40 @@ renderer.domElement.addEventListener('pointerup', e=>{
   let found=null;
   for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
   if(!found){ closePanel(); closeCstPanel(); return; }
-  if(found.type==='lodge'){ renderLodgeDetail(found.lodge); return; }
-  if(found.type==='moon'){ renderTimeDetail('moon'); return; }
-  if(found.type==='sun'){ renderTimeDetail('sun'); return; }
-  if(found.type==='constellation'){ openConstellation(found.cs); return; }
+  if(found.type==='dimension'){ openDimPanel(found.dm); return; }
+  if(found.type==='evo'){
+    const s = EVO_STEPS[found.rec.step];
+    focusDim = DIMENSIONS.find(d=>d.domains.includes(s.domain)).key;
+    applyDim();
+    openDimPanel(DIMENSIONS.find(d=>d.domains.includes(s.domain)));
+    return;
+  }
   if(found.rec && found.rec.isCore){ renderCoreDetail(); return; }
   if(found.rec){ renderNodeDetail(found.rec); return; }
 });
-/* click outside a star → close (canvas background click) */
-renderer.domElement.addEventListener('click', e=>{
-  if(panel.classList.contains('show')) closePanel();
-  if(cstPanel.classList.contains('show')) closeCstPanel();
-});
 
-/* ═══════════════════════════════════════════════════════════
-   8. RENDER LOOP — real cycles + orbits
-   ═══════════════════════════════════════════════════════════ */
+
+/* ═══ 12. RENDER LOOP — orbits + 电流 + spring ═══ */
 let lastT = null;
 function render(t){
   if (lastT === null) lastT = t;
   const dt = (t-lastT)/1000; lastT=t;
-  simDay += dt*dayRate;
-  if (simDay < 0) simDay = 0;
 
-  /* moon/sun positions */
-  const mLon = moonLon(simDay);
-  const sLon = sunLon(simDay);
-  const mPos = bodyPos(mLon, STAR_R*0.92, -0.12);
-  const sPos = bodyPos(sLon, STAR_R*1.05, 0.18);
-  moonMesh.position.copy(mPos); moonHalo.position.copy(mPos);
-  sunMesh.position.copy(sPos);  sunHalo.position.copy(sPos);
+  /* 进化环电流 */
+  evoCurrents.forEach(ec=>{
+    ec.t = (ec.t + dt*ec.sp) % 1;
+    const a = ec.a0 + (ec.a1 - ec.a0)*ec.t;
+    ec.p.position.set(EVO_R*Math.cos(a), 0, EVO_R*Math.sin(a));
+  });
 
-  const mLodge = lodgeAtLon(mLon);
-  const sLodge = lodgeAtLon(sLon);
-
-  const el=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;};
-  if(openType==='sun'||openType==='moon'){
-    el('dp-time-moon', mLodge.zh + ' · ' + moonPhaseName(simDay));
-    el('dp-time-sun',  sLodge.zh + ' · ' + seasonOfDay(simDay));
-    el('dp-time-day',  'Day ' + simDay.toFixed(1));
-  }
+  /* 链路电流粒子沿曲线流动 */
+  linkObjects.forEach(l=>{
+    l.t = (l.t + dt*l.sp) % 1;
+    l.cur.position.copy(l.curve.getPoint(l.t));
+  });
 
   /* 内垣 core orbit */
-  coreNodes.forEach(n=>{
+  coreYardNodes.forEach(n=>{
     const rec = nodeById[n.id];
     if(!rec || !rec.orbit) return;
     const o = rec.orbit;
@@ -1329,7 +1085,7 @@ function render(t){
     rec.mesh.position.set(core.pos.x+Math.cos(a)*o.r, core.pos.y+o.yOff, core.pos.z+Math.sin(a)*o.r);
   });
 
-  /* capability node orbits around host point on the arm */
+  /* capability node orbits around host point */
   capMeshes.forEach(r=>{
     const o = r.orbit;
     const a = o.a0 + t*0.00045*o.sp;
@@ -1337,17 +1093,17 @@ function render(t){
     r.halo.position.copy(r.mesh.position);
   });
 
-  /* Q弹: 弹簧阻尼逼近 hover 目标缩放 (spring physics) */
+  /* Q弹: 弹簧阻尼逼近 hover 目标缩放 */
   const springT = Math.min(dt*12, 1);
   const visited = new Set();
 
-  /* 星座壳呼吸: hover 星座时弧线脉动发光 */
+  /* 维度呼吸: hover 时轴光线脉动 */
   if(highlightOn){
     const breathe = 0.5 + 0.5*Math.sin(t*0.004);
-    CONSTELLATIONS.forEach(cs=>{
-      if(cs.domain!==highlightOn) return;
-      cs.arc.material.opacity = 0.55 + breathe*0.45;
-      cs.shell.material.opacity = 0.08 + breathe*0.1;
+    DIMENSIONS.forEach(dm=>{
+      if(dm.key!==highlightOn) return;
+      dm.axis.material.opacity = 0.3 + breathe*0.4;
+      dm.glow.material.opacity = 0.55 + breathe*0.4;
     });
   }
 
@@ -1375,21 +1131,11 @@ function render(t){
     r.halo.scale.setScalar(next*1.4);
   });
 
-  /* rebuild link curves to follow moving nodes */
-  linkObjects.forEach(l=>{
-    const c = new THREE.QuadraticBezierCurve3(
-      l.a.mesh.position.clone(),
-      l.a.mesh.position.clone().add(l.b.mesh.position.clone()).multiplyScalar(0.5).add(l.control),
-      l.b.mesh.position.clone());
-    l.line.geometry.dispose();
-    l.line.geometry = new THREE.BufferGeometry().setFromPoints(c.getPoints(16));
-  });
-
   /* core corona slow spin */
   if(core.ring) core.ring.rotation.z = t*0.0002;
 
-  /* constellation tags follow projection */
-  projectConstellationTags();
+  /* dimension tags follow projection */
+  projectDimTags();
 
   controls.update();
   renderer.render(scene, camera);
@@ -1403,26 +1149,6 @@ function onResize(){
 }
 window.addEventListener('resize', onResize);
 
-/* 7-axis evolution chain (能力语境) */
-(function chain(){
-  const sec = document.querySelector('.chain');
-  const items = [
-    { i:'角 · 生', t:'Perceive', d:'NT-WORLD 摄取信号 — 爬虫、检索、分类器、贝叶斯 VoI 实验设计。' },
-    { i:'亢 · 藏', t:'Represent', d:'NT-MEMORY 存储 — VSA HyperCube 向量、FTS5 + BM25、质量排序检索。' },
-    { i:'氐 · 思', t:'Reason', d:'NT-CORE 思辨 — E8 卦象状态、GWT 注意力广播、MARS 双过程。' },
-    { i:'房 · 行', t:'Act', d:'NT-ACT 执行 — MCP 网关、PTC 工具、apply-patch、自治回路。' },
-    { i:'心 · 进', t:'Evolve', d:'NT-MIND 吸收 — SEAL 管线、技能结晶、经验吸收。' },
-    { i:'尾 · 守', t:'Guard', d:'NT-SHIELD 护卫 — 出口策略、WASI 燃料、审计扫描、零 unsafe。' },
-    { i:'箕 · 显', t:'Interface', d:'NT-IO 呈现 — 50+ CLI 命令、Tauri 桌面、模型无关网关。' }
-  ];
-  items.forEach(c=>{
-    const el=document.createElement('div');
-    el.className='chain-item glass';
-    el.innerHTML='<div class="ch-idx">'+c.i+'</div><div class="ch-title">'+c.t+'</div><div class="ch-desc">'+c.d+'</div><div class="ch-flow"></div>';
-    sec.appendChild(el);
-  });
-})();
-
 /* starfield */
 (function starfield(){
   const c=document.getElementById('star-canvas');
@@ -1434,10 +1160,11 @@ window.addEventListener('resize', onResize);
 })();
 
 /* nav scroll */
-const secEls=['starmap','chain'];
+const secEls=['top','starmap','docs'];
 addEventListener('scroll',()=>{
-  let cur='starmap';
-  secEls.forEach(s=>{const el=document.getElementById(s);if(el&&el.getBoundingClientRect().top<innerHeight*0.5)cur=s;});
+  const y=scrollY+120;
+  let cur='top';
+  for(const id of secEls){const el=document.getElementById(id);if(el&&y>=el.offsetTop)cur=id;}
   document.querySelectorAll('.nav-link').forEach(a=>a.classList.toggle('active',a.dataset.sec===cur));
 },{passive:true});
 
@@ -1448,6 +1175,7 @@ document.querySelectorAll('.glass').forEach(el=>{
 
 requestAnimationFrame(render);
 })();
+
 </script>
 </body>
 </html>
