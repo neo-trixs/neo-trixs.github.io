@@ -75,9 +75,13 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .nav a.nav-link.active{color:var(--goldcore);background:rgba(255,215,106,0.1)}
 .nav a.nav-link.doc{color:var(--gold)}
 .nav .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--goldcore);animation:pulse 2.2s infinite}
-.lang-toggle{position:fixed;top:14px;right:14px;z-index:120;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--ink2);background:rgba(6,5,16,0.55);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all 0.25s;line-height:1}
-.lang-toggle:hover{color:var(--goldcore);border-color:rgba(255,215,106,0.5)}
-@media (max-width:760px){.lang-toggle{top:10px;right:10px;padding:6px 11px;font-size:10px}}
+.lang-toggle{position:fixed;top:14px;right:14px;z-index:120;display:flex;align-items:center;gap:2px;width:92px;height:34px;padding:3px;background:linear-gradient(160deg,rgba(255,255,255,0.14),rgba(255,255,255,0.05));backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,0.18);border-radius:999px;cursor:pointer;transition:border-color 0.3s,box-shadow 0.3s;box-shadow:inset 0 0 14px rgba(255,215,106,0.06),0 2px 14px rgba(0,0,0,0.35);line-height:1;font-family:var(--mono);font-size:11px;letter-spacing:1px}
+.lang-toggle:hover{border-color:rgba(255,215,106,0.5);box-shadow:inset 0 0 18px rgba(255,215,106,0.14),0 2px 18px rgba(255,215,106,0.12)}
+.lang-toggle .lt-thumb{position:absolute;top:3px;left:3px;width:40px;height:26px;border-radius:999px;background:linear-gradient(150deg,rgba(255,255,255,0.38),rgba(255,255,255,0.10));backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.28);transition:transform 0.32s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 6px rgba(0,0,0,0.35)}
+.lang-toggle[data-lang="en"] .lt-thumb{transform:translateX(44px)}
+.lang-toggle .lt-opt{position:relative;z-index:1;flex:1;text-align:center;color:var(--ink3);transition:color 0.3s;user-select:none}
+.lang-toggle .lt-opt.on{color:var(--goldcore);font-weight:700;text-shadow:0 0 10px rgba(255,215,106,0.45)}
+@media (max-width:760px){.lang-toggle{top:10px;right:10px;transform:scale(0.85)}}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 6px var(--goldcore)}50%{opacity:0.4;box-shadow:none}}
 
 /* ═══ FULL-VIEWPORT 4D SPIRAL GALAXY ═══ */
@@ -310,7 +314,11 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <a class="nav-link" href="#docs" data-sec="docs" data-i18n="nav.docs">文档</a>
   <a class="nav-link doc nav-link-doc" href="guide/getting-started">DOCS</a>
 </nav>
-<button class="lang-toggle" id="lang-toggle" aria-label="switch language">EN</button>
+<button class="lang-toggle" id="lang-toggle" data-lang="zh" aria-label="switch language" aria-pressed="false">
+  <span class="lt-thumb"></span>
+  <span class="lt-opt lt-en">EN</span>
+  <span class="lt-opt lt-zh">中</span>
+</button>
 
 <!-- ═══ TOP HERO ═══ -->
 <section class="hero-sec" id="top">
@@ -326,7 +334,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
 
 <!-- ═══ 4D STAR NET ═══ -->
 <section class="galaxy-viewport" id="starmap">
-  <canvas id="galaxy-3d"></canvas>
+  <canvas id="galaxy-3d" role="img" aria-label="Capability galaxy star map — consciousness core, four nebulae, seven-step SEAL current ring"></canvas>
   <div class="galaxy-vignette"></div>
 
   <!-- star detail panel (everything lives behind a click) -->
@@ -442,6 +450,64 @@ const jit = (v,p) => v*(1+(Math.random()-0.5)*p);
 let lang = 'zh';
 try{ const v = localStorage.getItem('nt-lang'); if(v==='en'||v==='zh') lang=v; }catch(e){}
 const L = () => lang==='zh';
+const T = (k, fb) => { const d = I18N[lang]; return (d && d[k]!==undefined) ? d[k] : (fb!==undefined ? fb : ''); };
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+const prefersReduced = (typeof matchMedia==='function') && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))>>>0; } return h; }
+const I18N = {
+  zh: {
+    'title':'NeoTrix — 意识核心 · 能力星图',
+    'nav.starmap':'星图','nav.galaxy':'星系','nav.docs':'文档',
+    'hero.badge':'意识核心 · 自进化循环 — 7 步电流自动运转中',
+    'hero.tag':'意识核心 · 立体能力星网',
+    'hero.sub':'<b>意识核心 (ConsciousnessTree) 居中</b>, 驱动六阶段自进化闭环。环绕其外的 <b>7 步电流环</b> 是 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) — 电流沿环周流不息, 每步独立律动。四向悬浮的立体星云 = <b>4 大能力维度</b>: 记忆核心 · 进化自愈 · 行动界面 · 感知守卫, 238 颗能力星球皆为真实代码模块, 100 条星链电流互通。<b>点击星球探索能力网, 按住拖动可联动星链</b>, 搜索定位任意模块。',
+    'hero.start':'→ 启程','hero.star':'★ STAR',
+    'hint':'点击星球 · 按住拖动 (关联星链联动) · 滚轮缩放星图 + 滚动页面',
+    'search.placeholder':'搜索能力星球 / 模块 / 能力','search.empty':'未找到匹配的能力星球',
+    'lc.kicker':'◈ 星系 GALAXY · SEAL 自进化自动循环',
+    'lc.1t':'金色核心','lc.1d':'意识核心 ConsciousnessTree · 六阶段自进化',
+    'lc.2t':'七彩电流环','lc.2d':'7 步 SEAL 循环: 感知→表征→思辨→行动→进化→守卫→呈现',
+    'lc.3t':'四向星云','lc.3d':'记忆核心 / 进化自愈 / 行动界面 / 感知守卫',
+    'lc.4t':'电流星链','lc.4d':'238 颗真实模块 · 100 条真实依赖 · 可拖动联动',
+    'lc.5t':'服务与吸收','lc.5d':'金色电流自 7 步汇入核心 (服务意识) · 青色电流自虚空吸收知识 (吸收外部)',
+    'fold.kicker':'◈ THE SPICE MUST FLOW',
+    'fold.h2':'四维 <span class="grad">能力星网</span>',
+    'fold.p':'立体星域: 意识核心居中, 四维星云悬浮四向 — 记忆核心 · 进化自愈 · 行动界面 · 感知守卫。每朵星云按 <b>L3→L2→L1 三层分壳</b> 同心排布 (内圈领域服务 · 中圈编排器 · 外圈复合), 核心为 L0 意识核心域。七彩电流环 = 7 步 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息, 每步以独立律动呼吸, 金色电流汇入核心 (服务意识), 青色电流自虚空吸收外部知识。星链电流互通 238 颗真实模块, 按住星球拖动可带动关联星链联动。拖动星图, 尽览全貌。',
+    'l0.label':'L0 · 意识核心域',
+    'tooltip.evoRole':'进化链步骤','tooltip.evoMeta':'点击聚焦该域能力',
+    'core.title':'意识核心 · 自进化引擎',
+    'core.sub':'ConsciousnessTree — 六阶段自进化闭环 (土壤→根→干→枝→果→核)。E8 引导思辨, GWT 裁决注意力。',
+    'core.phi':'φ — 整合信息','core.all':'⇧ 全显四维','core.live':'能力网运行中',
+    'dim.all':'⇧ 全显',
+    'cst.foot':'维度内能力星球按 Layer 分层 · L1 复合 < L2 编排 < L3 服务 · 点击星球聚焦'
+  },
+  en: {
+    'title':'NeoTrix — Consciousness Core · Capability Galaxy',
+    'nav.starmap':'Star Map','nav.galaxy':'Galaxy','nav.docs':'Docs',
+    'hero.badge':'Consciousness Core · Self-Evolving Loop — 7-step current running',
+    'hero.tag':'Consciousness Core · Volumetric Capability Galaxy',
+    'hero.sub':'<b>ConsciousnessTree sits at the center</b>, driving a 6-stage self-evolution loop. Around it, the <b>7-step current ring</b> is the SEAL loop (Perceive→Represent→Reason→Act→Evolve→Guard→Interface) — currents flow endlessly around the ring, each step pulsing with its own rhythm. The four volumetric nebulae = <b>4 capability dimensions</b>: Memory Core · Evolve/Repair · Act/Interface · Perceive/Guard, 238 planets are real code modules, 100 current links interconnect them.<b>Click a planet to explore its capabilities, drag to move linked clusters</b>, search to locate any module.',
+    'hero.start':'→ Get Started','hero.star':'★ STAR',
+    'hint':'Click planets · drag to move (linked stars follow) · wheel zooms the map + scrolls the page',
+    'search.placeholder':'Search capability planets / modules / skills','search.empty':'No matching capability planets',
+    'lc.kicker':'◈ GALAXY · SEAL Self-Evolving Loop',
+    'lc.1t':'Golden Core','lc.1d':'ConsciousnessTree · 6-stage self-evolution',
+    'lc.2t':'Color Current Ring','lc.2d':'7-step SEAL loop: Perceive→Represent→Reason→Act→Evolve→Guard→Interface',
+    'lc.3t':'Four Nebulae','lc.3d':'Memory / Evolve / Act / Guard',
+    'lc.4t':'Current Links','lc.4d':'238 real modules · 100 real dependencies · draggable',
+    'lc.5t':'Serve & Absorb','lc.5d':'Gold currents flow from the 7 steps into the core (serving) · cyan currents absorb external knowledge from the void',
+    'fold.kicker':'◈ THE SPICE MUST FLOW',
+    'fold.h2':'Volumetric <span class="grad">Capability Galaxy</span>',
+    'fold.p':'Volumetric starfield: consciousness core at center, four nebulae hovering in four directions — Memory · Evolve · Act · Guard. Each nebula is layered <b>L3→L2→L1</b> concentrically (inner domain service · mid orchestrator · outer composite), with the L0 core domain at the heart. The color current ring = 7-step SEAL loop (Perceive→Represent→Reason→Act→Evolve→Guard→Interface) endlessly flowing, each step breathing with its own rhythm, gold currents converging into the core (serving consciousness), cyan currents absorbing external knowledge from the void. 238 real modules linked by currents — drag any planet to move its linked cluster. Drag the map to survey it all.',
+    'l0.label':'L0 · Core Domain',
+    'tooltip.evoRole':'Evolution chain step','tooltip.evoMeta':'Click to focus this domain',
+    'core.title':'Consciousness Core · Self-Evolving Engine',
+    'core.sub':'ConsciousnessTree — 6-stage self-evolving loop (Soil→Roots→Trunk→Branches→Fruits→Core). E8 guides reasoning, GWT arbitrates attention.',
+    'core.phi':'φ — Integrated Information','core.all':'⇧ Show All Four','core.live':'Network operational',
+    'dim.all':'⇧ Show All',
+    'cst.foot':'Planets layered by Layer · L1 Composite < L2 Orchestrator < L3 Service · click a planet to focus'
+  }
+};
 let corePanelOpen = false;
 setInterval(()=>{
   if(!corePanelOpen) return;
@@ -520,7 +586,7 @@ camera.position.set(0, 72, 96);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.07;
-controls.autoRotate = true;
+controls.autoRotate = !prefersReduced;
 controls.autoRotateSpeed = 0.6;
 controls.minDistance = 30;
 controls.maxDistance = 190;
@@ -591,25 +657,58 @@ coreYardNodes.forEach((n,i)=>{
   const ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
     new THREE.LineBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.3 }));
   galaxyGroup.add(ring);
-  const lb = makeLayerSprite('L0 · 意识核心域');
+  const lb = makeLayerSprite(()=>T('l0.label'));
+  layerSprites.push({ spr:lb, getText:()=>T('l0.label') });
   lb.position.set(6.2*1.45, 0.4, 0);
   galaxyGroup.add(lb);
 }
 
 /* 4 维度: 每维一条轴光线 + 中心光晕 + 节点星云 (无扇区壳) */
-function makeLayerSprite(txt){
+const layerSprites = [];
+function layerTex(txt){
   const c = document.createElement('canvas'); c.width=384; c.height=64;
   const x = c.getContext('2d');
   x.clearRect(0,0,384,64);
   x.textAlign='center'; x.textBaseline='middle';
   x.font='700 34px "Noto Serif SC","PingFang SC",sans-serif';
   x.fillStyle='#c9d0e8';
-  x.fillText(txt,192,32);
+  x.fillText(typeof txt==='function' ? txt() : txt,192,32);
   const tex = new THREE.CanvasTexture(c);
   tex.generateMipmaps=false; tex.minFilter=THREE.LinearFilter; tex.magFilter=THREE.LinearFilter;
-  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
+  return tex;
+}
+function makeLayerSprite(txt){
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:layerTex(txt), transparent:true, depthWrite:false}));
   sp.scale.set(4.2,0.7,1);
   return sp;
+}
+function evoLabelTexture(s){
+  const cvs = document.createElement('canvas'); cvs.width=640; cvs.height=180;
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,640,180);
+  ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.fillStyle='rgba(8,6,20,0.8)'; ctx.fill();
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.shadowColor='transparent'; ctx.shadowBlur=0;
+  ctx.font='700 72px "Noto Serif SC","PingFang SC",serif';
+  ctx.fillStyle=DOMAIN_META[s.domain].color;
+  ctx.fillText(lang==='zh' ? s.zh+' · '+s.t : s.t+' · '+s.zh, 320, 92);
+  const tex = new THREE.CanvasTexture(cvs);
+  tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+  return tex;
+}
+function refreshSprites(){
+  layerSprites.forEach(({spr,getText})=>{
+    if(spr.material.map) spr.material.map.dispose();
+    spr.material.map = layerTex(getText);
+    spr.material.needsUpdate = true;
+  });
+  evoNodes.forEach(rec=>{
+    const s = EVO_STEPS[rec.step];
+    if(rec.spr.material.map) rec.spr.material.map.dispose();
+    rec.spr.material.map = evoLabelTexture(s);
+    rec.spr.material.needsUpdate = true;
+  });
+  cstTagEls.forEach(({el,dm})=>{ el.innerHTML = cstTagHTML(dm); });
 }
 
 /* 糖豆星球纹理: 哑光糖衣 + 深浅颗粒 + 暖高光, 每颗星球独立 speckle */
@@ -688,7 +787,7 @@ DIMENSIONS.forEach((dm, di)=>{
     const rr = 0.9 + Math.random()*1.2;
     const a0 = Math.random()*Math.PI*2;
     const fx = DOMAIN_FX[n.domain] || DOMAIN_FX.core;
-    const beanTex = makeBeanTexture(nodeColor, n.id.length + idx*131);
+    const beanTex = makeBeanTexture(nodeColor, hashStr(n.id));
     const mesh = new THREE.Mesh(new THREE.SphereGeometry(sh.s,22,22),
       new THREE.MeshLambertMaterial({ map:beanTex, color:0xffffff, transparent:true, opacity:sh.o, emissive:nodeColor.clone().multiplyScalar(0.16), emissiveIntensity:0.3 }));
     galaxyGroup.add(mesh);
@@ -713,7 +812,9 @@ DIMENSIONS.forEach((dm, di)=>{
       new THREE.LineBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:sr.o }));
     galaxyGroup.add(ring);
     dm.shells.push(ring);
-    const lb = makeLayerSprite(L() ? ['L3 · 领域服务','L2 · 编排器','L1 · 复合'][si] : ['L3 · Domain Service','L2 · Orchestrator','L1 · Composite'][si]);
+    const getText = ()=> L() ? ['L3 · 领域服务','L2 · 编排器','L1 · 复合'][si] : ['L3 · Domain Service','L2 · Orchestrator','L1 · Composite'][si];
+    const lb = makeLayerSprite(getText);
+    layerSprites.push({ spr:lb, getText });
     const la = si*0.9 + dm.ci*0.8;
     lb.position.set(dm.center.x+Math.cos(la)*sr.r*1.45, dm.center.y+0.4, dm.center.z+Math.sin(la)*sr.r*1.45);
     galaxyGroup.add(lb);
@@ -765,19 +866,8 @@ EVO_STEPS.forEach((s, i)=>{
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(1.15, 20, 20),
     new THREE.MeshPhongMaterial({ color:col.clone().multiplyScalar(0.92), transparent:true, opacity:0.9, specular:new THREE.Color(0xffffff), shininess:160, emissive:col.clone().multiplyScalar(0.12) }));
   mesh.position.copy(pos); galaxyGroup.add(mesh);
-  /* 数字 + 名称 标签: 深底圆角卡 + 大字号高对比 (无辉光) */
-  const cvs = document.createElement('canvas'); cvs.width=640; cvs.height=180;
-  const ctx = cvs.getContext('2d');
-  ctx.clearRect(0,0,640,180);
-  ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.fillStyle='rgba(8,6,20,0.8)'; ctx.fill();
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.shadowColor='transparent'; ctx.shadowBlur=0;
-  ctx.font='700 72px "Noto Serif SC","PingFang SC",serif';
-  ctx.fillStyle=DOMAIN_META[s.domain].color;
-  ctx.fillText(s.zh+' · '+s.t, 320, 92);
-  const tex = new THREE.CanvasTexture(cvs);
-  tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
-  const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
+  /* 名称标签: 深底圆角卡 + 大字号高对比 (无辉光) */
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:evoLabelTexture(s), transparent:true, depthWrite:false}));
   spr.scale.set(7.4, 2.08, 1);
   spr.position.copy(pos).addScaledVector(dir, 4.4);
   galaxyGroup.add(spr);
@@ -921,22 +1011,22 @@ function showTip(entry, screen){
   if(entry.type==='dimension'){
     const dm = entry.dm;
     const domains = dm.domains.map(d=>DOMAIN_META[d].label).join(' · ');
-    html = '<div class="gt-title"><span class="gt-domain" style="background:'+dm.meta.color+'22;color:'+dm.meta.color+'">'+dm.meta.zh+'维度</span></div>'+
+    html = '<div class="gt-title"><span class="gt-domain" style="background:'+dm.meta.color+'22;color:'+dm.meta.color+'">'+(lang==='zh'?dm.meta.zh+'维度':dm.meta.en+' Dimension')+'</span></div>'+
       '<div class="gt-role">'+domains+'</div>'+
-      '<div class="gt-caps"><span class="gt-cap">'+dm.count+' 颗能力星球</span></div>'+
-      '<div class="gt-meta">'+dm.meta.w+' · 点击聚焦</div>';
+      '<div class="gt-caps"><span class="gt-cap">'+dm.count+' '+(lang==='zh'?'颗能力星球':'capability planets')+'</span></div>'+
+      '<div class="gt-meta">'+dm.meta.w+' · '+(lang==='zh'?'点击聚焦':'click to focus')+'</div>';
   } else if(entry.type==='evo'){
     const s = EVO_STEPS[entry.rec.step];
-    html = '<div class="gt-title"><span class="gt-domain" style="background:'+DOMAIN_META[s.domain].color+'22;color:'+DOMAIN_META[s.domain].color+'">'+DOMAIN_META[s.domain].label+'</span>'+s.zh+' · '+s.t+'</div>'+
-      '<div class="gt-role">进化链步骤</div>'+
-      '<div class="gt-meta">点击聚焦该域能力</div>';
+    html = '<div class="gt-title"><span class="gt-domain" style="background:'+DOMAIN_META[s.domain].color+'22;color:'+DOMAIN_META[s.domain].color+'">'+DOMAIN_META[s.domain].label+'</span>'+(lang==='zh'?s.zh+' · '+s.t:s.t+' · '+s.zh)+'</div>'+
+      '<div class="gt-role">'+T('tooltip.evoRole')+'</div>'+
+      '<div class="gt-meta">'+T('tooltip.evoMeta')+'</div>';
   } else {
     const rec = entry.rec;
     const meta = DOMAIN_META[rec.domain] || {label:'',color:'#fff'};
     const caps = rec.data.caps||[];
     html = '<div class="gt-title"><span class="gt-domain" style="background:'+meta.color+'22;color:'+meta.color+'">'+meta.label+'</span>'+rec.data.id.split('::').pop()+'</div>'+
       '<div class="gt-caps">'+caps.slice(0,4).map((c,i)=>'<span class="gt-cap'+(i%2?' alt':'')+'">'+c+'</span>').join('')+'</div>'+
-      '<div class="gt-meta">'+rec.data.layer.toUpperCase()+' · 属'+XIANG[rec.xiangKey||rec.dimKey].zh+'维度 · '+rec.data.id+'</div>';
+      '<div class="gt-meta">'+rec.data.layer.toUpperCase()+' · '+(lang==='zh'?'属'+XIANG[rec.xiangKey||rec.dimKey].dimZh+'维度':'in '+cap(XIANG[rec.xiangKey||rec.dimKey].dim)+' Dimension')+' · '+rec.data.id+'</div>';
   }
   tooltip.innerHTML = html;
   tooltip.style.left = Math.min(screen.x+16, wrapper.clientWidth-320)+'px';
@@ -1018,11 +1108,11 @@ function renderCoreDetail(){
   openType = 'core'; corePanelOpen = true;
   dpLive.style.display = '';
   dpIcon.style.background = '#ffd76a'; dpIcon.style.color = '#ffd76a';
-  dpTitle.innerHTML = '意识核心 · 自进化引擎 <span class="dp-domain" style="background:#ffd76a22;color:#ffd76a">NT-CORE</span>';
-  dpSub.textContent = 'ConsciousnessTree — 六阶段自进化闭环 (土壤→根→干→枝→果→核)。E8 引导思辨, GWT 裁决注意力。';
+  dpTitle.innerHTML = T('core.title')+' <span class="dp-domain" style="background:#ffd76a22;color:#ffd76a">NT-CORE</span>';
+  dpSub.textContent = T('core.sub');
   dpBody.innerHTML =
     '<div class="dp-metrics">'+
-    '<div class="dp-m"><div class="m-label">φ — 整合信息</div><div class="m-value gold" id="m-phi">'+CORE.phi.toFixed(3)+'</div><div class="m-note">IIT from 64-dim spectrum</div></div>'+
+    '<div class="dp-m"><div class="m-label">'+T('core.phi')+'</div><div class="m-value gold" id="m-phi">'+CORE.phi.toFixed(3)+'</div><div class="m-note">IIT from 64-dim spectrum</div></div>'+
     '<div class="dp-m"><div class="m-label">Coherence</div><div class="m-value violet" id="m-coherence">'+CORE.coherence.toFixed(3)+'</div><div class="m-note">cross-domain health</div></div>'+
     '<div class="dp-m"><div class="m-label">Cycle</div><div class="m-value cyan" id="m-cycle">'+CORE.cycle+'</div><div class="m-note">resonance active</div></div>'+
     '<div class="dp-m"><div class="m-label">Fruits</div><div class="m-value pink" id="m-fruits">'+CORE.fruits+'</div><div class="m-note">evolution harvest</div></div>'+
@@ -1030,10 +1120,10 @@ function renderCoreDetail(){
     '<div class="dp-m"><div class="m-label">Governance</div><div class="m-value green" id="m-gov">'+CORE.gov.toFixed(3)+'</div><div class="m-note">'+CORE.const+' execs · compliant</div></div>'+
     '</div>'+
     '<div class="dp-meta">BRANCHES '+CORE.branches+'/11 · FOG <span id="m-fog">'+CORE.fog.toFixed(3)+'</span> · SHADOWS '+CORE.shadows+' · CONST '+CORE.const+'</div>'+
-    '<div class="dp-actions"><button class="dp-btn dp-all">⇧ 全显四维</button>'+
-    DIMENSIONS.map(dm=>'<button class="dp-btn dp-focus" data-d="'+dm.key+'"><span class="dp-num">'+dm.meta.zh+'</span></button>').join('')+
+    '<div class="dp-actions"><button class="dp-btn dp-all">'+T('core.all')+'</button>'+
+    DIMENSIONS.map(dm=>'<button class="dp-btn dp-focus" data-d="'+dm.key+'"><span class="dp-num">'+(lang==='zh'?dm.meta.zh:dm.meta.en)+'</span></button>').join('')+
     '</div>';
-  dpSub.innerHTML = dpSub.textContent + ' <span style="color:var(--goldcore)">能力网运行中</span>';
+  dpSub.innerHTML = dpSub.textContent + ' <span style="color:var(--goldcore)">'+T('core.live')+'</span>';
   positionPanel(core.pos);
 }
 function renderNodeDetail(rec){
@@ -1042,13 +1132,13 @@ function renderNodeDetail(rec){
   const meta = DOMAIN_META[rec.domain] || {label:'',color:'#fff',cn:'',role:''};
   dpIcon.style.background = meta.color; dpIcon.style.color = meta.color;
   dpTitle.innerHTML = '<span class="dp-domain" style="background:'+meta.color+'22;color:'+meta.color+'">'+meta.label+'</span>'+rec.data.id.split('::').pop();
-  dpSub.textContent = meta.cn + ' — ' + meta.role;
+  dpSub.textContent = (lang==='zh' ? meta.cn : meta.name) + ' — ' + meta.role;
   const caps = rec.data.caps||[];
   const dmKey = rec.dimKey||rec.xiangKey;
   dpBody.innerHTML =
     '<div class="dp-caps">'+caps.map((c,i)=>'<span class="dp-cap'+(i%2?' alt':'')+'">'+c+'</span>').join('')+'</div>'+
-    '<div class="dp-meta">'+rec.data.layer.toUpperCase()+' · 属'+XIANG[dmKey].zh+'维度 · '+rec.data.id+'</div>'+
-    '<div class="dp-actions"><button class="dp-btn dp-focus" data-d="'+dmKey+'">◉ 聚焦'+XIANG[dmKey].zh+'维度</button><button class="dp-btn dp-all">⇧ 全显</button></div>';
+    '<div class="dp-meta">'+rec.data.layer.toUpperCase()+' · '+(lang==='zh'?'属'+XIANG[dmKey].dimZh+'维度':'in '+cap(XIANG[dmKey].dim)+' Dimension')+' · '+rec.data.id+'</div>'+
+    '<div class="dp-actions"><button class="dp-btn dp-focus" data-d="'+dmKey+'">◉ '+(lang==='zh'?'聚焦'+XIANG[dmKey].dimZh+'维度':'Focus '+cap(XIANG[dmKey].dim)+' Dimension')+'</button><button class="dp-btn dp-all">'+T('dim.all')+'</button></div>';
   positionPanel(rec.mesh.position);
 }
 function positionPanel(worldPos){
@@ -1074,16 +1164,18 @@ document.getElementById('dp-close').addEventListener('click', closePanel);
 /* ═══ 10. DIMENSION OVERLAY — 四维标签跟随投影 + 弹性交互 ═══ */
 const cstTagsWrap = document.getElementById('cst-tags');
 const cstTagEls = [];
+function cstTagHTML(dm){
+  return '<div class="cst-name"><span class="cst-dot"></span>'+(lang==='zh'?dm.meta.zh:dm.meta.en)+'</div>'+
+    '<div class="cst-cn">'+dm.domains.map(d=>DOMAIN_META[d].label).join(' · ')+'</div>'+
+    '<div class="cst-count"><b>'+dm.count+'</b> '+(lang==='zh'?'颗能力星球':'capability planets')+'</div>';
+}
 DIMENSIONS.forEach((dm, di)=>{
   const el = document.createElement('div');
   el.className = 'cst-tag';
   el.dataset.domain = dm.key;
   el.style.setProperty('--cst', dm.meta.color);
   el.style.setProperty('--cstglow', dm.meta.color+'55');
-  el.innerHTML =
-    '<div class="cst-name"><span class="cst-dot"></span>'+dm.meta.zh+'</div>'+
-    '<div class="cst-cn">'+dm.domains.map(d=>DOMAIN_META[d].label).join(' · ')+'</div>'+
-    '<div class="cst-count"><b>'+dm.count+'</b> 颗能力星球</div>';
+  el.innerHTML = cstTagHTML(dm);
   cstTagsWrap.appendChild(el);
   el.addEventListener('pointerenter', ()=>highlightDim(dm, true));
   el.addEventListener('pointerleave', ()=>highlightDim(dm, false));
@@ -1143,17 +1235,18 @@ const cstFoot = document.getElementById('cst-foot');
 function openDimPanel(dm){
   closePanel(); closeCstPanel();
   cstIcon.style.background = dm.meta.color; cstIcon.style.color = dm.meta.color;
-  cstTitle.textContent = dm.meta.zh;
+  cstTitle.textContent = lang==='zh' ? dm.meta.zh : dm.meta.en;
   cstTitle.style.color = dm.meta.color;
   cstSub.textContent = dm.domains.map(d=>DOMAIN_META[d].label+' '+DOMAIN_META[d].role).join(' | ');
   const layerCount = {};
   dm.nodes.forEach(n=>{ layerCount[n.layer] = (layerCount[n.layer]||0)+1; });
+  const zh = lang==='zh';
   cstStats.innerHTML =
-    '<div class="cp-m"><div class="cp-label">能力星球</div><div class="cp-value">'+dm.count+'</div></div>'+
-    '<div class="cp-m"><div class="cp-label">能力域</div><div class="cp-value">'+dm.domains.length+'</div></div>'+
-    '<div class="cp-m"><div class="cp-label">L1 复合</div><div class="cp-value">'+(layerCount.l1composite||0)+'</div></div>'+
-    '<div class="cp-m"><div class="cp-label">L2 编排</div><div class="cp-value">'+(layerCount.l2orchestrator||0)+'</div></div>'+
-    '<div class="cp-m"><div class="cp-label">L3 服务</div><div class="cp-value">'+(layerCount.l3domainservice||0)+'</div></div>';
+    '<div class="cp-m"><div class="cp-label">'+(zh?'能力星球':'Planets')+'</div><div class="cp-value">'+dm.count+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">'+(zh?'能力域':'Domains')+'</div><div class="cp-value">'+dm.domains.length+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">'+(zh?'L1 复合':'L1 Composite')+'</div><div class="cp-value">'+(layerCount.l1composite||0)+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">'+(zh?'L2 编排':'L2 Orchestrator')+'</div><div class="cp-value">'+(layerCount.l2orchestrator||0)+'</div></div>'+
+    '<div class="cp-m"><div class="cp-label">'+(zh?'L3 服务':'L3 Service')+'</div><div class="cp-value">'+(layerCount.l3domainservice||0)+'</div></div>';
   cstPlanets.innerHTML = dm.domains.map(d=>{
     const dn = dm.nodes.filter(n=>n.domain===d);
     return '<div class="cp-domain" style="color:'+DOMAIN_META[d].color+'">'+DOMAIN_META[d].label+' · '+dn.length+'</div>'+
@@ -1161,7 +1254,7 @@ function openDimPanel(dm){
       dn.map(n=>'<span class="cp-p" data-id="'+n.id+'"><span class="cp-pt">●</span>'+n.id.split('::').pop()+'</span>').join('')+
       '</div>';
   }).join('');
-  cstFoot.textContent = '维度内能力星球按 Layer 分层 · L1 复合 < L2 编排 < L3 服务 · 点击星球聚焦';
+  cstFoot.textContent = T('cst.foot');
   cstPlanets.querySelectorAll('.cp-p').forEach(b=>{
     b.addEventListener('click', ()=>{
       const rec = nodeById[b.dataset.id];
@@ -1212,7 +1305,7 @@ function applySearch(){
       const el = cstTagEls[di] ? cstTagEls[di].el : null;
       if(el){
         el.style.opacity = '1';
-        el.querySelector('.cst-count').innerHTML = '<b>'+dm.count+'</b> 颗能力星球';
+        el.innerHTML = cstTagHTML(dm);
       }
     });
     return;
@@ -1227,7 +1320,7 @@ function applySearch(){
       if(hay.includes(q)) m++;
     });
     el.style.opacity = m>0 ? '1' : '0.22';
-    el.querySelector('.cst-count').innerHTML = '<b>'+m+'</b>/'+dm.count+' 颗匹配';
+    el.querySelector('.cst-count').innerHTML = '<b>'+m+'</b>/'+dm.count+(lang==='zh'?' 颗匹配':' matched');
   });
   capMeshes.forEach(r=>{
     const hay = (r.data.id+' '+r.data.caps.join(' ')+' '+r.domain).toLowerCase();
@@ -1246,7 +1339,7 @@ function applySearch(){
       if(r.halo) r.halo.material.opacity = 0.02;
     }
   });
-  searchCount.innerHTML = '匹配 <b>'+matched+'</b> 颗能力星球';
+  searchCount.innerHTML = lang==='zh' ? ('匹配 <b>'+matched+'</b> 颗能力星球') : ('Matched <b>'+matched+'</b> capability planets');
   searchCount.classList.toggle('show', matched>0);
   searchEmpty.classList.toggle('show', matched===0);
 }
@@ -1267,7 +1360,7 @@ renderer.domElement.addEventListener('pointerdown', e=>{
   const hits = raycaster.intersectObjects(galaxyGroup.children);
   let found=null;
   for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
-  if(found && found.rec && !inYard.has(found.rec.data.id)){
+  if(found && found.rec && !found.rec.isCore && !inYard.has(found.rec.data.id)){
     if(restoreTimer){ clearTimeout(restoreTimer); restoreTimer = null; }
     if(restoreAnim){ restoreAnim.recs.forEach(rec=>{ rec.locked = false; }); restoreAnim = null; lastDragSet = null; lastDragOrig = null; }
     restoreAnim = null;
@@ -1533,6 +1626,7 @@ window.addEventListener('resize', onResize);
   let W=0,H=0,stars=[];
   function rs(){W=innerWidth;H=innerHeight;c.width=W;c.height=H;stars=[];for(let i=0;i<220;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+0.2,a:Math.random()*0.6+0.1,sp:Math.random()*0.0004+0.0001,ph:Math.random()*Math.PI*2});}
   rs();addEventListener('resize',rs);
+  if(prefersReduced) return;
   (function draw(t){g.clearRect(0,0,W,H);stars.forEach(s=>{const tw=0.5+0.5*Math.sin(t*s.sp+s.ph);g.beginPath();g.arc(s.x,s.y,s.r,0,Math.PI*2);g.fillStyle='rgba(255,255,255,'+(s.a*tw)+')';g.fill();});requestAnimationFrame(draw);})(0);
 })();
 
@@ -1550,52 +1644,17 @@ document.querySelectorAll('.glass').forEach(el=>{
   el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');el.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');});
 });
 
-requestAnimationFrame(render);
-})();
-
-/* ═══ 中英文界面切换 (右上角) ═══ */
-const I18N = {
-  zh: {
-    'nav.starmap':'星图','nav.galaxy':'星系','nav.docs':'文档',
-    'hero.badge':'意识核心 · 自进化循环 — 7 步电流自动运转中',
-    'hero.tag':'意识核心 · 立体能力星网',
-    'hero.sub':'<b>意识核心 (ConsciousnessTree) 居中</b>, 驱动六阶段自进化闭环。环绕其外的 <b>7 步电流环</b> 是 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) — 电流沿环周流不息, 每步独立律动。四向悬浮的立体星云 = <b>4 大能力维度</b>: 记忆核心 · 进化自愈 · 行动界面 · 感知守卫, 238 颗能力星球皆为真实代码模块, 100 条星链电流互通。<b>点击星球探索能力网, 按住拖动可联动星链</b>, 搜索定位任意模块。',
-    'hero.start':'→ 启程','hero.star':'★ STAR',
-    'hint':'点击星球 · 按住拖动 (关联星链联动) · 滚轮缩放星图 + 滚动页面',
-    'search.placeholder':'搜索能力星球 / 模块 / 能力','search.empty':'未找到匹配的能力星球',
-    'lc.kicker':'◈ 星系 GALAXY · SEAL 自进化自动循环',
-    'lc.1t':'金色核心','lc.1d':'意识核心 ConsciousnessTree · 六阶段自进化',
-    'lc.2t':'七彩电流环','lc.2d':'7 步 SEAL 循环: 感知→表征→思辨→行动→进化→守卫→呈现',
-    'lc.3t':'四向星云','lc.3d':'记忆核心 / 进化自愈 / 行动界面 / 感知守卫',
-    'lc.4t':'电流星链','lc.4d':'238 颗真实模块 · 100 条真实依赖 · 可拖动联动',
-    'lc.5t':'服务与吸收','lc.5d':'金色电流自 7 步汇入核心 (服务意识) · 青色电流自虚空吸收知识 (吸收外部)',
-    'fold.kicker':'◈ THE SPICE MUST FLOW',
-    'fold.h2':'四维 <span class="grad">能力星网</span>',
-    'fold.p':'立体星域: 意识核心居中, 四维星云悬浮四向 — 记忆核心 · 进化自愈 · 行动界面 · 感知守卫。每朵星云按 <b>L3→L2→L1 三层分壳</b> 同心排布 (内圈领域服务 · 中圈编排器 · 外圈复合), 核心为 L0 意识核心域。七彩电流环 = 7 步 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息, 每步以独立律动呼吸, 金色电流汇入核心 (服务意识), 青色电流自虚空吸收外部知识。星链电流互通 238 颗真实模块, 按住星球拖动可带动关联星链联动。拖动星图, 尽览全貌。'
-  },
-  en: {
-    'nav.starmap':'Star Map','nav.galaxy':'Galaxy','nav.docs':'Docs',
-    'hero.badge':'Consciousness Core · Self-Evolving Loop — 7-step current running',
-    'hero.tag':'Consciousness Core · Volumetric Capability Galaxy',
-    'hero.sub':'<b>ConsciousnessTree sits at the center</b>, driving a 6-stage self-evolution loop. Around it, the <b>7-step current ring</b> is the SEAL loop (Perceive→Represent→Reason→Act→Evolve→Guard→Interface) — currents flow endlessly around the ring, each step pulsing with its own rhythm. The four volumetric nebulae = <b>4 capability dimensions</b>: Memory Core · Evolve/Repair · Act/Interface · Perceive/Guard, 238 planets are real code modules, 100 current links interconnect them.<b>Click a planet to explore its capabilities, drag to move linked clusters</b>, search to locate any module.',
-    'hero.start':'→ Get Started','hero.star':'★ STAR',
-    'hint':'Click planets · drag to move (linked stars follow) · wheel zooms the map + scrolls the page',
-    'search.placeholder':'Search capability planets / modules / skills','search.empty':'No matching capability planets',
-    'lc.kicker':'◈ GALAXY · SEAL Self-Evolving Loop',
-    'lc.1t':'Golden Core','lc.1d':'ConsciousnessTree · 6-stage self-evolution',
-    'lc.2t':'Color Current Ring','lc.2d':'7-step SEAL loop: Perceive→Represent→Reason→Act→Evolve→Guard→Interface',
-    'lc.3t':'Four Nebulae','lc.3d':'Memory / Evolve / Act / Guard',
-    'lc.4t':'Current Links','lc.4d':'238 real modules · 100 real dependencies · draggable',
-    'lc.5t':'Serve & Absorb','lc.5d':'Gold currents flow from the 7 steps into the core (serving) · cyan currents absorb external knowledge from the void',
-    'fold.kicker':'◈ THE SPICE MUST FLOW',
-    'fold.h2':'Volumetric <span class="grad">Capability Galaxy</span>',
-    'fold.p':'Volumetric starfield: consciousness core at center, four nebulae hovering in four directions — Memory · Evolve · Act · Guard. Each nebula is layered <b>L3→L2→L1</b> concentrically (inner domain service · mid orchestrator · outer composite), with the L0 core domain at the heart. The color current ring = 7-step SEAL loop (Perceive→Represent→Reason→Act→Evolve→Guard→Interface) endlessly flowing, each step breathing with its own rhythm, gold currents converging into the core (serving consciousness), cyan currents absorbing external knowledge from the void. 238 real modules linked by currents — drag any planet to move its linked cluster. Drag the map to survey it all.'
-  }
-};
+/* ═══ 中英文全局切换 (液态玻璃开关, 右上角) — 静态文案 + 精灵 + 动态面板全量同步 ═══ */
 (function initLang(){
-  let lang = localStorage.getItem('nt-lang');
-  if(lang!=='zh' && lang!=='en') lang='zh';
   const toggle = document.getElementById('lang-toggle');
+  const optEn = toggle.querySelector('.lt-en');
+  const optZh = toggle.querySelector('.lt-zh');
+  function paintToggle(){
+    toggle.dataset.lang = lang;
+    if(optEn) optEn.classList.toggle('on', lang==='en');
+    if(optZh) optZh.classList.toggle('on', lang==='zh');
+    toggle.setAttribute('aria-pressed', String(lang==='en'));
+  }
   function apply(){
     const d = I18N[lang];
     document.querySelectorAll('[data-i18n]').forEach(el=>{
@@ -1604,15 +1663,23 @@ const I18N = {
       if(el.tagName==='INPUT') el.placeholder = v;
       else el.innerHTML = v;
     });
-    toggle.textContent = lang==='zh' ? 'EN' : '中';
+    document.title = T('title');
+    const og = document.querySelector('meta[property="og:title"]');
+    if(og) og.setAttribute('content', T('title'));
     document.documentElement.lang = lang==='zh' ? 'zh-CN' : 'en';
+    paintToggle();
   }
   toggle.addEventListener('click', ()=>{
     lang = lang==='zh' ? 'en' : 'zh';
     try{ localStorage.setItem('nt-lang', lang); }catch(e){}
     apply();
+    refreshSprites();
   });
   apply();
+  refreshSprites();
+})();
+
+requestAnimationFrame(render);
 })();
 
 </script>
