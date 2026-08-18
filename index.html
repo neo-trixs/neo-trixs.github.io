@@ -214,6 +214,11 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:3px;text-transform:uppercase;opacity:0.5;animation:hintFloat 3s ease-in-out infinite;white-space:nowrap}
 @keyframes hintFloat{0%,100%{opacity:0.35}50%{opacity:0.7}}
 
+.loop-legend{position:absolute;left:clamp(16px,4vw,56px);bottom:26px;z-index:17;pointer-events:none;padding:12px 16px;border-radius:14px;font-family:var(--mono);font-size:10px;line-height:1.9;color:var(--ink2);background:rgba(10,8,24,0.55);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.loop-legend .lg-title{font-size:11px;letter-spacing:2px;color:var(--goldcore);margin-bottom:6px;font-weight:700}
+.loop-legend .lg-row{display:flex;align-items:center;gap:8px}
+.loop-legend .lg-dot{width:8px;height:8px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor}
+
 /* ═══ Below-fold ═══ */
 .page-body{position:relative;z-index:10}
 .chain{width:min(1200px,94vw);margin:0 auto;padding:70px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
@@ -290,9 +295,9 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
 <!-- ═══ TOP HERO ═══ -->
 <section class="hero-sec" id="top">
   <div class="hero-overlay">
-    <div class="badge"><span class="dot"></span> 意识核心 · 能力星网 — 四维电流运行中</div>
-    <h1>NEO<span style="font-weight:300">TRIX</span><span class="sub-tag">意识核心 · 四维能力星网</span></h1>
-    <div class="sub"><b>紫微垣居中 — 意识核心 (ConsciousnessTree)</b>, 六阶段自进化闭环。环绕其外的是 <b>4 大能力维度</b>: 北·记忆核心 · 东·进化自愈 · 南·行动界面 · 西·感知守卫 — 238 颗能力星球皆为真实代码模块, 100 条星链带<b>电流流动</b>。内环 <b>7 步进化链</b> (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息。<b>点击星球探索能力网</b>, 搜索定位任意模块。</div>
+    <div class="badge"><span class="dot"></span> 意识核心 · 自进化循环 — 7 步电流自动运转中</div>
+    <h1>NEO<span style="font-weight:300">TRIX</span><span class="sub-tag">意识核心 · 立体能力星网</span></h1>
+    <div class="sub"><b>意识核心 (ConsciousnessTree) 居中</b>, 驱动六阶段自进化闭环。环绕其外的 <b>7 步电流环</b> 是 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) — 电流沿环周流不息。四向悬浮的立体星云 = <b>4 大能力维度</b>: 北·记忆核心 · 东·进化自愈 · 南·行动界面 · 西·感知守卫, 238 颗能力星球皆为真实代码模块, 100 条星链电流互通。<b>点击星球探索能力网, 按住拖动可联动星链</b>, 搜索定位任意模块。</div>
     <div class="actions">
       <a class="btn btn-primary" href="guide/getting-started">→ 启程</a>
       <a class="btn btn-glass" href="https://github.com/neo-trixs/NeoTrix">★ STAR</a>
@@ -337,7 +342,14 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <!-- constellation tags (overlay) -->
   <div id="cst-tags"></div>
 
-  <div class="hint">点击星球 · 拖拽旋转 · 滚轮缩放 · 双击空白关闭</div>
+  <div class="hint">点击星球 · 按住星球拖动 (关联星链联动) · 滚轮缩放</div>
+  <div class="loop-legend">
+    <div class="lg-title">SEAL · 自进化自动循环</div>
+    <div class="lg-row"><span class="lg-dot" style="background:#ffd76a;color:#ffd76a"></span><span>金色核心 — 意识核心 ConsciousnessTree (六阶段自进化)</span></div>
+    <div class="lg-row"><span class="lg-dot" style="background:#7fe8ff;color:#7fe8ff"></span><span>七彩电流环 — 7 步 SEAL 循环: 感知→表征→思辨→行动→进化→守卫→呈现</span></div>
+    <div class="lg-row"><span class="lg-dot" style="background:#2ee6a8;color:#2ee6a8"></span><span>四向星云 — 北·记忆核心 / 东·进化自愈 / 南·行动界面 / 西·感知守卫</span></div>
+    <div class="lg-row"><span class="lg-dot" style="background:#c9d0e8;color:#c9d0e8"></span><span>电流星链 — 238 颗真实模块 · 100 条真实依赖 · 可拖动联动</span></div>
+  </div>
   <div class="gtooltip" id="gtooltip"></div>
 </section>
 
@@ -347,7 +359,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
     <div class="section-head">
       <div class="sec-kicker">◈ THE SPICE MUST FLOW</div>
       <h2>四维 <span class="grad">能力星网</span></h2>
-      <p>北·记忆核心 · 东·进化自愈 · 南·行动界面 · 西·感知守卫 — 四大能力维度承载 8 域 238 颗能力星球。意识核心裁决注意力分配，电流沿星链流动，7 步进化链 (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息。拖动星图，尽览全貌。</p>
+      <p>立体星域: 意识核心居中, 四维星云悬浮四向 — 北·记忆核心 · 东·进化自愈 · 南·行动界面 · 西·感知守卫。七彩电流环 = 7 步 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息, 星链电流互通 238 颗真实模块, 按住星球拖动可带动关联星链联动。拖动星图, 尽览全貌。</p>
     </div>
   </div>
 
@@ -451,9 +463,9 @@ renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x020108, 0.006);
+scene.fog = new THREE.FogExp2(0x020108, 0.004);
 const camera = new THREE.PerspectiveCamera(52, wrapper.clientWidth/wrapper.clientHeight, 0.1, 400);
-camera.position.set(0, 78, 88);
+camera.position.set(0, 72, 96);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -517,19 +529,23 @@ coreYardNodes.forEach((n,i)=>{
 
 /* 4 维度: 每维一条轴光线 + 中心光晕 + 节点星云 (无扇区壳) */
 const capMeshes = [];
-const DIM_AXIS_R = 12;
-const DIM_R = 46;
-const DIM_SWEEP = Math.PI/2 * 0.92;
+const DIM_R = 38;      /* 维度中心半径 */
+const DIM_H = { black:13, azure:-13, vermilion:13, white:-13 };  /* 立体鞍形高度差 */
 DIMENSIONS.forEach((dm, di)=>{
   const cA = dm.angle;
-  dm.center = new THREE.Vector3(DIM_R*Math.cos(cA), 0, DIM_R*Math.sin(cA));
+  dm.center = new THREE.Vector3(DIM_R*Math.cos(cA), DIM_H[dm.key]||0, DIM_R*Math.sin(cA));
   dm.ci = di;
 
-  /* 轴光线: 核心 → 维度中心 */
-  const axPts = [new THREE.Vector3(0,0,0), dm.center.clone()];
-  dm.axis = new THREE.Line(new THREE.BufferGeometry().setFromPoints(axPts),
-    new THREE.LineBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.22 }));
+  /* 轴光束: 核心 → 维度中心的 3D 弧线 + 流动电流 */
+  const ctrl = new THREE.Vector3(0, dm.center.y*0.5, 0).lerpVectors(new THREE.Vector3(0,0,0), dm.center.clone(), 0.5);
+  dm.axCurve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0,0,0), ctrl, dm.center.clone());
+  dm.axis = new THREE.Line(new THREE.BufferGeometry().setFromPoints(dm.axCurve.getPoints(40)),
+    new THREE.LineBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.25 }));
   galaxyGroup.add(dm.axis);
+  const flow = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 8),
+    new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.95 }));
+  galaxyGroup.add(flow);
+  dm.flow = flow; dm.flowT = Math.random(); dm.flowSp = 0.05+Math.random()*0.02;
 
   /* 维度中心光晕 */
   dm.glow = new THREE.Mesh(new THREE.SphereGeometry(1.1, 20, 20),
@@ -541,19 +557,20 @@ DIMENSIONS.forEach((dm, di)=>{
   meshToNode.set(dm.glow, { type:'dimension', dm });
   meshToNode.set(ghalo,  { type:'dimension', dm });
 
-  /* 维度内节点: 沿维度方向呈星云状散布, 按 layer 径向分层 */
+  /* 维度内节点: 以维度中心为核的 3D 椭球星云, layer 控制径向层 */
   dm.nodes.forEach((n, idx)=>{
     const meta = DOMAIN_META[n.domain] || { color:'#ffffff' };
     const nodeColor = new THREE.Color(meta.color);
     const layerN = n.layer==='l3domainservice'?3 : n.layer==='l2orchestrator'?2 : 1;
-    const spread = DIM_SWEEP*0.9;
-    const aOff = (Math.random()-0.5)*spread;
-    const a = cA + aOff;
-    const rBand = DIM_AXIS_R + (layerN-1)*9 + Math.random()*(DIM_R - DIM_AXIS_R - 18);
-    const base = new THREE.Vector3(rBand*Math.cos(a), 0, rBand*Math.sin(a));
-    const rr = 1.2 + Math.random()*1.6;
+    const rho = 2.4 + (3-layerN)*2.8 + Math.random()*2.6;
+    const th = Math.random()*Math.PI*2;
+    const ph = Math.acos(2*Math.random()-1);
+    const base = dm.center.clone().add(new THREE.Vector3(
+      rho*Math.sin(ph)*Math.cos(th),
+      rho*Math.cos(ph)*0.8,
+      rho*Math.sin(ph)*Math.sin(th)));
+    const rr = 0.9 + Math.random()*1.2;
     const a0 = Math.random()*Math.PI*2;
-    const yJ = (Math.random()-0.5)*2.2;
     const size = n.layer==='l3domainservice'?0.55:n.layer==='l2orchestrator'?0.4:0.3;
     const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color:nodeColor}));
     galaxyGroup.add(mesh);
@@ -561,8 +578,8 @@ DIMENSIONS.forEach((dm, di)=>{
       new THREE.MeshBasicMaterial({color:nodeColor, transparent:true, opacity:0.08}));
     galaxyGroup.add(halo);
     const rec = { mesh, halo, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:dm.key,
-      orbit:{ host:base.clone(), rr, a0, yJ, sp:0.04+Math.random()*0.05 } };
-    mesh.position.set(base.x + Math.cos(a0)*rr, base.y + yJ, base.z + Math.sin(a0)*rr);
+      orbit:{ host:base.clone(), rr, a0, yJ:0, sp:0.04+Math.random()*0.05 } };
+    mesh.position.copy(base);
     capMeshes.push(rec);
     nodeById[n.id]=rec;
     meshToNode.set(mesh,{type:'node',rec});
@@ -580,50 +597,68 @@ const EVO_STEPS = [
   { n:'06', t:'Guard',     zh:'守卫', domain:'shield' },
   { n:'07', t:'Interface', zh:'呈现', domain:'io'     }
 ];
-const EVO_R = 16;
+const EVO_R = 18;
+const EVO_TILT = 1.05;              /* 环面绕 X 轴倾斜 → 立体电流环 */
+const ET_S = Math.sin(EVO_TILT), ET_C = Math.cos(EVO_TILT);
+function evoPos(a){
+  return new THREE.Vector3(EVO_R*Math.cos(a), EVO_R*Math.sin(a)*ET_S, EVO_R*Math.sin(a)*ET_C);
+}
 const evoNodes = [];
 const evoCurrents = [];
+const loopCurrents = [];
 {
-  /* 进化环轨道 */
-  const ringPts = Array.from({length:129},(_,k)=>{ const a=k/128*Math.PI*2; return new THREE.Vector3(EVO_R*Math.cos(a), 0, EVO_R*Math.sin(a)); });
+  /* 立体环轨道 (倾斜圆环) */
+  const ringPts = Array.from({length:129},(_,k)=>evoPos(k/128*Math.PI*2));
   const ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(ringPts),
-    new THREE.LineBasicMaterial({ color:0x8a93b8, transparent:true, opacity:0.16 }));
+    new THREE.LineBasicMaterial({ color:0xa8c0ff, transparent:true, opacity:0.32 }));
   galaxyGroup.add(ring);
+  /* 沿环连续流动的电流流 → 自动循环可视化 */
+  for(let i=0;i<22;i++){
+    const p = new THREE.Mesh(new THREE.SphereGeometry(0.15,8,8),
+      new THREE.MeshBasicMaterial({ color:0x7fe8ff, transparent:true, opacity:0.85 }));
+    galaxyGroup.add(p);
+    loopCurrents.push({ p, base:i/22*Math.PI*2, sp:0.2+(i%3)*0.05 });
+  }
 }
 EVO_STEPS.forEach((s, i)=>{
   const a = i/EVO_STEPS.length*Math.PI*2;
-  const pos = new THREE.Vector3(EVO_R*Math.cos(a), 0, EVO_R*Math.sin(a));
+  const pos = evoPos(a);
+  const dir = pos.clone().normalize();
   const col = new THREE.Color(DOMAIN_META[s.domain].color);
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.85, 20, 20), new THREE.MeshBasicMaterial({color:col}));
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1.15, 20, 20), new THREE.MeshBasicMaterial({color:col}));
   mesh.position.copy(pos); galaxyGroup.add(mesh);
-  const halo = new THREE.Mesh(new THREE.SphereGeometry(1.7, 16, 16),
-    new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.18}));
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(2.4, 16, 16),
+    new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.2}));
   halo.position.copy(pos); galaxyGroup.add(halo);
-  /* 数字 + 名称 标签 */
-  const cvs = document.createElement('canvas'); cvs.width=512; cvs.height=160;
+  /* 数字 + 名称 标签: 深底圆角卡 + 大字号高对比 */
+  const cvs = document.createElement('canvas'); cvs.width=640; cvs.height=180;
   const ctx = cvs.getContext('2d');
-  ctx.clearRect(0,0,512,160);
-  ctx.font='700 64px "Noto Serif SC","PingFang SC",serif';
+  ctx.clearRect(0,0,640,180);
+  ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.fillStyle='rgba(8,6,20,0.72)'; ctx.fill();
+  ctx.strokeStyle=DOMAIN_META[s.domain].color; ctx.globalAlpha=0.5; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.stroke(); ctx.globalAlpha=1;
   ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.shadowColor=DOMAIN_META[s.domain].color; ctx.shadowBlur=18;
+  ctx.font='700 104px "Noto Serif SC","PingFang SC",serif';
+  ctx.shadowColor=DOMAIN_META[s.domain].color; ctx.shadowBlur=26;
   ctx.fillStyle='#ffffff';
-  ctx.fillText(s.n, 108, 80);
+  ctx.fillText(s.n, 128, 92);
+  ctx.font='700 62px "Noto Serif SC","PingFang SC",serif';
   ctx.fillStyle=DOMAIN_META[s.domain].color;
-  ctx.fillText(s.zh+' · '+s.t, 320, 80);
+  ctx.fillText(s.zh+' · '+s.t, 392, 92);
   const tex = new THREE.CanvasTexture(cvs);
   tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
   const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
-  spr.scale.set(5.6, 1.75, 1);
-  spr.position.copy(pos); spr.position.y += 2.6;
+  spr.scale.set(7.4, 2.08, 1);
+  spr.position.copy(pos).addScaledVector(dir, 4.4);
   galaxyGroup.add(spr);
   const rec = { data:{ id:'evo::'+s.domain, domain:s.domain, caps:[s.t] }, mesh, halo, spr, domain:s.domain, pos, step:i };
   evoNodes.push(rec);
   meshToNode.set(mesh, { type:'evo', rec });
   meshToNode.set(halo, { type:'evo', rec });
   /* 环上电流粒子: 步 i → 步 i+1 */
-  const c0 = i/EVO_STEPS.length*Math.PI*2;
+  const c0 = a;
   const c1 = (i+1)/EVO_STEPS.length*Math.PI*2;
-  const p = new THREE.Mesh(new THREE.SphereGeometry(0.26, 10, 10),
+  const p = new THREE.Mesh(new THREE.SphereGeometry(0.3, 10, 10),
     new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.95}));
   galaxyGroup.add(p);
   evoCurrents.push({ p, a0:c0, a1:c1, t:Math.random(), sp:0.05+Math.random()*0.05 });
@@ -636,7 +671,7 @@ GALAXY.edges.forEach((e, li)=>{
   if(!a || !b) return;
   const curve = new THREE.QuadraticBezierCurve3(
     a.mesh.position.clone(),
-    a.mesh.position.clone().add(b.mesh.position.clone()).multiplyScalar(0.5).add(new THREE.Vector3((Math.random()-0.5)*5,(Math.random()-0.5)*5,(Math.random()-0.5)*5)),
+    a.mesh.position.clone().add(b.mesh.position.clone()).multiplyScalar(0.5).add(new THREE.Vector3((Math.random()-0.5)*9, 5+(Math.random()-0.5)*7, (Math.random()-0.5)*9)),
     b.mesh.position.clone());
   const pts = curve.getPoints(24);
   const col = new THREE.Color(DOMAIN_META[a.domain].color);
@@ -647,7 +682,7 @@ GALAXY.edges.forEach((e, li)=>{
   const cur = new THREE.Mesh(new THREE.SphereGeometry(0.2, 8, 8),
     new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.9}));
   galaxyGroup.add(cur);
-  linkObjects.push({ line, curve, a, b, color:col, control:curve.v2.clone(), cur, t:Math.random(), sp:0.10+Math.random()*0.12 });
+  linkObjects.push({ line, curve, a, b, color:col, control:new THREE.Vector3((Math.random()-0.5)*9, 5+(Math.random()-0.5)*7, (Math.random()-0.5)*9), cur, t:Math.random(), sp:0.10+Math.random()*0.12 });
 });
 
 /* 7. 维度聚焦 — 聚焦某维度时点亮该维星云 */
@@ -704,6 +739,8 @@ const pointer = new THREE.Vector2();
 const tooltip = document.getElementById('gtooltip');
 let hoveredMesh = null;
 let hoveredDim = null;
+let dragging = false, dragMoved = false;
+let dragRec = null, dragSet = null, dragBase = null, dragPlane = null, dragStart = null;
 function worldToScreen(v){
   const p = v.clone().project(camera);
   return { x:(p.x*0.5+0.5)*wrapper.clientWidth, y:(-p.y*0.5+0.5)*wrapper.clientHeight };
@@ -739,6 +776,32 @@ renderer.domElement.addEventListener('pointermove', e=>{
   const r = wrapper.getBoundingClientRect();
   pointer.x = ((e.clientX-r.left)/r.width)*2-1;
   pointer.y = -((e.clientY-r.top)/r.height)*2+1;
+  if(dragging && dragRec && dragPlane){
+    raycaster.setFromCamera(pointer, camera);
+    const q = new THREE.Vector3();
+    if(raycaster.ray.intersectPlane(dragPlane, q)){
+      const dx = q.x-dragStart.x, dy = q.y-dragStart.y, dz = q.z-dragStart.z;
+      if(Math.hypot(dx,dy,dz) > 0.001) dragMoved = true;
+      dragSet.forEach(rec=>{
+        const b = dragBase.get(rec);
+        rec.mesh.position.set(b.x+dx, b.y+dy, b.z+dz);
+        if(rec.orbit) rec.orbit.host = rec.mesh.position.clone();
+        if(rec.halo) rec.halo.position.copy(rec.mesh.position);
+        if(rec.spr){ const dn = rec.mesh.position.clone().normalize(); rec.spr.position.copy(rec.mesh.position).addScaledVector(dn, 4.4); }
+      });
+      linkObjects.forEach(l=>{
+        if(l.a!==dragRec && l.b!==dragRec) return;
+        l.curve = new THREE.QuadraticBezierCurve3(
+          l.a.mesh.position.clone(),
+          l.a.mesh.position.clone().add(l.b.mesh.position.clone()).multiplyScalar(0.5).add(l.control.clone()),
+          l.b.mesh.position.clone());
+        l.line.geometry.setFromPoints(l.curve.getPoints(24));
+        l.cur.position.copy(l.curve.getPoint(l.t));
+      });
+    }
+    tooltip.classList.remove('show');
+    return;
+  }
   raycaster.setFromCamera(pointer, camera);
   const hits = raycaster.intersectObjects(galaxyGroup.children);
   let found=null;
@@ -1033,8 +1096,40 @@ document.addEventListener('keydown', e=>{
 
 /* click: raycast → open detail; drag not treated as click */
 let downPos = null;
-renderer.domElement.addEventListener('pointerdown', e=>{ downPos = {x:e.clientX, y:e.clientY}; });
+renderer.domElement.addEventListener('pointerdown', e=>{
+  downPos = {x:e.clientX, y:e.clientY};
+  const r = wrapper.getBoundingClientRect();
+  pointer.x = ((e.clientX-r.left)/r.width)*2-1;
+  pointer.y = -((e.clientY-r.top)/r.height)*2+1;
+  raycaster.setFromCamera(pointer, camera);
+  const hits = raycaster.intersectObjects(galaxyGroup.children);
+  let found=null;
+  for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
+  if(found && found.rec && !inYard.has(found.rec.data.id)){
+    dragging = true; dragMoved = false;
+    dragRec = found.rec;
+    dragSet = new Set();
+    dragSet.add(dragRec);
+    linkObjects.forEach(l=>{
+      if(l.a===dragRec || l.b===dragRec){ dragSet.add(l.a); dragSet.add(l.b); }
+    });
+    dragSet.forEach(rec=>{ rec.locked = true; });
+    dragBase = new Map();
+    dragSet.forEach(rec=>dragBase.set(rec, rec.mesh.position.clone()));
+    dragPlane = new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()).negate(), dragRec.mesh.position.clone());
+    const q = new THREE.Vector3();
+    raycaster.ray.intersectPlane(dragPlane, q);
+    dragStart = q.clone();
+    e.preventDefault();
+  }
+});
 renderer.domElement.addEventListener('pointerup', e=>{
+  if(dragging){
+    dragging = false; dragRec = null;
+    if(dragSet){ dragSet.forEach(rec=>{ rec.locked = false; }); dragSet = null; }
+    dragBase = null; dragPlane = null; dragStart = null;
+    if(dragMoved){ dragMoved = false; downPos = null; return; }
+  }
   if(downPos && Math.hypot(e.clientX-downPos.x, e.clientY-downPos.y) > 6){ downPos=null; return; }
   downPos = null;
   const r = wrapper.getBoundingClientRect();
@@ -1064,11 +1159,22 @@ function render(t){
   if (lastT === null) lastT = t;
   const dt = (t-lastT)/1000; lastT=t;
 
-  /* 进化环电流 */
+  /* 进化环电流 (步间) */
   evoCurrents.forEach(ec=>{
     ec.t = (ec.t + dt*ec.sp) % 1;
-    const a = ec.a0 + (ec.a1 - ec.a0)*ec.t;
-    ec.p.position.set(EVO_R*Math.cos(a), 0, EVO_R*Math.sin(a));
+    ec.p.position.copy(evoPos(ec.a0 + (ec.a1 - ec.a0)*ec.t));
+  });
+
+  /* 进化环连续电流流 → 自动循环 */
+  loopCurrents.forEach(c=>{
+    c.p.position.copy(evoPos(c.base + t*0.00055*c.sp));
+  });
+
+  /* 维度轴光束电流: 核心 → 维度中心 往复 */
+  DIMENSIONS.forEach(dm=>{
+    if(!dm.axCurve) return;
+    dm.flowT = (dm.flowT + dt*dm.flowSp) % 1;
+    dm.flow.position.copy(dm.axCurve.getPoint(dm.flowT));
   });
 
   /* 链路电流粒子沿曲线流动 */
@@ -1088,6 +1194,7 @@ function render(t){
 
   /* capability node orbits around host point */
   capMeshes.forEach(r=>{
+    if(r.locked) return;
     const o = r.orbit;
     const a = o.a0 + t*0.00045*o.sp;
     r.mesh.position.set(o.host.x+Math.cos(a)*o.rr, o.host.y+o.yJ, o.host.z+Math.sin(a)*o.rr);
