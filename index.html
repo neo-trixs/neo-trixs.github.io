@@ -361,7 +361,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <!-- constellation tags (overlay) -->
   <div id="cst-tags"></div>
 
-  <div class="hint" data-i18n="hint">点击星球 · 按住拖动 (关联星链联动) · 触控板双指缩放 · 滚轮浏览页面</div>
+  <div class="hint" data-i18n="hint">点击星球 · 按住拖动 (关联星链联动) · 滚轮缩放星图 + 滚动页面</div>
   <div class="gtooltip" id="gtooltip"></div>
 </section>
 
@@ -511,8 +511,8 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x020108, 0.004);
-scene.add(new THREE.AmbientLight(0xb0c4ff, 0.6));
-const keyLight = new THREE.DirectionalLight(0xffffff, 1.5); keyLight.position.set(50, 120, 60); scene.add(keyLight);
+scene.add(new THREE.AmbientLight(0xffd9b8, 0.55));
+const keyLight = new THREE.DirectionalLight(0xfff1da, 1.4); keyLight.position.set(50, 120, 60); scene.add(keyLight);
 const rimLight = new THREE.DirectionalLight(0x1fd0ff, 0.55); rimLight.position.set(-90, -30, -70); scene.add(rimLight);
 const camera = new THREE.PerspectiveCamera(52, wrapper.clientWidth/wrapper.clientHeight, 0.1, 400);
 camera.position.set(0, 72, 96);
@@ -529,15 +529,13 @@ controls.enableZoom = false;
 controls.minPolarAngle = 0.05;
 controls.maxPolarAngle = Math.PI - 0.05;
 
-/* 鼠标滚轮 → 页面滚动; 触控板双指捏合 → 相机缩放 */
+/* 鼠标滚轮: 保持页面正常上下滚动, 同时缩放星图相机 */
 renderer.domElement.addEventListener('wheel', e=>{
-  if(!e.ctrlKey) return;
-  e.preventDefault();
-  const f = 1 - e.deltaY*0.002;
+  const f = 1 - e.deltaY*0.0009;
   const d = camera.position.length();
   const nd = Math.max(controls.minDistance, Math.min(controls.maxDistance, d*f));
   camera.position.multiplyScalar(nd/d);
-}, {passive:false});
+}, {passive:true});
 
 const galaxyGroup = new THREE.Group();
 scene.add(galaxyGroup);
@@ -577,8 +575,8 @@ coreYardNodes.forEach((n,i)=>{
   const r = 7.6 + (i%2)*2.0;
   const yOff = (i%2===0?1:-1)*(0.5+(i%2)*0.4);
   const size = 0.3;
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12),
-    new THREE.MeshPhongMaterial({ color:color.clone().multiplyScalar(0.92), transparent:true, opacity:0.85, specular:new THREE.Color(0xffffff), shininess:140, emissive:color.clone().multiplyScalar(0.1) }));
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,16,16),
+    new THREE.MeshLambertMaterial({ map:makeBeanTexture(color, i+7), color:0xffffff, transparent:true, opacity:0.85, emissive:color.clone().multiplyScalar(0.1), emissiveIntensity:0.3 }));
   galaxyGroup.add(mesh);
   const rec = { mesh, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:DOMAIN_XIANG[n.domain], orbit:{ a0, r, yOff, sp:0.02+ (i%5)*0.004 } };
   mesh.position.set(Math.cos(a0)*r, yOff, Math.sin(a0)*r);
@@ -612,6 +610,34 @@ function makeLayerSprite(txt){
   const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
   sp.scale.set(4.2,0.7,1);
   return sp;
+}
+
+/* 糖豆星球纹理: 哑光糖衣 + 深浅颗粒 + 暖高光, 每颗星球独立 speckle */
+function makeBeanTexture(hex, seed){
+  const c = document.createElement('canvas'); c.width=128; c.height=128;
+  const x = c.getContext('2d');
+  const col = new THREE.Color(hex);
+  col.offsetHSL(((seed%7)-3)*0.004, ((seed%5)-2)*0.02, ((seed%9)-4)*0.02);
+  const hi = col.clone().multiplyScalar(1.42), mid = col.clone(), lo = col.clone().multiplyScalar(0.58);
+  const g = x.createRadialGradient(46,40,4, 64,64,70);
+  g.addColorStop(0, hi.getStyle());
+  g.addColorStop(0.42, mid.getStyle());
+  g.addColorStop(1, lo.getStyle());
+  x.fillStyle = g; x.fillRect(0,0,128,128);
+  let rnd = seed*9301 + 49297;
+  for(let i=0;i<26;i++){
+    rnd = (rnd*233280)%100000; const a = rnd/100000*Math.PI*2;
+    rnd = (rnd*233280)%100000; const d = rnd/100000*56;
+    rnd = (rnd*233280)%100000; const pr = rnd/100000*2.6+1;
+    const px = 64+Math.cos(a)*d, py = 64+Math.sin(a)*d;
+    x.beginPath(); x.arc(px,py,pr,0,Math.PI*2);
+    rnd = (rnd*233280)%100000;
+    x.fillStyle = rnd>50000 ? 'rgba(255,255,255,0.20)' : 'rgba(0,0,0,0.14)';
+    x.fill();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.anisotropy = 2;
+  return tex;
 }
 const capMeshes = [];
 const DIM_R = 38;      /* 维度中心半径 */
@@ -662,8 +688,9 @@ DIMENSIONS.forEach((dm, di)=>{
     const rr = 0.9 + Math.random()*1.2;
     const a0 = Math.random()*Math.PI*2;
     const fx = DOMAIN_FX[n.domain] || DOMAIN_FX.core;
-    const mesh = new THREE.Mesh(new THREE.SphereGeometry(sh.s,14,14),
-      new THREE.MeshPhongMaterial({ color:nodeColor.clone(), transparent:true, opacity:sh.o, specular:new THREE.Color(0xffffff), shininess:140, emissive:nodeColor.clone().multiplyScalar(0.16), emissiveIntensity:0.3 }));
+    const beanTex = makeBeanTexture(nodeColor, n.id.length + idx*131);
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(sh.s,22,22),
+      new THREE.MeshLambertMaterial({ map:beanTex, color:0xffffff, transparent:true, opacity:sh.o, emissive:nodeColor.clone().multiplyScalar(0.16), emissiveIntensity:0.3 }));
     galaxyGroup.add(mesh);
     const rec = { mesh, halo:null, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:dm.key, fx,
       orbit:{ host:base.clone(), rr, a0, yJ:0, sp:0.04*fx.o+Math.random()*0.05 } };
@@ -835,7 +862,7 @@ function applyDim(){
       const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
       r.mesh.scale.setScalar(base);
       r.mesh.material.opacity = 1;
-      r.mesh.material.color.set(DOMAIN_META[r.domain].color);
+      r.mesh.material.color.set(0xffffff);
       if(r.halo) r.halo.material.opacity = 0.08;
     });
     linkObjects.forEach(l=>{
@@ -1091,7 +1118,7 @@ function installHighlight(){
         else { r.mesh.scale.setScalar(base*0.7); r.mesh.material.opacity = 0.25; r.mesh.material.transparent = true; }
       } else {
         r.mesh.scale.setScalar(base);
-        r.mesh.material.color.set(DOMAIN_META[r.domain].color);
+        r.mesh.material.color.set(0xffffff);
         r.mesh.material.opacity = 1;
       }
     });
@@ -1178,7 +1205,7 @@ function applySearch(){
       const base = r.data.layer==='l3domainservice'?1.9:r.data.layer==='l2orchestrator'?1.5:1.15;
       r.mesh.scale.setScalar(base);
       r.mesh.material.opacity = 1;
-      r.mesh.material.color.set(DOMAIN_META[r.domain].color);
+      r.mesh.material.color.set(0xffffff);
       if(r.halo) r.halo.material.opacity = 0.08;
     });
     DIMENSIONS.forEach((dm, di)=>{
@@ -1534,7 +1561,7 @@ const I18N = {
     'hero.tag':'意识核心 · 立体能力星网',
     'hero.sub':'<b>意识核心 (ConsciousnessTree) 居中</b>, 驱动六阶段自进化闭环。环绕其外的 <b>7 步电流环</b> 是 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) — 电流沿环周流不息, 每步独立律动。四向悬浮的立体星云 = <b>4 大能力维度</b>: 记忆核心 · 进化自愈 · 行动界面 · 感知守卫, 238 颗能力星球皆为真实代码模块, 100 条星链电流互通。<b>点击星球探索能力网, 按住拖动可联动星链</b>, 搜索定位任意模块。',
     'hero.start':'→ 启程','hero.star':'★ STAR',
-    'hint':'点击星球 · 按住拖动 (关联星链联动) · 触控板双指缩放 · 滚轮浏览页面',
+    'hint':'点击星球 · 按住拖动 (关联星链联动) · 滚轮缩放星图 + 滚动页面',
     'search.placeholder':'搜索能力星球 / 模块 / 能力','search.empty':'未找到匹配的能力星球',
     'lc.kicker':'◈ 星系 GALAXY · SEAL 自进化自动循环',
     'lc.1t':'金色核心','lc.1d':'意识核心 ConsciousnessTree · 六阶段自进化',
@@ -1552,7 +1579,7 @@ const I18N = {
     'hero.tag':'Consciousness Core · Volumetric Capability Galaxy',
     'hero.sub':'<b>ConsciousnessTree sits at the center</b>, driving a 6-stage self-evolution loop. Around it, the <b>7-step current ring</b> is the SEAL loop (Perceive→Represent→Reason→Act→Evolve→Guard→Interface) — currents flow endlessly around the ring, each step pulsing with its own rhythm. The four volumetric nebulae = <b>4 capability dimensions</b>: Memory Core · Evolve/Repair · Act/Interface · Perceive/Guard, 238 planets are real code modules, 100 current links interconnect them.<b>Click a planet to explore its capabilities, drag to move linked clusters</b>, search to locate any module.',
     'hero.start':'→ Get Started','hero.star':'★ STAR',
-    'hint':'Click planets · drag to move (linked stars follow) · pinch to zoom · scroll to browse',
+    'hint':'Click planets · drag to move (linked stars follow) · wheel zooms the map + scrolls the page',
     'search.placeholder':'Search capability planets / modules / skills','search.empty':'No matching capability planets',
     'lc.kicker':'◈ GALAXY · SEAL Self-Evolving Loop',
     'lc.1t':'Golden Core','lc.1d':'ConsciousnessTree · 6-stage self-evolution',
