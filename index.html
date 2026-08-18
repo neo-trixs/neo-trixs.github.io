@@ -745,12 +745,9 @@ EVO_STEPS.forEach((s, i)=>{
   ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.fillStyle='rgba(8,6,20,0.8)'; ctx.fill();
   ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.shadowColor='transparent'; ctx.shadowBlur=0;
-  ctx.font='700 104px "Noto Serif SC","PingFang SC",serif';
-  ctx.fillStyle='#ffffff';
-  ctx.fillText(s.n, 128, 92);
-  ctx.font='700 62px "Noto Serif SC","PingFang SC",serif';
+  ctx.font='700 72px "Noto Serif SC","PingFang SC",serif';
   ctx.fillStyle=DOMAIN_META[s.domain].color;
-  ctx.fillText(s.zh+' · '+s.t, 392, 92);
+  ctx.fillText(s.zh+' · '+s.t, 320, 92);
   const tex = new THREE.CanvasTexture(cvs);
   tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
   const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
@@ -904,7 +901,7 @@ function showTip(entry, screen){
   } else if(entry.type==='evo'){
     const s = EVO_STEPS[entry.rec.step];
     html = '<div class="gt-title"><span class="gt-domain" style="background:'+DOMAIN_META[s.domain].color+'22;color:'+DOMAIN_META[s.domain].color+'">'+DOMAIN_META[s.domain].label+'</span>'+s.zh+' · '+s.t+'</div>'+
-      '<div class="gt-role">进化链步骤 '+s.n+'</div>'+
+      '<div class="gt-role">进化链步骤</div>'+
       '<div class="gt-meta">点击聚焦该域能力</div>';
   } else {
     const rec = entry.rec;
