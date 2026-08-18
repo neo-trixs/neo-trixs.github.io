@@ -650,6 +650,8 @@ coreYardNodes.forEach((n,i)=>{
   meshToNode.set(mesh,{type:'node',rec});
 });
 
+const layerSprites = [];
+
 /* 核心层级: L0 意识核心域 外环 */
 {
   const pts = [];
@@ -664,7 +666,6 @@ coreYardNodes.forEach((n,i)=>{
 }
 
 /* 4 维度: 每维一条轴光线 + 中心光晕 + 节点星云 (无扇区壳) */
-const layerSprites = [];
 function layerTex(txt){
   const c = document.createElement('canvas'); c.width=384; c.height=64;
   const x = c.getContext('2d');
