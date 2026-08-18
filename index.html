@@ -80,7 +80,7 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 /* ═══ FULL-VIEWPORT 4D SPIRAL GALAXY ═══ */
 .hero-sec{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:96px clamp(16px,4vw,56px) 48px;z-index:2;overflow:hidden}
 .galaxy-viewport{position:relative;width:100%;height:100vh;height:100dvh;z-index:1;overflow:hidden;scroll-margin-top:0}
-#starmap,#docs{scroll-margin-top:70px}
+#starmap,#docs,#loopintro{scroll-margin-top:70px}
 #galaxy-3d{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
 #galaxy-3d:active{cursor:grabbing}
 .galaxy-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;
@@ -303,6 +303,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <a class="logo" href="#top"><img src="logo-animated.svg" alt="NeoTrix">NEO<span style="color:var(--goldcore)">TRIX</span></a>
   <span class="nav-dot"></span>
   <a class="nav-link active" href="#starmap" data-sec="starmap">星图</a>
+  <a class="nav-link" href="#loopintro" data-sec="loopintro">星系</a>
   <a class="nav-link" href="#docs" data-sec="docs">文档</a>
   <a class="nav-link doc nav-link-doc" href="guide/getting-started">DOCS</a>
 </nav>
@@ -357,7 +358,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <!-- constellation tags (overlay) -->
   <div id="cst-tags"></div>
 
-  <div class="hint">点击星球 · 按住星球拖动 (关联星链联动) · 滚轮缩放</div>
+  <div class="hint">点击星球 · 按住拖动 (关联星链联动) · 触控板双指缩放 · 滚轮浏览页面</div>
   <div class="gtooltip" id="gtooltip"></div>
 </section>
 
@@ -366,7 +367,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <div class="liquid-card">
     <div class="lc-blob lc-blob-a"></div>
     <div class="lc-blob lc-blob-b"></div>
-    <div class="lc-head"><span class="lc-kicker">◈ SEAL · 自进化自动循环</span><span class="lc-dot"></span></div>
+    <div class="lc-head"><span class="lc-kicker">◈ 星系 GALAXY · SEAL 自进化自动循环</span><span class="lc-dot"></span></div>
     <div class="lc-grid">
       <div class="lc-item"><span class="lg-dot" style="background:#ffd76a;color:#ffd76a"></span><div><b>金色核心</b><span>意识核心 ConsciousnessTree · 六阶段自进化</span></div></div>
       <div class="lc-item"><span class="lg-dot" style="background:#7fe8ff;color:#7fe8ff"></span><div><b>七彩电流环</b><span>7 步 SEAL 循环: 感知→表征→思辨→行动→进化→守卫→呈现</span></div></div>
@@ -502,8 +503,19 @@ controls.autoRotateSpeed = 0.6;
 controls.minDistance = 30;
 controls.maxDistance = 190;
 controls.enablePan = false;
+controls.enableZoom = false;
 controls.minPolarAngle = 0.05;
 controls.maxPolarAngle = Math.PI - 0.05;
+
+/* 鼠标滚轮 → 页面滚动; 触控板双指捏合 → 相机缩放 */
+renderer.domElement.addEventListener('wheel', e=>{
+  if(!e.ctrlKey) return;
+  e.preventDefault();
+  const f = 1 - e.deltaY*0.002;
+  const d = camera.position.length();
+  const nd = Math.max(controls.minDistance, Math.min(controls.maxDistance, d*f));
+  camera.position.multiplyScalar(nd/d);
+}, {passive:false});
 
 const galaxyGroup = new THREE.Group();
 scene.add(galaxyGroup);
@@ -1399,7 +1411,7 @@ window.addEventListener('resize', onResize);
 })();
 
 /* nav scroll */
-const secEls=['top','starmap','docs'];
+const secEls=['top','starmap','loopintro','docs'];
 addEventListener('scroll',()=>{
   const y=scrollY+120;
   let cur='top';
