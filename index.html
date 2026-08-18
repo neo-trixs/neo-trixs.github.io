@@ -214,10 +214,25 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);line-height:
 .hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:3px;text-transform:uppercase;opacity:0.5;animation:hintFloat 3s ease-in-out infinite;white-space:nowrap}
 @keyframes hintFloat{0%,100%{opacity:0.35}50%{opacity:0.7}}
 
-.loop-legend{position:absolute;left:clamp(16px,4vw,56px);bottom:26px;z-index:17;pointer-events:none;padding:12px 16px;border-radius:14px;font-family:var(--mono);font-size:10px;line-height:1.9;color:var(--ink2);background:rgba(10,8,24,0.55);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
-.loop-legend .lg-title{font-size:11px;letter-spacing:2px;color:var(--goldcore);margin-bottom:6px;font-weight:700}
-.loop-legend .lg-row{display:flex;align-items:center;gap:8px}
-.loop-legend .lg-dot{width:8px;height:8px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor}
+.liquid-card-sec{position:relative;z-index:9;padding:0 0 20px}
+@property --la{syntax:'<angle>';initial-value:0deg;inherits:false}
+.liquid-card{position:relative;width:min(1080px,92vw);margin:0 auto;padding:26px 30px 24px;border-radius:20px;font-family:var(--mono);color:var(--ink2);background:linear-gradient(160deg,rgba(16,13,32,0.92),rgba(8,6,20,0.94));backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,0.45)}
+.liquid-card::before{content:"";position:absolute;inset:-2px;border-radius:22px;padding:2px;background:conic-gradient(from var(--la),#ffd76a,#7fe8ff,#2ee6a8,#c96bff,#ffd76a);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:lcBorder 6s linear infinite;pointer-events:none}
+@keyframes lcBorder{to{--la:360deg}}
+.lc-blob{position:absolute;border-radius:50%;filter:blur(40px);pointer-events:none;opacity:0.5}
+.lc-blob-a{width:320px;height:320px;left:-80px;top:-120px;background:radial-gradient(closest-side,rgba(127,232,255,0.22),transparent 70%);animation:lcDriftA 16s ease-in-out infinite alternate}
+.lc-blob-b{width:300px;height:300px;right:-60px;bottom:-140px;background:radial-gradient(closest-side,rgba(255,215,106,0.2),transparent 70%);animation:lcDriftB 18s ease-in-out infinite alternate}
+@keyframes lcDriftA{from{transform:translate(0,0) scale(1)}to{transform:translate(70px,40px) scale(1.25)}}
+@keyframes lcDriftB{from{transform:translate(0,0) scale(1.2)}to{transform:translate(-60px,-30px) scale(1)}}
+.lc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.lc-kicker{font-size:12px;letter-spacing:4px;color:var(--goldcore);font-weight:700;text-transform:uppercase}
+.lc-dot{width:10px;height:10px;border-radius:50%;background:var(--goldcore);box-shadow:0 0 14px var(--goldcore),0 0 28px rgba(255,215,106,0.6);animation:dotPulse 2s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:0.4;transform:scale(0.8)}50%{opacity:1;transform:scale(1.15)}}
+.lc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 22px;position:relative}
+.lc-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)}
+.lc-item .lg-dot{width:9px;height:9px;border-radius:50%;flex:none;margin-top:4px;box-shadow:0 0 10px currentColor}
+.lc-item b{display:block;font-size:11px;letter-spacing:2px;color:#fff;margin-bottom:3px;font-weight:700}
+.lc-item div>span{font-size:10.5px;line-height:1.6;color:var(--ink2)}
 
 /* ═══ Below-fold ═══ */
 .page-body{position:relative;z-index:10}
@@ -343,14 +358,22 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
   <div id="cst-tags"></div>
 
   <div class="hint">点击星球 · 按住星球拖动 (关联星链联动) · 滚轮缩放</div>
-  <div class="loop-legend">
-    <div class="lg-title">SEAL · 自进化自动循环</div>
-    <div class="lg-row"><span class="lg-dot" style="background:#ffd76a;color:#ffd76a"></span><span>金色核心 — 意识核心 ConsciousnessTree (六阶段自进化)</span></div>
-    <div class="lg-row"><span class="lg-dot" style="background:#7fe8ff;color:#7fe8ff"></span><span>七彩电流环 — 7 步 SEAL 循环: 感知→表征→思辨→行动→进化→守卫→呈现</span></div>
-    <div class="lg-row"><span class="lg-dot" style="background:#2ee6a8;color:#2ee6a8"></span><span>四向星云 — 北·记忆核心 / 东·进化自愈 / 南·行动界面 / 西·感知守卫</span></div>
-    <div class="lg-row"><span class="lg-dot" style="background:#c9d0e8;color:#c9d0e8"></span><span>电流星链 — 238 颗真实模块 · 100 条真实依赖 · 可拖动联动</span></div>
-  </div>
   <div class="gtooltip" id="gtooltip"></div>
+</section>
+
+<!-- ═══ LIQUID CARD — 星网导览 ═══ -->
+<section class="liquid-card-sec" id="loopintro">
+  <div class="liquid-card">
+    <div class="lc-blob lc-blob-a"></div>
+    <div class="lc-blob lc-blob-b"></div>
+    <div class="lc-head"><span class="lc-kicker">◈ SEAL · 自进化自动循环</span><span class="lc-dot"></span></div>
+    <div class="lc-grid">
+      <div class="lc-item"><span class="lg-dot" style="background:#ffd76a;color:#ffd76a"></span><div><b>金色核心</b><span>意识核心 ConsciousnessTree · 六阶段自进化</span></div></div>
+      <div class="lc-item"><span class="lg-dot" style="background:#7fe8ff;color:#7fe8ff"></span><div><b>七彩电流环</b><span>7 步 SEAL 循环: 感知→表征→思辨→行动→进化→守卫→呈现</span></div></div>
+      <div class="lc-item"><span class="lg-dot" style="background:#2ee6a8;color:#2ee6a8"></span><div><b>四向星云</b><span>北·记忆核心 / 东·进化自愈 / 南·行动界面 / 西·感知守卫</span></div></div>
+      <div class="lc-item"><span class="lg-dot" style="background:#c9d0e8;color:#c9d0e8"></span><div><b>电流星链</b><span>238 颗真实模块 · 100 条真实依赖 · 可拖动联动</span></div></div>
+    </div>
+  </div>
 </section>
 
 <!-- ═══ BELOW FOLD ═══ -->
@@ -464,6 +487,9 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x020108, 0.004);
+scene.add(new THREE.AmbientLight(0xb0c4ff, 0.6));
+const keyLight = new THREE.DirectionalLight(0xffffff, 1.5); keyLight.position.set(50, 120, 60); scene.add(keyLight);
+const rimLight = new THREE.DirectionalLight(0x7fe8ff, 0.55); rimLight.position.set(-90, -30, -70); scene.add(rimLight);
 const camera = new THREE.PerspectiveCamera(52, wrapper.clientWidth/wrapper.clientHeight, 0.1, 400);
 camera.position.set(0, 72, 96);
 
@@ -497,17 +523,14 @@ const core = { data:{ id:'core::consciousness_core', domain:'core', caps:['consc
 {
   const pos = new THREE.Vector3(0, 0, 0);
   const geo = new THREE.SphereGeometry(2.4, 40, 40);
-  const mat = new THREE.MeshBasicMaterial({ color:0xffd76a });
+  const mat = new THREE.MeshPhongMaterial({ color:0xffd76a, transparent:true, opacity:0.92, specular:new THREE.Color(0xffffff), shininess:180, emissive:new THREE.Color(0x3a2500) });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.position.copy(pos);
   galaxyGroup.add(mesh);
   const halo = new THREE.Mesh(new THREE.SphereGeometry(4.4, 28, 28),
-    new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.15 }));
+    new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.1 }));
   halo.position.copy(pos); galaxyGroup.add(halo);
-  const cor = new THREE.Mesh(new THREE.RingGeometry(5.2, 6.2, 64),
-    new THREE.MeshBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.4, side:THREE.DoubleSide }));
-  cor.rotation.x = Math.PI/2; galaxyGroup.add(cor);
-  core.mesh = mesh; core.pos = pos; core.ring = cor;
+  core.mesh = mesh; core.pos = pos; core.ring = null; core.halo = halo;
   meshToNode.set(mesh, { type:'core', rec:{ data:core.data, domain:'core', mesh, isCore:true } });
   meshToNode.set(halo, { type:'core', rec:{ data:core.data, domain:'core', mesh:halo, isCore:true } });
 }
@@ -519,7 +542,8 @@ coreYardNodes.forEach((n,i)=>{
   const r = 7.6 + (i%2)*2.0;
   const yOff = (i%2===0?1:-1)*(0.5+(i%2)*0.4);
   const size = 0.3;
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color}));
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12),
+    new THREE.MeshPhongMaterial({ color:color.clone().multiplyScalar(0.92), transparent:true, opacity:0.85, specular:new THREE.Color(0xffffff), shininess:140, emissive:color.clone().multiplyScalar(0.1) }));
   galaxyGroup.add(mesh);
   const rec = { mesh, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:DOMAIN_XIANG[n.domain], orbit:{ a0, r, yOff, sp:0.02+ (i%5)*0.004 } };
   mesh.position.set(Math.cos(a0)*r, yOff, Math.sin(a0)*r);
@@ -540,7 +564,7 @@ DIMENSIONS.forEach((dm, di)=>{
   const ctrl = new THREE.Vector3(0, dm.center.y*0.5, 0).lerpVectors(new THREE.Vector3(0,0,0), dm.center.clone(), 0.5);
   dm.axCurve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0,0,0), ctrl, dm.center.clone());
   dm.axis = new THREE.Line(new THREE.BufferGeometry().setFromPoints(dm.axCurve.getPoints(40)),
-    new THREE.LineBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.25 }));
+    new THREE.LineBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.18 }));
   galaxyGroup.add(dm.axis);
   const flow = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 8),
     new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.95 }));
@@ -549,10 +573,10 @@ DIMENSIONS.forEach((dm, di)=>{
 
   /* 维度中心光晕 */
   dm.glow = new THREE.Mesh(new THREE.SphereGeometry(1.1, 20, 20),
-    new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.55 }));
+    new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.4 }));
   dm.glow.position.copy(dm.center); galaxyGroup.add(dm.glow);
   const ghalo = new THREE.Mesh(new THREE.SphereGeometry(3.0, 18, 18),
-    new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.1 }));
+    new THREE.MeshBasicMaterial({ color:new THREE.Color(dm.meta.color), transparent:true, opacity:0.07 }));
   ghalo.position.copy(dm.center); galaxyGroup.add(ghalo);
   meshToNode.set(dm.glow, { type:'dimension', dm });
   meshToNode.set(ghalo,  { type:'dimension', dm });
@@ -572,18 +596,15 @@ DIMENSIONS.forEach((dm, di)=>{
     const rr = 0.9 + Math.random()*1.2;
     const a0 = Math.random()*Math.PI*2;
     const size = n.layer==='l3domainservice'?0.55:n.layer==='l2orchestrator'?0.4:0.3;
-    const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,12,12), new THREE.MeshBasicMaterial({color:nodeColor}));
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,14,14),
+      new THREE.MeshPhongMaterial({ color:nodeColor.clone().multiplyScalar(0.92), transparent:true, opacity:0.85, specular:new THREE.Color(0xffffff), shininess:140, emissive:nodeColor.clone().multiplyScalar(0.1) }));
     galaxyGroup.add(mesh);
-    const halo = new THREE.Mesh(new THREE.SphereGeometry(size*2.8,10,10),
-      new THREE.MeshBasicMaterial({color:nodeColor, transparent:true, opacity:0.08}));
-    galaxyGroup.add(halo);
-    const rec = { mesh, halo, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:dm.key,
+    const rec = { mesh, halo:null, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:dm.key,
       orbit:{ host:base.clone(), rr, a0, yJ:0, sp:0.04+Math.random()*0.05 } };
     mesh.position.copy(base);
     capMeshes.push(rec);
     nodeById[n.id]=rec;
     meshToNode.set(mesh,{type:'node',rec});
-    meshToNode.set(halo,{type:'node',rec});
   });
 });
 
@@ -625,21 +646,17 @@ EVO_STEPS.forEach((s, i)=>{
   const pos = evoPos(a);
   const dir = pos.clone().normalize();
   const col = new THREE.Color(DOMAIN_META[s.domain].color);
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1.15, 20, 20), new THREE.MeshBasicMaterial({color:col}));
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1.15, 20, 20),
+    new THREE.MeshPhongMaterial({ color:col.clone().multiplyScalar(0.92), transparent:true, opacity:0.9, specular:new THREE.Color(0xffffff), shininess:160, emissive:col.clone().multiplyScalar(0.12) }));
   mesh.position.copy(pos); galaxyGroup.add(mesh);
-  const halo = new THREE.Mesh(new THREE.SphereGeometry(2.4, 16, 16),
-    new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.2}));
-  halo.position.copy(pos); galaxyGroup.add(halo);
-  /* 数字 + 名称 标签: 深底圆角卡 + 大字号高对比 */
+  /* 数字 + 名称 标签: 深底圆角卡 + 大字号高对比 (无辉光) */
   const cvs = document.createElement('canvas'); cvs.width=640; cvs.height=180;
   const ctx = cvs.getContext('2d');
   ctx.clearRect(0,0,640,180);
-  ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.fillStyle='rgba(8,6,20,0.72)'; ctx.fill();
-  ctx.strokeStyle=DOMAIN_META[s.domain].color; ctx.globalAlpha=0.5; ctx.lineWidth=2;
-  ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.stroke(); ctx.globalAlpha=1;
+  ctx.beginPath(); ctx.roundRect(16,18,608,144,26); ctx.fillStyle='rgba(8,6,20,0.8)'; ctx.fill();
   ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.shadowColor='transparent'; ctx.shadowBlur=0;
   ctx.font='700 104px "Noto Serif SC","PingFang SC",serif';
-  ctx.shadowColor=DOMAIN_META[s.domain].color; ctx.shadowBlur=26;
   ctx.fillStyle='#ffffff';
   ctx.fillText(s.n, 128, 92);
   ctx.font='700 62px "Noto Serif SC","PingFang SC",serif';
@@ -651,10 +668,9 @@ EVO_STEPS.forEach((s, i)=>{
   spr.scale.set(7.4, 2.08, 1);
   spr.position.copy(pos).addScaledVector(dir, 4.4);
   galaxyGroup.add(spr);
-  const rec = { data:{ id:'evo::'+s.domain, domain:s.domain, caps:[s.t] }, mesh, halo, spr, domain:s.domain, pos, step:i };
+  const rec = { data:{ id:'evo::'+s.domain, domain:s.domain, caps:[s.t] }, mesh, halo:null, spr, domain:s.domain, pos, step:i };
   evoNodes.push(rec);
   meshToNode.set(mesh, { type:'evo', rec });
-  meshToNode.set(halo, { type:'evo', rec });
   /* 环上电流粒子: 步 i → 步 i+1 */
   const c0 = a;
   const c1 = (i+1)/EVO_STEPS.length*Math.PI*2;
@@ -685,6 +701,25 @@ GALAXY.edges.forEach((e, li)=>{
   linkObjects.push({ line, curve, a, b, color:col, control:new THREE.Vector3((Math.random()-0.5)*9, 5+(Math.random()-0.5)*7, (Math.random()-0.5)*9), cur, t:Math.random(), sp:0.10+Math.random()*0.12 });
 });
 
+/* 链路几何重建 (拖拽/复位时) */
+function rebuildLinksSet(set){
+  linkObjects.forEach(l=>{
+    if(!set.has(l.a) && !set.has(l.b)) return;
+    l.curve = new THREE.QuadraticBezierCurve3(
+      l.a.mesh.position.clone(),
+      l.a.mesh.position.clone().add(l.b.mesh.position.clone()).multiplyScalar(0.5).add(l.control.clone()),
+      l.b.mesh.position.clone());
+    l.line.geometry.setFromPoints(l.curve.getPoints(24));
+    l.cur.position.copy(l.curve.getPoint(l.t));
+  });
+}
+
+/* 拖拽涟漪 */
+const dragRipple = new THREE.Mesh(new THREE.RingGeometry(0.55, 0.72, 32),
+  new THREE.MeshBasicMaterial({ color:0x7fe8ff, transparent:true, opacity:0, side:THREE.DoubleSide, depthWrite:false }));
+dragRipple.rotation.x = -Math.PI/2; dragRipple.visible = false;
+galaxyGroup.add(dragRipple);
+
 /* 7. 维度聚焦 — 聚焦某维度时点亮该维星云 */
 let focusDim = null;
 function applyDim(){
@@ -694,7 +729,7 @@ function applyDim(){
       r.mesh.scale.setScalar(base);
       r.mesh.material.opacity = 1;
       r.mesh.material.color.set(DOMAIN_META[r.domain].color);
-      r.halo.material.opacity = 0.08;
+      if(r.halo) r.halo.material.opacity = 0.08;
     });
     linkObjects.forEach(l=>{
       l.line.material.opacity = 0.12;
@@ -741,6 +776,8 @@ let hoveredMesh = null;
 let hoveredDim = null;
 let dragging = false, dragMoved = false;
 let dragRec = null, dragSet = null, dragBase = null, dragPlane = null, dragStart = null;
+let restoreTimer = null, restoreAnim = null, lastDragSet = null, lastDragOrig = null;
+let rippleT = 0;
 function worldToScreen(v){
   const p = v.clone().project(camera);
   return { x:(p.x*0.5+0.5)*wrapper.clientWidth, y:(-p.y*0.5+0.5)*wrapper.clientHeight };
@@ -789,15 +826,7 @@ renderer.domElement.addEventListener('pointermove', e=>{
         if(rec.halo) rec.halo.position.copy(rec.mesh.position);
         if(rec.spr){ const dn = rec.mesh.position.clone().normalize(); rec.spr.position.copy(rec.mesh.position).addScaledVector(dn, 4.4); }
       });
-      linkObjects.forEach(l=>{
-        if(l.a!==dragRec && l.b!==dragRec) return;
-        l.curve = new THREE.QuadraticBezierCurve3(
-          l.a.mesh.position.clone(),
-          l.a.mesh.position.clone().add(l.b.mesh.position.clone()).multiplyScalar(0.5).add(l.control.clone()),
-          l.b.mesh.position.clone());
-        l.line.geometry.setFromPoints(l.curve.getPoints(24));
-        l.cur.position.copy(l.curve.getPoint(l.t));
-      });
+      rebuildLinksSet(dragSet);
     }
     tooltip.classList.remove('show');
     return;
@@ -1044,7 +1073,7 @@ function applySearch(){
       r.mesh.scale.setScalar(base);
       r.mesh.material.opacity = 1;
       r.mesh.material.color.set(DOMAIN_META[r.domain].color);
-      r.halo.material.opacity = 0.08;
+      if(r.halo) r.halo.material.opacity = 0.08;
     });
     DIMENSIONS.forEach((dm, di)=>{
       const el = cstTagEls[di] ? cstTagEls[di].el : null;
@@ -1076,12 +1105,12 @@ function applySearch(){
       r.mesh.scale.setScalar(base*2.1);
       r.mesh.material.color.set('#ffffff');
       r.mesh.material.opacity = 1;
-      r.halo.material.opacity = 0.3;
+      if(r.halo) r.halo.material.opacity = 0.3;
     } else {
       r.mesh.scale.setScalar(base*0.5);
       r.mesh.material.opacity = 0.12;
       r.mesh.material.transparent = true;
-      r.halo.material.opacity = 0.02;
+      if(r.halo) r.halo.material.opacity = 0.02;
     }
   });
   searchCount.innerHTML = '匹配 <b>'+matched+'</b> 颗能力星球';
@@ -1106,6 +1135,8 @@ renderer.domElement.addEventListener('pointerdown', e=>{
   let found=null;
   for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
   if(found && found.rec && !inYard.has(found.rec.data.id)){
+    if(restoreTimer){ clearTimeout(restoreTimer); restoreTimer = null; }
+    restoreAnim = null;
     dragging = true; dragMoved = false;
     dragRec = found.rec;
     dragSet = new Set();
@@ -1126,7 +1157,23 @@ renderer.domElement.addEventListener('pointerdown', e=>{
 renderer.domElement.addEventListener('pointerup', e=>{
   if(dragging){
     dragging = false; dragRec = null;
-    if(dragSet){ dragSet.forEach(rec=>{ rec.locked = false; }); dragSet = null; }
+    if(dragSet){
+      dragSet.forEach(rec=>{ rec.locked = false; });
+      if(dragMoved){
+        lastDragSet = dragSet; lastDragOrig = dragBase;
+        if(restoreTimer) clearTimeout(restoreTimer);
+        restoreTimer = setTimeout(()=>{
+          restoreTimer = null;
+          if(!lastDragSet) return;
+          const recs = Array.from(lastDragSet);
+          const from = new Map();
+          recs.forEach(rec=>from.set(rec, rec.mesh.position.clone()));
+          recs.forEach(rec=>{ rec.locked = true; });
+          restoreAnim = { recs, from, to:lastDragOrig, t:0, dur:1.1 };
+        }, 9000);
+      }
+      dragSet = null;
+    }
     dragBase = null; dragPlane = null; dragStart = null;
     if(dragMoved){ dragMoved = false; downPos = null; return; }
   }
@@ -1198,7 +1245,7 @@ function render(t){
     const o = r.orbit;
     const a = o.a0 + t*0.00045*o.sp;
     r.mesh.position.set(o.host.x+Math.cos(a)*o.rr, o.host.y+o.yJ, o.host.z+Math.sin(a)*o.rr);
-    r.halo.position.copy(r.mesh.position);
+    if(r.halo) r.halo.position.copy(r.mesh.position);
   });
 
   /* Q弹: 弹簧阻尼逼近 hover 目标缩放 */
@@ -1227,7 +1274,7 @@ function render(t){
     visited.add(hoveredMesh);
   }
   capMeshes.forEach(r=>{
-    if(visited.has(r.mesh)||visited.has(r.halo)) return;
+    if(visited.has(r.mesh)||(r.halo&&visited.has(r.halo))) return;
     const u = r.mesh.userData;
     if(u.hoverTarget===undefined && u.springV===undefined) return;
     const cur = r.mesh.scale.x||1;
@@ -1236,14 +1283,48 @@ function render(t){
     u.springV = (u.springV||0)*0.82 + diff*0.35;
     const next = cur + u.springV;
     r.mesh.scale.setScalar(Math.max(0.1, next));
-    r.halo.scale.setScalar(next*1.4);
+    if(r.halo) r.halo.scale.setScalar(next*1.4);
   });
 
   /* core corona slow spin */
-  if(core.ring) core.ring.rotation.z = t*0.0002;
+  /* core halo 呼吸 */
+  if(core.halo) core.halo.material.opacity = 0.07 + 0.05*Math.sin(t*0.0015);
 
   /* dimension tags follow projection */
   projectDimTags();
+
+  /* 拖拽涟漪 */
+  if(dragging && dragRec){
+    dragRipple.visible = true;
+    rippleT += dt*1.1;
+    if(rippleT > 1) rippleT -= 1;
+    dragRipple.position.copy(dragRec.mesh.position);
+    const rs = 1 + rippleT*2.6;
+    dragRipple.scale.setScalar(rs);
+    dragRipple.material.opacity = 0.45*(1-rippleT);
+  } else {
+    dragRipple.visible = false;
+  }
+
+  /* 拖拽后自动复位 (9s 触发) */
+  if(restoreAnim){
+    const ra = restoreAnim;
+    ra.t += dt/ra.dur;
+    if(ra.t >= 1) ra.t = 1;
+    const e = 1 - Math.pow(1-ra.t, 3);
+    ra.recs.forEach(rec=>{
+      const f = ra.from.get(rec), o = ra.to.get(rec);
+      rec.mesh.position.set(f.x+(o.x-f.x)*e, f.y+(o.y-f.y)*e, f.z+(o.z-f.z)*e);
+      if(rec.orbit) rec.orbit.host = rec.mesh.position.clone();
+      if(rec.halo) rec.halo.position.copy(rec.mesh.position);
+      if(rec.spr){ const dn = rec.mesh.position.clone().normalize(); rec.spr.position.copy(rec.mesh.position).addScaledVector(dn, 4.4); }
+    });
+    rebuildLinksSet(ra.recs);
+    if(ra.t >= 1){
+      ra.recs.forEach(rec=>{ rec.locked = false; });
+      restoreAnim = null; lastDragSet = null; lastDragOrig = null;
+    }
+  }
 
   controls.update();
   renderer.render(scene, camera);
