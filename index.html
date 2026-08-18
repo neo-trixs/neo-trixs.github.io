@@ -372,6 +372,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
       <div class="lc-item"><span class="lg-dot" style="background:#7fe8ff;color:#7fe8ff"></span><div><b>七彩电流环</b><span>7 步 SEAL 循环: 感知→表征→思辨→行动→进化→守卫→呈现</span></div></div>
       <div class="lc-item"><span class="lg-dot" style="background:#2ee6a8;color:#2ee6a8"></span><div><b>四向星云</b><span>北·记忆核心 / 东·进化自愈 / 南·行动界面 / 西·感知守卫</span></div></div>
       <div class="lc-item"><span class="lg-dot" style="background:#c9d0e8;color:#c9d0e8"></span><div><b>电流星链</b><span>238 颗真实模块 · 100 条真实依赖 · 可拖动联动</span></div></div>
+      <div class="lc-item"><span class="lg-dot" style="background:#7fe8ff;color:#7fe8ff"></span><div><b>三层分壳</b><span>内圈 L3 领域服务 · 中圈 L2 编排器 · 外圈 L1 复合 · 核心 L0 意识核心域</span></div></div>
     </div>
   </div>
 </section>
@@ -382,7 +383,7 @@ footer{padding:48px 24px 90px;border-top:1px solid rgba(255,255,255,0.05)}
     <div class="section-head">
       <div class="sec-kicker">◈ THE SPICE MUST FLOW</div>
       <h2>四维 <span class="grad">能力星网</span></h2>
-      <p>立体星域: 意识核心居中, 四维星云悬浮四向 — 北·记忆核心 · 东·进化自愈 · 南·行动界面 · 西·感知守卫。七彩电流环 = 7 步 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息, 星链电流互通 238 颗真实模块, 按住星球拖动可带动关联星链联动。拖动星图, 尽览全貌。</p>
+      <p>立体星域: 意识核心居中, 四维星云悬浮四向 — 北·记忆核心 · 东·进化自愈 · 南·行动界面 · 西·感知守卫。每朵星云按 <b>L3→L2→L1 三层分壳</b> 同心排布 (内圈领域服务 · 中圈编排器 · 外圈复合), 核心为 L0 意识核心域。七彩电流环 = 7 步 SEAL 自动循环 (感知→表征→思辨→行动→进化→守卫→呈现) 周流不息, 星链电流互通 238 颗真实模块, 按住星球拖动可带动关联星链联动。拖动星图, 尽览全貌。</p>
     </div>
   </div>
 
@@ -551,7 +552,33 @@ coreYardNodes.forEach((n,i)=>{
   meshToNode.set(mesh,{type:'node',rec});
 });
 
+/* 核心层级: L0 意识核心域 外环 */
+{
+  const pts = [];
+  for(let k=0;k<=48;k++){ const a=k/48*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(a)*6.2, 0, Math.sin(a)*6.2)); }
+  const ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+    new THREE.LineBasicMaterial({ color:0xffd76a, transparent:true, opacity:0.3 }));
+  galaxyGroup.add(ring);
+  const lb = makeLayerSprite('L0 · 意识核心域');
+  lb.position.set(6.2*1.45, 0.4, 0);
+  galaxyGroup.add(lb);
+}
+
 /* 4 维度: 每维一条轴光线 + 中心光晕 + 节点星云 (无扇区壳) */
+function makeLayerSprite(txt){
+  const c = document.createElement('canvas'); c.width=384; c.height=64;
+  const x = c.getContext('2d');
+  x.clearRect(0,0,384,64);
+  x.textAlign='center'; x.textBaseline='middle';
+  x.font='700 34px "Noto Serif SC","PingFang SC",sans-serif';
+  x.fillStyle='#c9d0e8';
+  x.fillText(txt,192,32);
+  const tex = new THREE.CanvasTexture(c);
+  tex.generateMipmaps=false; tex.minFilter=THREE.LinearFilter; tex.magFilter=THREE.LinearFilter;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
+  sp.scale.set(4.2,0.7,1);
+  return sp;
+}
 const capMeshes = [];
 const DIM_R = 38;      /* 维度中心半径 */
 const DIM_H = { black:13, azure:-13, vermilion:13, white:-13 };  /* 立体鞍形高度差 */
@@ -581,12 +608,17 @@ DIMENSIONS.forEach((dm, di)=>{
   meshToNode.set(dm.glow, { type:'dimension', dm });
   meshToNode.set(ghalo,  { type:'dimension', dm });
 
-  /* 维度内节点: 以维度中心为核的 3D 椭球星云, layer 控制径向层 */
+  /* 维度内节点: 以维度中心为核的 3D 同心分壳星云 (L3内/L2中/L1外) */
+  const SHELLS = [
+    { lyr:'l3domainservice', r0:2.0, r1:4.8, o:0.95, s:0.58 },
+    { lyr:'l2orchestrator',  r0:6.2, r1:9.6, o:0.8,  s:0.44 },
+    { lyr:'l1composite',     r0:11.2, r1:13.8, o:0.6, s:0.3 }
+  ];
   dm.nodes.forEach((n, idx)=>{
     const meta = DOMAIN_META[n.domain] || { color:'#ffffff' };
     const nodeColor = new THREE.Color(meta.color);
-    const layerN = n.layer==='l3domainservice'?3 : n.layer==='l2orchestrator'?2 : 1;
-    const rho = 2.4 + (3-layerN)*2.8 + Math.random()*2.6;
+    const sh = SHELLS.find(s=>s.lyr===n.layer) || SHELLS[2];
+    const rho = sh.r0 + Math.random()*(sh.r1-sh.r0);
     const th = Math.random()*Math.PI*2;
     const ph = Math.acos(2*Math.random()-1);
     const base = dm.center.clone().add(new THREE.Vector3(
@@ -595,9 +627,8 @@ DIMENSIONS.forEach((dm, di)=>{
       rho*Math.sin(ph)*Math.sin(th)));
     const rr = 0.9 + Math.random()*1.2;
     const a0 = Math.random()*Math.PI*2;
-    const size = n.layer==='l3domainservice'?0.55:n.layer==='l2orchestrator'?0.4:0.3;
-    const mesh = new THREE.Mesh(new THREE.SphereGeometry(size,14,14),
-      new THREE.MeshPhongMaterial({ color:nodeColor.clone().multiplyScalar(0.92), transparent:true, opacity:0.85, specular:new THREE.Color(0xffffff), shininess:140, emissive:nodeColor.clone().multiplyScalar(0.1) }));
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(sh.s,14,14),
+      new THREE.MeshPhongMaterial({ color:nodeColor.clone().multiplyScalar(0.92), transparent:true, opacity:sh.o, specular:new THREE.Color(0xffffff), shininess:140, emissive:nodeColor.clone().multiplyScalar(0.1) }));
     galaxyGroup.add(mesh);
     const rec = { mesh, halo:null, data:n, domain:n.domain, xiangKey:DOMAIN_XIANG[n.domain], dimKey:dm.key,
       orbit:{ host:base.clone(), rr, a0, yJ:0, sp:0.04+Math.random()*0.05 } };
@@ -605,6 +636,25 @@ DIMENSIONS.forEach((dm, di)=>{
     capMeshes.push(rec);
     nodeById[n.id]=rec;
     meshToNode.set(mesh,{type:'node',rec});
+  });
+  /* 层级壳环: L3内 / L2中 / L1外 三层同心轨道 + 层级标签 */
+  const shellRings = [
+    { r:3.4, c:0x7fe8ff, o:0.55, t:'L3 · 领域服务' },
+    { r:7.9, c:0xc96bff, o:0.4,  t:'L2 · 编排器' },
+    { r:12.5, c:0x8a93b8, o:0.3, t:'L1 · 复合' }
+  ];
+  dm.shells = [];
+  shellRings.forEach((sr, si)=>{
+    const pts = [];
+    for(let k=0;k<=48;k++){ const a=k/48*Math.PI*2; pts.push(new THREE.Vector3(dm.center.x+Math.cos(a)*sr.r, dm.center.y, dm.center.z+Math.sin(a)*sr.r)); }
+    const ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color:sr.c, transparent:true, opacity:sr.o }));
+    galaxyGroup.add(ring);
+    dm.shells.push(ring);
+    const lb = makeLayerSprite(sr.t);
+    const la = si*0.9 + dm.ci*0.8;
+    lb.position.set(dm.center.x+Math.cos(la)*sr.r*1.45, dm.center.y+0.4, dm.center.z+Math.sin(la)*sr.r*1.45);
+    galaxyGroup.add(lb);
   });
 });
 
