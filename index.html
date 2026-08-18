@@ -1247,6 +1247,7 @@ renderer.domElement.addEventListener('pointerdown', e=>{
   for(const h of hits){ const entry = meshToNode.get(h.object); if(entry){found=entry;break;} }
   if(found && found.rec && !inYard.has(found.rec.data.id)){
     if(restoreTimer){ clearTimeout(restoreTimer); restoreTimer = null; }
+    if(restoreAnim){ restoreAnim.recs.forEach(rec=>{ rec.locked = false; }); restoreAnim = null; lastDragSet = null; lastDragOrig = null; }
     restoreAnim = null;
     dragging = true; dragMoved = false;
     dragRec = found.rec;
@@ -1265,7 +1266,7 @@ renderer.domElement.addEventListener('pointerdown', e=>{
     e.preventDefault();
   }
 });
-renderer.domElement.addEventListener('pointerup', e=>{
+window.addEventListener('pointerup', e=>{
   if(dragging){
     dragging = false; dragRec = null;
     if(dragSet){
@@ -1309,11 +1310,22 @@ renderer.domElement.addEventListener('pointerup', e=>{
   if(found.rec && found.rec.isCore){ renderCoreDetail(); return; }
   if(found.rec){ renderNodeDetail(found.rec); return; }
 });
+window.addEventListener('pointercancel', ()=>{
+  if(dragging){
+    dragging = false; dragRec = null;
+    if(dragSet){ dragSet.forEach(rec=>{ rec.locked = false; }); dragSet = null; }
+    dragBase = null; dragPlane = null; dragStart = null; downPos = null;
+  }
+});
 
 
 /* ═══ 12. RENDER LOOP — orbits + 电流 + spring ═══ */
 let lastT = null;
+let lastFrameAt = 0;
+let renderErrs = 0;
 function render(t){
+  lastFrameAt = performance.now();
+  try{
   if (lastT === null) lastT = t;
   const dt = (t-lastT)/1000; lastT=t;
 
@@ -1466,8 +1478,24 @@ function render(t){
 
   controls.update();
   renderer.render(scene, camera);
+  }catch(err){
+    renderErrs++;
+    if(renderErrs<=5) console.error('[galaxy render]', err);
+    if(renderErrs>1000) renderErrs = 500;
+  }
   requestAnimationFrame(render);
 }
+
+/* 渲染循环看门狗: 若循环因异常/上下文丢失停止, 自动重启 */
+canvas.addEventListener('webglcontextlost', e=>{ e.preventDefault(); });
+canvas.addEventListener('webglcontextrestored', ()=>{ console.warn('[galaxy] webgl context restored'); lastT = null; });
+setInterval(()=>{
+  if(!document.hidden && (performance.now()-lastFrameAt) > 2500){
+    console.warn('[galaxy] render loop stalled — restarting');
+    lastT = null;
+    requestAnimationFrame(render);
+  }
+}, 2000);
 
 function onResize(){
   renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
