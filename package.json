@@ -1,0 +1,12 @@
+{
+  "name": "neo-trixs.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NeoTrix capability star map — C1-C3 test/bench harness for the galaxy page module",
+  "scripts": {
+    "setup": "node tests/setup.mjs",
+    "test": "node tests/setup.mjs && node tests/html-check.mjs && node tests/galaxy.test.mjs",
+    "bench": "node tests/setup.mjs && node tests/galaxy.bench.mjs"
+  }
+}

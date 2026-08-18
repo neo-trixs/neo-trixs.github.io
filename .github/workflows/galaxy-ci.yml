@@ -1,0 +1,22 @@
+name: galaxy-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Resolve three module (node_modules/three symlink)
+        run: node tests/setup.mjs
+      - name: Static gates (ids / tag balance / syntax)
+        run: node tests/html-check.mjs
+      - name: Unit tests (init / frames / i18n / search / wheel)
+        run: node tests/galaxy.test.mjs
+      - name: Benchmark budgets (C3)
+        run: node tests/galaxy.bench.mjs
