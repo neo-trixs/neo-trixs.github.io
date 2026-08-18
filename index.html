@@ -581,7 +581,7 @@ scene.add(new THREE.AmbientLight(0xffd9b8, 0.55));
 const keyLight = new THREE.DirectionalLight(0xfff1da, 1.4); keyLight.position.set(50, 120, 60); scene.add(keyLight);
 const rimLight = new THREE.DirectionalLight(0x1fd0ff, 0.55); rimLight.position.set(-90, -30, -70); scene.add(rimLight);
 const camera = new THREE.PerspectiveCamera(52, wrapper.clientWidth/wrapper.clientHeight, 0.1, 400);
-camera.position.set(0, 72, 96);
+camera.position.set(0, 36, 48);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
