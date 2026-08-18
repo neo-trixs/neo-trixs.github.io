@@ -10,6 +10,7 @@ const src = buildModule().replace('maxFrames:3', 'maxFrames:60');
 writeFileSync(tmpFile, src);
 await import(tmpFile);
 const __NT = globalThis.__NT;
+__NT.pump();
 
 const initMs = __NT.initMs;
 const frames = __NT.frames;

@@ -9,6 +9,7 @@ const src = buildModule().replace('maxFrames:3', 'maxFrames:8');
 writeFileSync(tmpFile, src);
 await import(tmpFile + '?case=test');
 const __NT = globalThis.__NT;
+__NT.pump();
 
 let passed = 0;
 function ok(name, fn) {

@@ -67,29 +67,18 @@ globalThis.innerWidth = 1280; globalThis.innerHeight = 800;
 globalThis.localStorage = { getItem(){ return null; }, setItem(){}, removeItem(){} };
 globalThis.matchMedia = ()=> ({ matches:false, addEventListener(){} });
 globalThis.__NT.queue = [];
-let __flushScheduled = false;
-function __flush(){
-  __flushScheduled = false;
-  if(__NT.frames >= __NT.maxFrames) return;
-  __NT.frames++;
-  const t0 = performance.now();
-  const batch = __NT.queue.splice(0);
-  for(const f of batch) f(t0);
-  __NT.frameTimes.push(performance.now()-t0);
-  if(__NT.queue.length && __NT.frames < __NT.maxFrames){
-    __flushScheduled = true;
-    queueMicrotask(__flush);
-  }
-}
 globalThis.requestAnimationFrame = (fn)=>{
-  if(__NT.frames < __NT.maxFrames){
-    __NT.queue.push(fn);
-    if(!__flushScheduled){
-      __flushScheduled = true;
-      queueMicrotask(__flush);
-    }
-  }
+  if(__NT.frames < __NT.maxFrames) __NT.queue.push(fn);
   return __NT.frames;
+};
+globalThis.__NT.pump = ()=>{
+  while(__NT.queue.length && __NT.frames < __NT.maxFrames){
+    __NT.frames++;
+    const t0 = performance.now();
+    const batch = __NT.queue.splice(0);
+    for(const f of batch) f(t0);
+    __NT.frameTimes.push(performance.now()-t0);
+  }
 };
 globalThis.cancelAnimationFrame = ()=>0;
 globalThis.setInterval = ()=>0; globalThis.setTimeout = ()=>0;
